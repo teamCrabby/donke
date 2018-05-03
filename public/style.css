@@ -43,10 +43,6 @@ a {
   width: 20px;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
 .navbar-wrapper {
   display: flex;
   flex-direction: column;
