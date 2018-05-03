@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Navbar, Heart } from './components'
+import { Navbar, SelectDonke, Heart } from './components'
+
 
 
 export default class App extends Component {
@@ -13,6 +14,7 @@ export default class App extends Component {
           <Navbar />
         </div>
         <div>
+          <SelectDonke />
           <Heart />
         </div>
       </div>
