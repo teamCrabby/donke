@@ -9,8 +9,8 @@ export const entrance = () => {
 
 export const sick = () => {
   let timeLine = new TimelineMax();
-  timeLine.from('#sadEars', 3, { zIndex: 0, scale: 0, ease: Power1.easeOut })
-  // timeLine.from('#sadEars', .5, { zIndex: 0, scale: 0 })
+  timeLine.from('#sad', 1, { ease: Power1.easeOut })
+  timeLine.from('#sadEars', 1, { scale: 0, repeat: -1 })
 }
 
 //need to figure out the z-index
@@ -18,7 +18,7 @@ export const sick = () => {
 
 export const heartBeat = () => {
   let timeLine = new TimelineMax();
-  timeLine.to('#heart', 1, { scale: .5, opacity: .5, repeat: 2, repeat: -1 })
+  timeLine.to('#heart', 1, { scale: .5, opacity: .5, repeat: -1 })
 }
 
 export const bubbleAlert = () => {

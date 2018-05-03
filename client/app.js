@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Heart, SpeechBubble } from './components'
+import { Navbar, Heart, SpeechBubble, SelectDonke } from './components'
 
 export default class App extends Component {
   constructor(props) {
@@ -12,7 +12,8 @@ export default class App extends Component {
           <Navbar />
         </div>
         <div>
-          <SpeechBubble />
+          <SelectDonke />
+          <Heart />
         </div>
       </div>
     )
