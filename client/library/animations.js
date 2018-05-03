@@ -1,3 +1,5 @@
+import { TimelineMax } from 'gsap'
+
 export const entrance = () => {
       var timeline = new TimelineMax();
       timeline
