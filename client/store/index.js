@@ -1,15 +1,18 @@
-// import {createStore, combineReducers, applyMiddleware} from 'redux'
-// import createLogger from 'redux-logger'
-// import thunkMiddleware from 'redux-thunk'
-// import {composeWithDevTools} from 'redux-devtools-extension'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
+import {createLogger} from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
+import {composeWithDevTools} from 'redux-devtools-extension'
+import workInterval from './workInterval'
+import breakInterval from './breakInterval'
 
 
-// const reducer = combineReducers({})
-// const middleware = composeWithDevTools(applyMiddleware(
-//   thunkMiddleware,
-//   createLogger({collapsed: true})
-// ))
-// const store = createStore(reducer, middleware)
+const reducer = combineReducers({workInterval, breakInterval})
+const middleware = composeWithDevTools(applyMiddleware(
+  thunkMiddleware,
+  createLogger({collapsed: true})
+))
+const store = createStore(reducer, middleware)
 
-// export default store
-// export * from './'
+export default store
+export * from './workInterval'
+export * from './breakInterval'
