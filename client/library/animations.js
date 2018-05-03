@@ -22,9 +22,11 @@ export const heartBeat = () => {
 }
 
 export const bubbleAlert = () => {
+
   let timeLine = new TimelineMax();
   timeLine.from('#bubble', 1, { scale: 0 })
   timeLine.set('#bubble', { y: 100 })
+
 
 }
 
