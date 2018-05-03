@@ -69,3 +69,11 @@ a {
   top: 32px;
   width: 300px;
 }
+
+/********************** ACCESSORIES *********************/
+
+#halo{
+  position: absolute;
+  left: 110px;
+  top: -120px;
+}
