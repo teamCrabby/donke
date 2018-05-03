@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, DonkeSick } from './components'
+import { Navbar, SelectDonke } from './components'
 
 export default class App extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class App extends Component {
           <Navbar />
         </div>
         <div>
-          <DonkeSick />
+          <SelectDonke />
         </div>
       </div>
     )
