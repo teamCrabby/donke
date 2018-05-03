@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchWorkInterval} from '../store'
+import {fetchWorkInterval, fetchBreakInterval} from '../store'
 
 class Navbar extends Component {
   constructor(props){
@@ -23,8 +23,9 @@ class Navbar extends Component {
     this.setState({ [event.target.name] : event.target.value })
   }
 
-  handleSubmit(event){
-    this.props.getWorkInterval(this.state.workInterval)
+  handleSubmit(event, workTime, breakTime){
+    event.preventDefault()
+    this.props.getWorkInterval(workTime, breakTime)
   }
 
   render(){
@@ -64,7 +65,7 @@ class Navbar extends Component {
                   </select>
                 </div>
             </div>
-            <button onClick={this.handleSubmit}>Set Time</button>
+            <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval)}>Set Time</button>
           </div>
           : null
           }
@@ -81,8 +82,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getWorkInterval(time){
-      dispatch(fetchWorkInterval(time))
+    getWorkInterval(workTime, breakTime){
+      dispatch(fetchWorkInterval(workTime))
+      dispatch(fetchBreakInterval(breakTime))
     }
   }
 }

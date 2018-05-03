@@ -14,5 +14,5 @@ const middleware = composeWithDevTools(applyMiddleware(
 const store = createStore(reducer, middleware)
 
 export default store
-export * from './'
 export * from './workInterval'
+export * from './breakInterval'

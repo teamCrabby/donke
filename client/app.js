@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, DonkeSick } from './components'
+import { Navbar, Heart } from './components'
 
 
 export default class App extends Component {
@@ -13,7 +13,7 @@ export default class App extends Component {
           <Navbar />
         </div>
         <div>
-          <DonkeSick />
+          <Heart />
         </div>
       </div>
     )

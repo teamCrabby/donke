@@ -30,7 +30,6 @@ export const fetchWorkInterval = (time) =>
 export default function (state = defaultWorkInterval, action) {
   switch (action.type) {
     case SET_WORK_INTERVAL:
-    console.log('action', action.time)
       return action.time; 
     default:
       return state;
