@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Navbar} from './components'
 
-export default class Main extends Component {
+export default class App extends Component {
   constructor(props){
     super(props)
   }

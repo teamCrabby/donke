@@ -1,16 +1,19 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
 
-export default Navbar = props => {
+export default (props) => {
   return(
     <div className="navbar">
-      <nav className="navbar-setting">
-        <div>
-          <a>Set Work Interval</a>
-          <a>Set Break Interval</a>
+      <a id="navbar-work">Set Work Interval</a>
+      <a id="navbar-break">Set Break Interval</a>
+      <div className="dropdown">
+        <button className="dropdown-btn">
+        </button>
+        <div className="dropdown-content">
+          <a>10</a>
+          <a>20</a>
         </div>
-      </nav>
+      </div>
     </div>
   )
 }
+

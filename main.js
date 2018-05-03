@@ -5,8 +5,6 @@ const path = require('path')
 const url = require('url')
 let mainWindow = null
 
-console.log('DIRNAME', path.join(__dirname, '/public/index.html'))
-
 app.on('ready', function(){
   mainWindow = new BrowserWindow({
     frame: false,
