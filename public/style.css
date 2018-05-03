@@ -1,6 +1,7 @@
 body {
   font-family: 'Helvetica';
   background-color: #f9f9f9;
+  -webkit-app-region: drag;
 }
 
 a {
@@ -42,7 +43,28 @@ a {
   width: 20px;
 }
 
-.navbar-wrapper {
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/********************** EARS *********************/
+
+
+#normalEars{
+  visibility: hidden;
+  position: absolute;
+  left: 60px;
+  top: -55px;
+  width: 210px;
+}
+
+#sadEars{
+  position: absolute;
+  left: 10px;
+  top: 32px;
+  width: 300px;
+
+  .navbar-wrapper {
   display: flex;
   flex-direction: column;
 }
