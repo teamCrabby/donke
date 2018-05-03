@@ -19,7 +19,7 @@ app.on('ready', function () {
     protocol: 'file:',
     slashes: true
   }));
-  // mainWindow.openDevTools();
+  //mainWindow.openDevTools();
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
