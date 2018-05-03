@@ -1,4 +1,4 @@
-import { TimelineMax } from 'gsap'
+import { TimelineMax, TweenMax } from 'gsap'
 
 export const entrance = () => {
     let timeline = new TimelineMax();
@@ -22,5 +22,16 @@ export const dead = () => {
 			// .addPause()
 	timeLine.to('#animal', 3, {rotation: 90, transformOrigin: '100% 100%', ease: Power2.easeInOut})		
 }
+
+export const heartBeat = () => {
+  let timeLine = new TimelineMax();
+  timeLine.to('#heart', 1, { scale: .5, opacity: .5, repeat: 2, repeat: -1 })
+
+  // let tweenMax = new TweenMax();
+  // let speed = 0.2; //seconds
+
+  // TweenMax.to('#heart', 1, { scaleX: 1.2, scaleY: 1.3, ease: Elastic.easeOut, repeat: -1, repeatDelay: speed })
+}
+
 
 
