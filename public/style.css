@@ -7,51 +7,42 @@ a {
   text-decoration: none;
 }
 
-.navbar {
-  overflow: hidden;
-  background-color:#87CEEB;
-  border-radius: 10px;
-}
-.navbar a {
-  float: left;
-  text-align: center;
-  padding: 14px 16px;
-  color:	white;
-}
-
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
-
-.dropdown .dropdown-btn {
-  padding: 14px 16px;
-  background-color: inherit;
-  border: none;
-  outline: none;
-  margin: 0;
-}
-
-.dropdown-content {
+.break-select select{
   display: none;
-  position: absolute;
-  background-color: white;
+  overflow: hidden;
+}
+
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #87CEEB;
   border-radius: 10px;
-  z-index: 1;
-
 }
 
-.dropdown-content a {
-  float: none;
-  display: block;
-  padding: 12px 16px;
-  text-align: left;
+.navbar-work-container, .navbar-break-container {
+  display: inline-block;
+  align-items: center;
 }
 
-.dropdown-content a:hover {
-  color: black;
+.navbar-options, .navbar-work, .navbar-break {
+  overflow: hidden;
+  float: left;
+  padding: 10px 10px;
+  color:	white;
+  border-radius: 10px;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
+.navbar-work-select,
+.navbar-break-select {
+  padding: 10px 10px;
+}
+
+.navbar-options img {
+  height: 20px;
+  width: 20px;
+}
+
+.navbar-wrapper {
+  display: flex;
+  flex-direction: column;
 }
