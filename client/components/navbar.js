@@ -3,16 +3,20 @@ import React, {Component} from 'react'
 export default (props) => {
   return(
     <div className="navbar">
-      <a id="navbar-work">Set Work Interval</a>
-      <a id="navbar-break">Set Break Interval</a>
-      <div className="dropdown">
-        <button className="dropdown-btn">
-        </button>
-        <div className="dropdown-content">
-          <a>10</a>
-          <a>20</a>
-        </div>
-      </div>
+        <div className="navbar-work">Set Work Interval</div>
+        {/* <div className="dropdown"> */}
+          {/* <div className="dropdown-content"> */}
+        <div className="navbar-break">Set Break Interval</div>
+          <div className="break-interval">
+            <select>
+              {
+                [10,20,30].map(interval => {
+                return (
+                <option>{interval}</option>
+                )})
+              }
+            </select>
+          </div>
     </div>
   )
 }

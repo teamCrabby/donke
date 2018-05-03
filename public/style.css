@@ -7,51 +7,65 @@ a {
   text-decoration: none;
 }
 
+.break-interval {
+  display: none;
+}
+
 .navbar {
+  display: block;
+}
+
+.navbar .navbar-work,
+.navbar .navbar-break {
   overflow: hidden;
   background-color:#87CEEB;
-  border-radius: 10px;
-}
-.navbar a {
   float: left;
   text-align: center;
   padding: 14px 16px;
   color:	white;
 }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
+.navbar .navbar-work {
+  border-radius: 10px 0 0 10px;
 }
 
-.dropdown .dropdown-btn {
+.navbar .navbar-break {
+  border-radius: 0 10px 10px 0;
+}
+
+.navbar-break:hover .break-interval{
+  display: block;
+}
+
+/* .dropdown {
+  float: left;
+  overflow: hidden;
+} */
+
+/* .dropdown .dropdown-btn {
   padding: 14px 16px;
   background-color: inherit;
   border: none;
-  outline: none;
-  margin: 0;
-}
+  outline: none; */
+  /* margin: 0; */
+/* } */
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  border-radius: 10px;
-  z-index: 1;
+/* .dropdown-content { */
+  /* display: none; */
+  /* position: absolute;
+  border-radius: 10px; */
+  /* z-index: 1; */
 
-}
+/* } */
 
-.dropdown-content a {
+/* .dropdown-content select { */
+  /* display: none;
   float: none;
   display: block;
   padding: 12px 16px;
-  text-align: left;
-}
+  text-align: left; */
+/* } */
 
-.dropdown-content a:hover {
-  color: black;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+/* .dropdown-content:hover .dropdown-content select { */
+  /* display: block; */
+/* } */
