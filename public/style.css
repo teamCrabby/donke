@@ -8,7 +8,7 @@ a {
 }
 
 .break-interval select{
-  /* display: none; */
+  display: none;
   position: absolute;
 }
 

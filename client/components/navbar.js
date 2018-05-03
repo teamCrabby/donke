@@ -14,6 +14,7 @@ export default class Navbar extends Component {
           {/* <div className="dropdown"> */}
             {/* <div className="dropdown-content"> */}
           <div className="navbar-break">Set Break Interval</div>
+            <button>Button</button>
             <div className="break-interval">
               <select>
                 {
