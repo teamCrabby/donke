@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Navbar} from './components'
+import {Navbar, Donke} from './components'
 
 export default class App extends Component {
   constructor(props){
@@ -7,8 +7,13 @@ export default class App extends Component {
   }
   render(){
     return(
-      <div className="navbar">
-        <Navbar />
+      <div>
+        <div className="navbar">
+          <Navbar />
+        </div>
+        <div>
+        <Donke />
+        </div>
       </div>
     )
   }
