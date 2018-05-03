@@ -10,7 +10,9 @@ app.on('ready', function () {
     frame: false,
     height: 700,
     resizable: true,
-    width: 368
+    width: 900
+    // width: 368
+    //need to uncomment back in width
   })
   //one approach
   // mainWindow.loadURL('file://'+__dirname+'/app/index.html')
