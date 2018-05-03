@@ -28,24 +28,26 @@ export default class Navbar extends Component {
               <div className="navbar-work">Set Work Interval</div>
               <div className="navbar-work-select">
                 <select>
-                  <option>{10}</option>
+                  {
+                  [10,20,30].map(interval => {
+                    return (
+                    <option>{interval}</option>
+                    )})
+                  }
                 </select>
               </div>
             </div>
             <div className="navbar-break-container">
               <div className="navbar-break">Set Break Interval</div>
                 <div className="navbar-break-select">
-                    {/* <a>{10}</a>
-                    <a>{20}</a>
-                    <a>{30}</a> */}
-                      <select>
-                      {
-                        [10,20,30].map(interval => {
-                        return (
-                        <option>{interval}</option>
-                        )})
-                      }
-                      </select>
+                  <select>
+                  {
+                    [10,20,30].map(interval => {
+                    return (
+                    <option>{interval}</option>
+                    )})
+                  }
+                  </select>
                 </div>
             </div>
           </div>
