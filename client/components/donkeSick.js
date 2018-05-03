@@ -17,9 +17,9 @@ export default class DonkeSick extends Component {
         <div>
           <img id="noEarD" src="../img/noearDonke.svg" width="300" height="450" />
         </div>
-        <div>
+        {/*<div>
           <img id="sadEars" src="../img/sadEars.svg" width="300" height="450" />
-        </div>
+        </div>*/}
 
       </div>
     );
