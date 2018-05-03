@@ -7,16 +7,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="panel">
-  <img id="animal" src="../img/donke.svg" width="300" height="450">
-
-</div>
-
+<!-- 
 <div id="content">
 	<h1>Hi, My Name is Donke</h1>
 	<p>Take a Break</p>
-</div>
+</div> -->
 
 <div id="app">
 	
@@ -24,15 +19,7 @@
 
 
 <!-- load scripts after dom has been rendered -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js">console.log("in script")</script>
 
-<script>
-	//we'll use a window.onload for simplicity, but typically it is best to use either jQuery's $(document).ready() or $(window).load() or cross-browser event listeners so that you're not limited to one.
-	var timeline = new TimelineMax({repeat: 2});
-		timeline.from('#animal', 1, {scale:0, ease:Bounce.easeOut})
-		.yoyo(true)
-
-
-</script>
 </body>
 </html>
