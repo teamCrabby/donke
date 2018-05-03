@@ -1,18 +1,18 @@
-import React, {Component} from 'react'
-import {Navbar, Donke} from './components'
+import React, { Component } from 'react'
+import { Navbar, DonkeSick } from './components'
 
 export default class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <div className="navbar">
           <Navbar />
         </div>
         <div>
-        <Donke />
+          <DonkeSick />
         </div>
       </div>
     )
