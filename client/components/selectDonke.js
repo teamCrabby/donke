@@ -12,18 +12,18 @@ export default class SelectDonke extends Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
-//when it first mounts, donke is happy, button doesn't render, message that says 'happy working!'
+//when it first mounts, donke is happy, button says 'take a break', message that says 'happy working!'
 //after a set time, donke is sick, button renders to "take a break", message says 'i need a break!', health starts decrementing
-//if click 'take a break', donke is happy, health is incrementing
+//if click 'take a break', donke is happy, health is incrementing, button says 'back to work!'
+//if click 'back to work', donke is happy, button says 'take a break', work timer starts
   componentDidMount(){
     setTimeout(() => {
       this.setState({ happy: !this.state.happy })
-    })
+    }, 5000)
   }
 
   handleClick(){
     this.setState({ happy: !this.state.happy });
-//want it to change the state and start a timer to prompt the user with something else
 //time in the setTimeout is determined by user input
     setTimeout(() => {alert("woot!")}, 3000);
   }
@@ -35,7 +35,7 @@ export default class SelectDonke extends Component {
           {this.state.happy 
             ? <div>
                 <Donke/> 
-                <button onClick={this.handleClick}>BUTT-ON</button>
+                <button onClick={this.handleClick}>Take a break!</button>
               </div>
             : <DonkeSick/>}
         </div>
