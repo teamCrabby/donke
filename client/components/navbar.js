@@ -14,7 +14,7 @@ export default class Navbar extends Component {
   }
 
   render(){
-    console.log('STATE', this.state.clicked)
+   
     return(
       <div className="navbar-container">
           <div className="navbar-options">

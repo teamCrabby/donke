@@ -47,6 +47,11 @@ a {
   display: block;
 }
 
+.navbar-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 /********************** EARS *********************/
 
 
@@ -63,8 +68,4 @@ a {
   left: 10px;
   top: 32px;
   width: 300px;
-
-  .navbar-wrapper {
-  display: flex;
-  flex-direction: column;
 }
