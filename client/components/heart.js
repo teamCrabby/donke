@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { heartBeat } from '../library/animations'
 
-
 export default class Heart extends Component {
   constructor(props) {
     super(props);
