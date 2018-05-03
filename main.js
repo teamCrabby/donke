@@ -14,6 +14,7 @@ app.on('ready', function(){
     resizable: true,
     width: 368
   })
+  //one approach
   // mainWindow.loadURL('file://'+__dirname+'/app/index.html')
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname,'public/index.html'),
