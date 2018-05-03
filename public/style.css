@@ -7,16 +7,17 @@ a {
   text-decoration: none;
 }
 
-.break-interval {
-  display: none;
+.break-interval select{
+  /* display: none; */
+  position: absolute;
 }
 
-.navbar {
+.navbar-container {
   display: block;
 }
 
-.navbar .navbar-work,
-.navbar .navbar-break {
+.navbar-container .navbar-work,
+.navbar-container .navbar-break {
   overflow: hidden;
   background-color:#87CEEB;
   float: left;
@@ -25,17 +26,19 @@ a {
   color:	white;
 }
 
-.navbar .navbar-work {
+.navbar-container .navbar-work {
   border-radius: 10px 0 0 10px;
 }
 
-.navbar .navbar-break {
+.navbar-container .navbar-break {
   border-radius: 0 10px 10px 0;
 }
 
 .navbar-break:hover .break-interval{
   display: block;
 }
+
+
 
 /* .dropdown {
   float: left;
