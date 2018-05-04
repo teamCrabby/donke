@@ -13,7 +13,6 @@ export const sick = () => {
   timeLine.from('#sad', 1, { zIndex: 1, ease: Power1.easeOut })
 }
 
-
 export const heartBeat = () => {
   let timeLine = new TimelineMax();
   timeLine.to('#heart', 1, { scale: .5, opacity: .5, repeat: -1 })
