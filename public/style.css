@@ -1,3 +1,4 @@
+/********************** MAIN *********************/
 body {
   font-family: 'Helvetica';
   background-color: #f9f9f9;
@@ -8,10 +9,14 @@ a {
   text-decoration: none;
 }
 
+/********************** BREAK SELECT *********************/
+
 .break-select select{
   display: none;
   overflow: hidden;
 }
+
+/********************** NAV BAR *********************/
 
 .navbar-container {
   display: flex;
@@ -48,4 +53,4 @@ a {
   flex-direction: column;
 }
 
-/********************** EARS *********************/
+/********************** PARTY HAT *********************/

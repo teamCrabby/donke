@@ -1,4 +1,4 @@
-import { TimelineMax, MorphSVGPlugin, } from 'gsap'
+import { TimelineMax, Draggable, } from 'gsap'
 
 export const entrance = () => {
   let timeline = new TimelineMax();
@@ -12,8 +12,6 @@ export const sick = () => {
   timeLine.from('#sad', 1, { zIndex: 1, ease: Power1.easeOut })
 }
 
-//need to figure out the z-index
-
 
 export const heartBeat = () => {
   let timeLine = new TimelineMax();
@@ -25,9 +23,11 @@ export const bubbleAlert = () => {
   let timeLine = new TimelineMax();
   timeLine.from('#bubble', 1, { scale: 0 })
   timeLine.set('#bubble', { y: 100 })
-
-
 }
+
+//party hat draggable code
+
+//export const dragHat
 
 
 
