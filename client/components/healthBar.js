@@ -8,15 +8,15 @@ export default class HealthBar extends Component {
     super(props);
   }
   componentDidMount() {
-    healthBarStatus()
+
   }
 
   render() {
     return (
       <div className="healthBar">
         <div>
-          <img id="healthBar" src="../img/healthBar.svg" width="300" height="450" />
-          <img id="healthTab" src="../img/healthTab.svg" width="30" height="430" />
+          <img id="healthBar" src="../img/healthBar.svg" width="30" height="450" />
+          <img id="healthTab" src="../img/healthTab.svg" width="300" height="430" />
         </div>
         <div>
           <Heart />
