@@ -7,7 +7,7 @@ const SET_HEALTH = 'SET_HEALTH'
  * INITIAL STATE
  */
 
-const defaultHealth = 100
+const defaultHealth = 10
 
 
 /**
@@ -28,7 +28,7 @@ export const fetchHealth = (health) =>
 export default function (state = defaultHealth, action) {
   switch (action.type) {
     case SET_HEALTH:
-      return action.time;
+      return action.health;
     default:
       return state;
   }
