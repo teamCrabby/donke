@@ -9,7 +9,6 @@
 <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
 	 x="0px" y="0px" width="72px" height="72px" viewBox="0 0 72 72" enable-background="new 0 0 72 72" xml:space="preserve">
-<path fill="#F8F4AC" stroke="#262526" stroke-width="1.3518" stroke-miterlimit="10" d="M3.9,24.62v2.631
-	c0,7.793,5.918,14.202,13.502,14.985L9.529,61.075l17.5-18.759h24.456c8.321,0,15.065-6.745,15.065-15.065V24.62
-	c0-8.321-6.746-15.066-15.065-15.066H18.967C10.646,9.554,3.9,16.299,3.9,24.62z"/>
+<path fill="#DCAACE" d="M35.042,3.575c5.548,18.999-23.539,18.663-16.982,47.58c6.389,22.697,28.583,23.707,38.165,0
+	C64.633,24.76,42.943,3.575,35.042,3.575z"/>
 </svg>

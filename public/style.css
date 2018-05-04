@@ -1,3 +1,4 @@
+/********************** MAIN *********************/
 body {
   font-family: 'Helvetica';
   background-color: #f9f9f9;
@@ -8,10 +9,14 @@ a {
   text-decoration: none;
 }
 
+/********************** BREAK SELECT *********************/
+
 .break-select select{
   display: none;
   overflow: hidden;
 }
+
+/********************** NAV BAR *********************/
 
 .navbar-container {
   display: flex;
@@ -48,25 +53,15 @@ a {
   flex-direction: column;
 }
 
-/********************** EARS *********************/
+/********************** PARTY HAT *********************/
 
 
-#normalEars{
-  visibility: hidden;
-  position: absolute;
-  left: 60px;
-  top: -55px;
-  width: 210px;
+.draggable-box .draggable-hat {
+  left: 200px;
 }
 
-#sadEars{
-  position: absolute;
-  left: 10px;
-  top: 32px;
-  width: 300px;
-}
+/********************** HALO *********************/
 
-/********************** ACCESSORIES *********************/
 
 #halo{
   position: absolute;
