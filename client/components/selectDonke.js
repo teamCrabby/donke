@@ -11,9 +11,10 @@ export class SelectDonke extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      start: true,
       workTime: true,
       needBreak: false,
-      health: 5,
+      health: 10,
     }
     this.handleClickWork = this.handleClickWork.bind(this)
     this.handleClickBreak = this.handleClickBreak.bind(this)
@@ -22,16 +23,11 @@ export class SelectDonke extends Component {
     this.needBreak = this.needBreak.bind(this)
 
   }
-  //when it first mounts, donke is happy
-  //once user puts in time intervals, donke is happy, render button that says 'take a break', message that says 'happy working!'
-  //after a set time, donke is sick, message says 'i need a break!', health starts decrementing
-  //if click 'take a break', donke is happy, health is incrementing, button says 'back to work!'
-  //if click 'back to work', donke is happy, button says 'take a break', work timer starts
 
-
-  //work time runs out... donkey gets sad and health starts decrementing
-  //click 'take a break'... health starts incrementing, button changes to 'back to work'
-  //once health is full, donkey is happy
+  //Sound when work time ends
+  //Message that says "time for a break!" (alert for now)
+  //Five minutes into "need a break", you lose a point and every five minutes thereafter
+  //You gain one point every time you take your whole break
 
   componentDidMount() {
     // let counter = 0;
@@ -41,17 +37,18 @@ export class SelectDonke extends Component {
     // }, 1000);
   }
 
-  // componentDidUpdate(){
-  //   if (this.state.needBreak){
-  //     console.log('in need break')
-  //     this.needBreak()
-  //   }
-  // }
+  componentDidUpdate(){
+    if (this.props.workInterval > 0 && this.state.start){
+      this.workTimer()
+    }
+  }
 
   workTimer() {
     console.log('in worktimer')
+    this.setState({start: false})
     const workInterval = this.props.workInterval * 1000
     let timerFunc = setTimeout(() => {
+      alert("I'm tired, time for a break!")
       this.needBreak()
     }, workInterval)
   }
@@ -59,24 +56,27 @@ export class SelectDonke extends Component {
   needBreak() {
     console.log("in needBreak")
     healthFunc = setInterval(() => {
-      //console.log("health", this.state.health)
+      console.log("decrement health")
       this.setState({ health: this.state.health - 1 })
-    }, 3000)
+    }, 1000)
+    console.log("health func in needBreak...", healthFunc)
   }
 
   breakTimer() {
     console.log('in break timer')
-    const breakInterval = this.props.breakInterval * 1000;
-    while(this.state.health < 5){
+    console.log("healthFunc in breakTimer...", healthFunc)
+    // const breakInterval = this.props.breakInterval * 1000;
     healthFunc = setInterval(() => {
-      this.setState({ health: this.state.health + 1 });
-    }, 3000);
-    }
+      if (this.state.health < 10 ){
+        this.setState({ health: this.state.health + 1 });
+      }
+    }, 1000);
     //console.log("breakTimeout is....", breakTimeout)
   }
 
   handleClickBreak() {
-    console.log('in handleClickBreak need break')
+    console.log("healthFunch in handleClick...", healthFunc)
+
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
     // this.setState({ needBreak: false, workTime: false })
@@ -95,10 +95,9 @@ export class SelectDonke extends Component {
       this.props.workInterval > 0
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
-          {this.workTimer()}
           <div>
-            {/*<p>{this.state.health}</p>*/}
-            {this.state.health === 5
+            <p>{this.state.health}</p>
+            {this.state.health === 10
               ? <Donke />
               : <DonkeSick />}
             {this.state.workTime
