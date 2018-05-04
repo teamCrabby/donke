@@ -1,5 +1,6 @@
 
-console.log('PATH', __dirname+'..'+'/wav/'+'annoyed'+'.wav')
+import path from 'path'
+console.log('PATH', path.join(__dirname+'..'+'/wav/'+'annoyed'+'.wav'))
 export const annoyed = (soundName) => {
   console.log('__dirname is', __dirname)
   let audio = new Audio(__dirname+'..'+'wav/'+soundName+'.wav')
