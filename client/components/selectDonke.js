@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Donke from './donke';
 import DonkeSick from './donkeSick';
+import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 
 //when you click "set time" it sets the work and break intervals
@@ -8,13 +9,16 @@ import { connect } from 'react-redux';
 //i could do this in select donke by watching for the state change?
 //or i could do it in navbar
 
+let timerFunc;
+
 export class SelectDonke extends Component {
   constructor(props) {
     super(props);
     this.state = {
       happy: true,
       break: true,
-      health: 10
+      health: 10,
+      // timerFunc: setTimeout(() => {})
     }
     this.handleClick = this.handleClick.bind(this)
     this.workTimer = this.workTimer.bind(this)
@@ -25,23 +29,60 @@ export class SelectDonke extends Component {
 //after a set time, donke is sick, button renders to "take a break", message says 'i need a break!', health starts decrementing
 //if click 'take a break', donke is happy, health is incrementing, button says 'back to work!'
 //if click 'back to work', donke is happy, button says 'take a break', work timer starts
+  componentDidMount(){
+    let counter = 0;
+    let counting = setInterval(() => {
+      counter++;
+      console.log(counter);
+    }, 1000);
+  }
+
   workTimer(){
+    //DEBUGGING STUFF
+    // console.log('in workTimer');
+    // let counter = 0;
+    // let counting = setInterval(() => {
+    //   counter++;
+    //   console.log("work count", counter);
+    // }, 1000);
+
+    //ACTUAL CODE WE NEED
     const workInterval = this.props.workInterval * 1000
-    setTimeout(() => {
+    let workTimeout = setTimeout(() => {
       this.setState({ happy: !this.state.happy })
+      //CLEAR INTERVAL FOR DEBUGGING
+      // clearInterval(counting)
     }, workInterval)
+    console.log("workTimeout is....", workTimeout)
+    timerFunc = workTimeout
   }
 
   breakTimer(){
-    const breakInterval = this.props.breakInterval * 1000
-    setTimeout(() => {
+    //DEBUGGING STUFF
+    // console.log('in breakTimer');
+    // let counter = 0;
+    // let counting = setInterval(() => {
+    //   counter++;
+    //   console.log("break count", counter);
+    // }, 1000);
+    
+    //ACTUAL CODE WE NEED
+    const breakInterval = this.props.breakInterval * 1000;
+    let breakTimeout = setTimeout(() => {
       this.setState({ happy: !this.state.happy })
+      //CLEAR INTERVAL FOR DEBUGGING
+      // clearInterval(counting)
     }, breakInterval)
+    console.log("breakTimeout is....", breakTimeout)
+    timerFunc = breakTimeout;
   }
 
   handleClick(){
+    console.log('timerFunc is...', timerFunc);
+    clearTimeout(timerFunc)
     this.setState({ happy: !this.state.happy });
   }
+
 
   render() {
     return (

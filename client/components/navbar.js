@@ -29,7 +29,6 @@ class Navbar extends Component {
   }
 
   render(){
-    console.log(this.props)
     return(
       <div className="navbar-container">
           <div className="navbar-options">
@@ -44,7 +43,7 @@ class Navbar extends Component {
               <div className="navbar-work-select">
                 <select name="workInterval" onChange={this.handleChange}>
                   {
-                  [0, 10,20,30,40].map((interval, idx) => {
+                  [0, 3, 10,20,30,40].map((interval, idx) => {
                     return (
                     <option key={idx}>{interval}</option>
                     )})

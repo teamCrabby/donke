@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { entrance } from '../library/animations'
 
 
+
 export default class Donke extends Component {
   constructor(props) {
     super(props);
