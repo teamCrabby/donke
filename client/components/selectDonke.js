@@ -4,6 +4,7 @@ import DonkeSick from './donkeSick';
 import DonkeDead from './donkeDead';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
+import { playAudio } from '../library/audio'
 
 let timerFunc;
 let healthFunc;
@@ -49,11 +50,12 @@ export class SelectDonke extends Component {
     this.setState({start: false})
     const workInterval = this.props.workInterval * 1000
     let timerFunc = setTimeout(() => {
-      alert("I'm tired, time for a break!")
+      playAudio('happy');
+      //alert("I'm tired, time for a break!")
       this.needBreak()
     }, workInterval)
   }
-  
+
   needBreak() {
     console.log("in needBreak")
     healthFunc = setInterval(() => {
