@@ -4,6 +4,8 @@ import {fetchWorkInterval, fetchBreakInterval} from '../store'
 import {annoyed} from '../library/audio'
 import path from 'path'
 
+
+
 class Navbar extends Component {
   constructor(props){
     super(props)
@@ -30,17 +32,10 @@ class Navbar extends Component {
     event.preventDefault()
     this.props.getWorkInterval(workTime, breakTime)
     callback()
-    console.log('PATH', path.join(__dirname+'public'+'/wav/'+'annoyed'+'.wav'))
-    // const annoyed = (soundName) => {
-    //   console.log('__dirname is', __dirname)
-      let audio = new Audio('https://freesound.org/s/19836/')
-      // audio.currentTime = 0;
-      audio.play()
-// }
   }
 
   render(){
-    console.log(this.props)
+
     return(
       <div className="navbar-container">
           <div className="navbar-options">
