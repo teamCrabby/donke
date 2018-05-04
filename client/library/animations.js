@@ -1,4 +1,4 @@
-import { TimelineMax } from 'gsap'
+import { TimelineMax, MorphSVGPlugin, } from 'gsap'
 
 export const entrance = () => {
   let timeline = new TimelineMax();
@@ -9,8 +9,7 @@ export const entrance = () => {
 
 export const sick = () => {
   let timeLine = new TimelineMax();
-  timeLine.from('#sad', 1, { ease: Power1.easeOut })
-  timeLine.from('#sadEars', 1, { scale: 0, repeat: -1 })
+  timeLine.from('#sad', 1, { zIndex: 1, ease: Power1.easeOut })
 }
 
 //need to figure out the z-index
