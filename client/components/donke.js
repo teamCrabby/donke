@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { entrance } from '../library/animations'
 
 
+
 export default class Donke extends Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-    entrance()
-  }
+  // componentDidMount() {
+  //   entrance()
+  // }
 
   render() {
     return (
       <div className="panel">
-        <img id="animal" src="../img/donke.svg" width="300" height="450" />
+        <img id="animal" src="../img/donke.svg" width="415" height="450" />
       </div>
     );
   }
