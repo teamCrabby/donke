@@ -4,7 +4,8 @@ import DonkeSick from './donkeSick';
 import DonkeDead from './donkeDead';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
-import { playAudio } from '../library/audio'
+import { playAudio } from '../library/audio';
+import store, { fetchHealth } from '../store'
 
 let timerFunc;
 let healthFunc;
@@ -15,7 +16,6 @@ export class SelectDonke extends Component {
     this.state = {
       start: true,
       workTime: true,
-      health: 10,
     }
     this.handleClickWork = this.handleClickWork.bind(this)
     this.handleClickBreak = this.handleClickBreak.bind(this)
@@ -59,27 +59,21 @@ export class SelectDonke extends Component {
   needBreak() {
     console.log("in needBreak")
     healthFunc = setInterval(() => {
-      console.log("decrement health")
-      this.setState({ health: this.state.health - 1 })
+      this.props.setStoreHealth(this.props.health-1)
     }, 1000)
-    console.log("health func in needBreak...", healthFunc)
   }
 
   breakTimer() {
     console.log('in break timer')
-    console.log("healthFunc in breakTimer...", healthFunc)
     // const breakInterval = this.props.breakInterval * 1000;
     healthFunc = setInterval(() => {
-      if (this.state.health < 10 ){
-        this.setState({ health: this.state.health + 1 });
+      if (this.props.health < 10 ){
+        this.props.setStoreHealth(this.props.health + 1)
       }
     }, 1000);
-    //console.log("breakTimeout is....", breakTimeout)
   }
 
   handleClickBreak() {
-    console.log("healthFunch in handleClick...", healthFunc)
-
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
     this.setState({ workTime: false })
@@ -99,8 +93,8 @@ export class SelectDonke extends Component {
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
           <div>
-            <p>Health: {this.state.health}</p>
-            {this.state.health === 10
+            <p>Health: {this.props.health}</p>
+            {this.props.health === 10
               ? <Donke />
               : <DonkeSick />}
             {this.state.workTime
@@ -119,13 +113,20 @@ export class SelectDonke extends Component {
 }
 
 
+
 const mapStateToProps = state => {
   return {
     workInterval: state.workInterval,
-    breakInterval: state.breakInterval
+    breakInterval: state.breakInterval,
+    health: state.health
   }
 }
 
-const mapDispatchToProps = dispatch => { return {} }
+const mapDispatchToProps = dispatch => { 
+  return {
+    setStoreHealth(health) {
+      dispatch(fetchHealth(health))
+    }
+  }}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectDonke)
