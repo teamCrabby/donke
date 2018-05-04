@@ -53,18 +53,7 @@ export class SelectDonke extends Component {
       this.needBreak()
     }, workInterval)
   }
-
-<<<<<<< HEAD
-  breakTimer(){   
-   
-    const breakInterval = this.props.breakInterval * 1000;
-    let breakTimeout = setTimeout(() => {
-      this.setState({ happy: !this.state.happy })
-      
-    }, breakInterval)
-    console.log("breakTimeout is....", breakTimeout)
-    timerFunc = breakTimeout;
-=======
+  
   needBreak() {
     console.log("in needBreak")
     healthFunc = setInterval(() => {
@@ -84,7 +73,6 @@ export class SelectDonke extends Component {
       }
     }, 1000);
     //console.log("breakTimeout is....", breakTimeout)
->>>>>>> timing
   }
 
   handleClickBreak() {
