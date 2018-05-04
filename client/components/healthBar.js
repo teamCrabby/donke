@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 export default class HealthBar extends Component {
   constructor(props) {
     super(props);
+
   }
   componentDidMount() {
 
@@ -15,8 +16,8 @@ export default class HealthBar extends Component {
     return (
       <div className="healthBar">
         <div>
-          <img id="healthBar" src="../img/healthBar.svg" width="30" height="450" />
-          <img id="healthTab" src="../img/healthTab.svg" width="300" height="430" />
+          <img id="healthBar" src="../img/healthTab10.svg" width="300" height="250" />
+          <img id="healthBar" src="../img/healthTab4.svg" width="300" height="250" />
         </div>
         <div>
           <Heart />
