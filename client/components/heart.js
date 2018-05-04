@@ -10,6 +10,7 @@ export default class Heart extends Component {
   }
 
   render() {
+
     return (
       <div>
         <img id="heart" src="../img/heart.svg" width="50" height="50" />

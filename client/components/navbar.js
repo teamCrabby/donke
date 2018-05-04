@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchWorkInterval, fetchBreakInterval} from '../store'
+import {annoyed} from '../library/audio'
+import path from 'path'
+
+
 
 class Navbar extends Component {
   constructor(props){
@@ -21,11 +25,13 @@ class Navbar extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name] : event.target.value })
+
   }
 
-  handleSubmit(event, workTime, breakTime){
+  handleSubmit(event, workTime, breakTime, callback){
     event.preventDefault()
     this.props.getWorkInterval(workTime, breakTime)
+    callback()
   }
 
   render(){
@@ -64,7 +70,7 @@ class Navbar extends Component {
                   </select>
                 </div>
             </div>
-            <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval)}>Start</button>
+            <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>Set Time</button>
           </div>
           : null
           }
