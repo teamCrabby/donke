@@ -22,21 +22,6 @@ export class SelectDonke extends Component {
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
-    
-
-  }
-
-  //Sound when work time ends
-  //Message that says "time for a break!" (alert for now)
-  //Five minutes into "need a break", you lose a point and every five minutes thereafter
-  //You gain one point every time you take your whole break
-
-  componentDidMount() {
-    // let counter = 0;
-    // let counting = setInterval(() => {
-    //   counter++;
-    //   console.log(counter);
-    // }, 1000);
   }
 
   componentDidUpdate(){
@@ -46,34 +31,42 @@ export class SelectDonke extends Component {
   }
 
   workTimer() {
-    console.log('in worktimer')
     this.setState({start: false})
     const workInterval = this.props.workInterval * 1000
-    let timerFunc = setTimeout(() => {
+    timerFunc = setTimeout(() => {
       playAudio('happy');
-      //alert("I'm tired, time for a break!")
       this.needBreak()
     }, workInterval)
+    //console logs
+      // console.log('in worktimer setting timeout', timerFunc)
   }
 
   needBreak() {
-    console.log("in needBreak")
     healthFunc = setInterval(() => {
-      this.props.setStoreHealth(this.props.health-1)
+      if(this.props.health > 0){
+        this.props.setStoreHealth(this.props.health - 1)
+      }
     }, 1000)
+    //console logs
+      // console.log("in needBreak setting interval", healthFunc)
   }
 
   breakTimer() {
-    console.log('in break timer')
     // const breakInterval = this.props.breakInterval * 1000;
     healthFunc = setInterval(() => {
       if (this.props.health < 10 ){
         this.props.setStoreHealth(this.props.health + 1)
       }
     }, 1000);
+    //console logs
+      //console.log('in break timer setting interval', healthFunc)
   }
 
   handleClickBreak() {
+    //console logs
+      // console.log("in handleClickBreak")
+      // console.log("clearing setTimeout", timerFunc)
+      // console.log('clearing setInterval', healthFunc);
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
     this.setState({ workTime: false })
@@ -81,7 +74,12 @@ export class SelectDonke extends Component {
   }
 
   handleClickWork() {
+    //console logs
+      // console.log('in handleClickWork');
+      // console.log('clearing setTimeout', timerFunc);
+      // console.log('clearing setInterval', healthFunc);
     clearInterval(healthFunc);
+    clearTimeout(timerFunc)
     this.setState({ workTime: true });
     this.workTimer()
   }
@@ -94,11 +92,11 @@ export class SelectDonke extends Component {
         ? <div>
           <div>
             <p>Health: {this.props.health}</p>
-            {this.props.health === 10
+            {this.props.health < 10
               ? this.props.health === 0
                 ? <DonkeDead/>
-                : <Donke />
-              : <DonkeSick />}
+                : <DonkeSick />
+              : <Donke />}
             {this.state.workTime
               ? <div>
                 <button onClick={this.handleClickBreak}>Take a break!</button>
