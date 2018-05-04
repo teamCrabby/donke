@@ -6,8 +6,6 @@ export default class Heart extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log('let me get in here')
-
     heartBeat()
   }
 

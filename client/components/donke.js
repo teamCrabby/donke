@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { entrance } from '../library/animations'
 import { playAudio } from '../library/audio'
 
+
 export default class Donke extends Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-    entrance()
-  }
+  // componentDidMount() {
+  //   entrance()
+  // }
 
 
   render() {

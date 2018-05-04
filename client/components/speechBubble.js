@@ -7,7 +7,6 @@ export default class SpeechBubble extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log('let me in here')
     bubbleAlert()
   }
 

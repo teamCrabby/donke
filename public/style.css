@@ -63,3 +63,12 @@ a {
 .draggable-box .draggable-hat {
   left: 200px;
 }
+
+/********************** HALO *********************/
+
+
+#halo{
+  position: absolute;
+  left: 110px;
+  top: -120px;
+}
