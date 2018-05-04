@@ -13,7 +13,6 @@ export class SelectDonke extends Component {
     this.state = {
       start: true,
       workTime: true,
-      needBreak: false,
       health: 10,
     }
     this.handleClickWork = this.handleClickWork.bind(this)
@@ -21,6 +20,7 @@ export class SelectDonke extends Component {
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
+    
 
   }
 
@@ -79,7 +79,7 @@ export class SelectDonke extends Component {
 
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
-    // this.setState({ needBreak: false, workTime: false })
+    this.setState({ workTime: false })
     this.breakTimer()
   }
 
@@ -96,7 +96,7 @@ export class SelectDonke extends Component {
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
           <div>
-            <p>{this.state.health}</p>
+            <p>Health: {this.state.health}</p>
             {this.state.health === 10
               ? <Donke />
               : <DonkeSick />}
