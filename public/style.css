@@ -66,9 +66,20 @@ a {
 
 /********************** HALO *********************/
 
-
 #halo{
   position: absolute;
   left: 110px;
   top: -120px;
+}
+
+/********************** HEART and BATTERY *********************/
+
+#heart {
+  position: absolute;
+  margin-top: 38px;
+  margin-left: 20px
+}
+#healthBar {
+  position: absolute;
+  margin-left: 100px;
 }

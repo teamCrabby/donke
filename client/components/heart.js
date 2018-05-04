@@ -13,7 +13,7 @@ export default class Heart extends Component {
 
     return (
       <div>
-        <img id="heart" src="../img/heart.svg" width="50" height="50" />
+        <img id="heart" src="../img/heart.svg" width="70" height="70" />
       </div>
     );
   }
