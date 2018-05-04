@@ -1,9 +1,9 @@
+export const playAudio = soundName => {
+  let link 
+  if (soundName === 'happy') {
+    link = 'http://www.brunover.com/wav_gif/donkey.wav'
+  }
+    let audio = new Audio(link)
+    audio.play()
 
-import path from 'path'
-console.log('PATH', path.join(__dirname+'..'+'/wav/'+'annoyed'+'.wav'))
-export const annoyed = (soundName) => {
-  console.log('__dirname is', __dirname)
-  let audio = new Audio(__dirname+'..'+'wav/'+soundName+'.wav')
-  audio.currentTime = 0;
-  audio.play()
 }
