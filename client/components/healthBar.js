@@ -3,9 +3,12 @@ import { Heart } from '../components';
 import { connect } from 'react-redux';
 
 
-export default class HealthBar extends Component {
+class HealthBar extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+    this.state = {
+      health: this.props.health
+    }
 
   }
   componentDidMount() {
@@ -13,11 +16,11 @@ export default class HealthBar extends Component {
   }
 
   render() {
+    console.log('are you right', `../img/healthTab${this.state.health}.svg`)
     return (
       <div className="healthBar">
         <div>
-          <img id="healthBar" src="../img/healthTab10.svg" width="300" height="250" />
-          <img id="healthBar" src="../img/healthTab4.svg" width="300" height="250" />
+          <img id="healthBar" src={`../img/healthTab${this.state.health}.svg`} width="300" height="250" />
         </div>
         <div>
           <Heart />
@@ -26,3 +29,13 @@ export default class HealthBar extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    health: state.health
+  }
+}
+
+const mapDispatchToProps = dispatch => { return {} }
+
+export default connect(mapStateToProps, mapDispatchToProps)(HealthBar)
