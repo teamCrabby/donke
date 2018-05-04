@@ -17,10 +17,15 @@ export const sick = () => {
 //need to figure out the z-index
 export const dead = () => {
 	let timeLine = new TimelineLite();
-	timeLine.to('#halo', 2.5, {x: 0, y: 130, ease:Power1.easeInOut})
-	//to('#animal', 2, {x: 0, y: 100, ease:Power1.easeInOut})
+  // timeline.to('#animal', 2, {x: 0, y: 100, ease:Power1.easeInOut})
+	timeLine.to('#halo', 2.5, {x: 0, y: 140, ease:Power1.easeInOut})
+  timeLine.to('#halo', 1, {x: 0, y: 130, yoyo: true, repeat: -1, ease: Power1.easeInOut})
+  // addPause()
+  // timeLine.to('#animal', 2.5, {x: 0, y: 0, ease:Power1.easeInOut})
+  // timeLine.to('#halo', 1, {x: 0, y: 130, ease: Power1.easeInOut})
+
 			// .addPause()
-	timeLine.to('#animal', 3, {rotation: 90, transformOrigin: '100% 100%', ease: Power2.easeInOut})		
+	// timeLine.to('#animal', 3, {rotation: 90, transformOrigin: '100% 100%', ease: Power2.easeInOut})		
 }
 
 export const heartBeat = () => {

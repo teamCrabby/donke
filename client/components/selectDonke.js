@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Donke from './donke';
 import DonkeSick from './donkeSick';
+import DonkeDead from './donkeDead';
 
 export default class SelectDonke extends Component {
   constructor(props) {
@@ -32,12 +33,13 @@ export default class SelectDonke extends Component {
     return (
       <div>
         <div>
-          {this.state.happy 
+          {/*this.state.happy 
             ? <div>
                 <Donke/> 
                 <button onClick={this.handleClick}>Take a break!</button>
               </div>
-            : <DonkeSick/>}
+            : <DonkeSick/>*/}
+            <DonkeDead/>
         </div>
         <button onClick={this.handleClick}>BUTT-ON</button>
       </div>
