@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Donke from './donke';
 import DonkeSick from './donkeSick';
+import DonkeDead from './donkeDead';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 

@@ -14,7 +14,7 @@ export default class Donke extends Component {
   render() {
     return (
       <div className="panel">
-        <img id="animal" src="../img/donke.svg" width="300" height="450" />
+        <img id="animal" src="../img/donke1.png" width="415" height="450" />
       </div>
     );
   }
