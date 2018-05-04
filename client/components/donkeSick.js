@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { sick } from '../library/animations'
 
 
-export default class DonkeSad extends Component {
+export default class DonkeSick extends Component {
   constructor(props) {
     super(props);
   }
