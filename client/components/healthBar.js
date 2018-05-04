@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Heart } from '../components';
-import { healthBarStatus } from '../library/animations';
+import { connect } from 'react-redux';
 
 
 export default class HealthBar extends Component {
