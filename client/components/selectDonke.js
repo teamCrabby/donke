@@ -95,7 +95,9 @@ export class SelectDonke extends Component {
           <div>
             <p>Health: {this.props.health}</p>
             {this.props.health === 10
-              ? <Donke />
+              ? this.props.health === 0
+                ? <DonkeDead/>
+                : <Donke />
               : <DonkeSick />}
             {this.state.workTime
               ? <div>
