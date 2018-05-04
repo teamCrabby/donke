@@ -1,4 +1,5 @@
-import { TimelineMax, Draggable, } from 'gsap'
+import { TimelineMax, TweenMax } from 'gsap'
+import Draggable from 'gsap/Draggable'
 
 export const entrance = () => {
   let timeline = new TimelineMax();
@@ -27,7 +28,9 @@ export const bubbleAlert = () => {
 
 //party hat draggable code
 
-//export const dragHat
+export const dragHat = () => {
+  Draggable.create('#hat')
+}
 
 
 

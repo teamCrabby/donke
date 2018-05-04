@@ -13,8 +13,8 @@ export default class App extends Component {
         </div>
         <div>
           <SelectDonke />
-          <PartyHat />
           <Heart />
+          <PartyHat />
         </div>
       </div>
     )

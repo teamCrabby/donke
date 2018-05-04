@@ -6,15 +6,14 @@ export default class PartyHat extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log('let me get in here')
 
     dragHat()
   }
 
   render() {
     return (
-      <div className="draggableHat">
-        <img id="partyHat" src="../img/PartyHat.svg" width="100" height="100" />
+      <div className="draggable-box">
+        <img className="draggable-item draggable-hat" id="hat" src="../img/partyHat.svg" width="100" height="100" />
       </div>
     );
   }
