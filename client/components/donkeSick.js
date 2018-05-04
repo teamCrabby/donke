@@ -7,7 +7,6 @@ export default class DonkeSad extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log('let me get in here')
     sick()
   }
 

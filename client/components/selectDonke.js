@@ -29,43 +29,51 @@ export class SelectDonke extends Component {
 //after a set time, donke is sick, button renders to "take a break", message says 'i need a break!', health starts decrementing
 //if click 'take a break', donke is happy, health is incrementing, button says 'back to work!'
 //if click 'back to work', donke is happy, button says 'take a break', work timer starts
-  
-
-  workTimer(){
-    //DEBUGGING STUFF
-    console.log('in workTimer');
+  componentDidMount(){
     let counter = 0;
     let counting = setInterval(() => {
       counter++;
       console.log(counter);
     }, 1000);
+  }
+
+  workTimer(){
+    //DEBUGGING STUFF
+    // console.log('in workTimer');
+    // let counter = 0;
+    // let counting = setInterval(() => {
+    //   counter++;
+    //   console.log("work count", counter);
+    // }, 1000);
 
     //ACTUAL CODE WE NEED
     const workInterval = this.props.workInterval * 1000
     let workTimeout = setTimeout(() => {
       this.setState({ happy: !this.state.happy })
       //CLEAR INTERVAL FOR DEBUGGING
-      clearInterval(counting)
+      // clearInterval(counting)
     }, workInterval)
+    console.log("workTimeout is....", workTimeout)
     timerFunc = workTimeout
   }
 
   breakTimer(){
     //DEBUGGING STUFF
-    console.log('in breakTimer');
-    let counter = 0;
-    let counting = setInterval(() => {
-      counter++;
-      console.log(counter);
-    }, 1000);
+    // console.log('in breakTimer');
+    // let counter = 0;
+    // let counting = setInterval(() => {
+    //   counter++;
+    //   console.log("break count", counter);
+    // }, 1000);
     
     //ACTUAL CODE WE NEED
     const breakInterval = this.props.breakInterval * 1000;
     let breakTimeout = setTimeout(() => {
       this.setState({ happy: !this.state.happy })
       //CLEAR INTERVAL FOR DEBUGGING
-      clearInterval(counting)
+      // clearInterval(counting)
     }, breakInterval)
+    console.log("breakTimeout is....", breakTimeout)
     timerFunc = breakTimeout;
   }
 

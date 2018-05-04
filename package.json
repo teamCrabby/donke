@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "start-dev": "webpack -w & electromon .",
+    "start-dev": "concurrently \"webpack -w\" \"electromon .\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +15,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.5.1",
     "electromon": "^1.0.10",
     "electron": "^2.0.0",
     "gsap": "^1.20.4",
