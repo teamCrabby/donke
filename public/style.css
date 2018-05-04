@@ -1,7 +1,7 @@
 /********************** MAIN *********************/
 body {
   font-family: 'Helvetica';
-  background-color: #f9f9f9;
+  background-color: #e4d5cc;
   -webkit-app-region: drag;
 }
 
@@ -66,9 +66,20 @@ a {
 
 /********************** HALO *********************/
 
-
 #halo{
   position: absolute;
   left: 110px;
   top: -120px;
+}
+
+/********************** HEART and BATTERY *********************/
+
+#heart {
+  position: absolute;
+  margin-top: 38px;
+  margin-left: 20px
+}
+#healthBar {
+  position: absolute;
+  margin-left: 100px;
 }
