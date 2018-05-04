@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Donke from './donke';
 import DonkeSick from './donkeSick';
+import DonkeDead from './donkeDead';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 
@@ -57,21 +58,12 @@ export class SelectDonke extends Component {
     timerFunc = workTimeout
   }
 
-  breakTimer(){
-    //DEBUGGING STUFF
-    // console.log('in breakTimer');
-    // let counter = 0;
-    // let counting = setInterval(() => {
-    //   counter++;
-    //   console.log("break count", counter);
-    // }, 1000);
-    
-    //ACTUAL CODE WE NEED
+  breakTimer(){   
+   
     const breakInterval = this.props.breakInterval * 1000;
     let breakTimeout = setTimeout(() => {
       this.setState({ happy: !this.state.happy })
-      //CLEAR INTERVAL FOR DEBUGGING
-      // clearInterval(counting)
+      
     }, breakInterval)
     console.log("breakTimeout is....", breakTimeout)
     timerFunc = breakTimeout;

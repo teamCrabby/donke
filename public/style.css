@@ -55,11 +55,16 @@ a {
 
 /********************** PARTY HAT *********************/
 
-.draggable-box .draggable-item{
-  position:absolute;
-  top: 100px;
-}
 
 .draggable-box .draggable-hat {
   left: 200px;
+}
+
+/********************** HALO *********************/
+
+
+#halo{
+  position: absolute;
+  left: 110px;
+  top: -120px;
 }
