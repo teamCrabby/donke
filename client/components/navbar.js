@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchWorkInterval, fetchBreakInterval} from '../store'
 import {annoyed} from '../library/audio'
 import path from 'path'
+import { HealthBar } from './index'
 
 
 
@@ -38,7 +39,10 @@ class Navbar extends Component {
     return(
       <div className="navbar-container">
           <div className="navbar-options">
-            <img src="../img/tool.svg" onClick={this.handleClicked} />
+            <img className="gearImg" src="../img/tool.svg" onClick={this.handleClicked} />
+            <div className="health">
+              <HealthBar />
+            </div>
           </div>
           {
             this.state.clicked === true

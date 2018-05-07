@@ -11,10 +11,8 @@ export default class App extends Component {
         <div className="navbar">
           <Navbar />
         </div>
-        <div>
+        <div className="animal">
           <SelectDonke />
-          <HealthBar />
-          <PartyHat />
         </div>
       </div>
     )

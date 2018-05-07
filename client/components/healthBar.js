@@ -15,9 +15,9 @@ class HealthBar extends Component {
     return (
       <div className="healthBar">
         <div>
-          <img id="healthBar" src={`../img/healthTab${this.props.health}.svg`} width="200" height="150" />
+          <img id="healthBar" src={`../img/healthTab${this.props.health}.svg`} width="100" height="50" />
         </div>
-        <div>
+        <div id="heart">
           <Heart />
         </div>
       </div>

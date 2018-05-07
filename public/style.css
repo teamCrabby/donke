@@ -16,6 +16,15 @@ a {
   overflow: hidden;
 }
 
+/********************** ANIMAL *********************/
+.animal {
+  position: absolute;
+  left: 0px;
+  top: 250px;
+  z-index: -1;
+}
+
+
 /********************** NAV BAR *********************/
 
 .navbar-container {
@@ -30,7 +39,29 @@ a {
   align-items: center;
 }
 
-.navbar-options, .navbar-work, .navbar-break {
+.navbar-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 10px 10px;
+  color:	white;
+  border-radius: 10px;
+}
+
+/* .gearImg {
+  display: flex;
+  flex-grow: 1;
+  align-content: flex-start;
+}
+
+.health {
+  flex-grow: 1;
+  align-content: flex-end;
+} */
+
+
+.navbar-work, .navbar-break {
   overflow: hidden;
   float: left;
   padding: 10px 10px;
@@ -42,15 +73,23 @@ a {
 .navbar-break-select {
   padding: 10px 10px;
 }
-
+/* 
 .navbar-options img {
   height: 20px;
   width: 20px;
+} */
+
+.gearImg {
+  height: 30px;
+  width: 30px;
+  align-self: center;
+  padding-left: 10px;
 }
 
 .navbar-wrapper {
   display: flex;
   flex-direction: column;
+  z-index: 1;
 }
 
 /********************** PARTY HAT *********************/
@@ -74,7 +113,7 @@ a {
 
 /********************** HEART and BATTERY *********************/
 
-#heart {
+/* #heart {
   position: absolute;
   margin-top: 38px;
   margin-left: 20px
@@ -82,4 +121,18 @@ a {
 #healthBar {
   position: absolute;
   margin-left: 100px;
+} */
+
+.healthBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#healthBar {
+  flex-grow: 2;
+}
+
+#heart {
+  flex-grow: 1;
 }
