@@ -10,6 +10,9 @@ import store, { fetchHealth } from '../store'
 let timerFunc;
 let healthFunc;
 
+//all donkey sounds are the same
+//length of break doesn't really matter right now. is that ok?
+
 export class SelectDonke extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +42,7 @@ export class SelectDonke extends Component {
     this.setState({start: false})
     const workInterval = this.props.workInterval * 1000
     timerFunc = setTimeout(() => {
-      playAudio('happy');
+      playAudio('http://izzyweird.com/soundlib1/donkey2.wav');
       this.needBreak()
     }, workInterval)
     //console logs
@@ -51,7 +54,7 @@ export class SelectDonke extends Component {
       if(this.props.health > 0){
         this.props.setStoreHealth(this.props.health - 1)
       }
-    }, 1000)
+    }, 3000)
     //console logs
       // console.log("in needBreak setting interval", healthFunc)
   }
@@ -62,7 +65,7 @@ export class SelectDonke extends Component {
       if (this.props.health < 10 ){
         this.props.setStoreHealth(this.props.health + 1)
       }
-    }, 1000);
+    }, 3000);
     //console logs
       //console.log('in break timer setting interval', healthFunc)
   }
@@ -98,7 +101,6 @@ export class SelectDonke extends Component {
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
           <div>
-            <p>Health: {this.props.health}</p>
             {this.props.health < 10
               ? this.props.health === 0
                 ? <DonkeDead/>
