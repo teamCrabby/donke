@@ -33,6 +33,11 @@ export class SelectDonke extends Component {
     }
   }
 
+  changeFullScreen(){
+    let win = window.require('electron').remote.getCurrentWindow()
+    win.isFullScreen() === false ? win.setFullScreen(true) : win.setFullScreen(false)
+  }
+
   workTimer() {
     this.setState({start: false})
     const workInterval = this.props.workInterval * 1000
@@ -65,22 +70,24 @@ export class SelectDonke extends Component {
       //console.log('in break timer setting interval', healthFunc)
   }
 
-  handleClickBreak() {
+  handleClickBreak(e, cb) {
     //console logs
       // console.log("in handleClickBreak")
       // console.log("clearing setTimeout", timerFunc)
       // console.log('clearing setInterval', healthFunc);
+    cb()
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
     this.setState({ workTime: false })
     this.breakTimer()
   }
 
-  handleClickWork() {
+  handleClickWork(e, cb) {
     //console logs
       // console.log('in handleClickWork');
       // console.log('clearing setTimeout', timerFunc);
       // console.log('clearing setInterval', healthFunc);
+    cb()
     clearInterval(healthFunc);
     clearTimeout(timerFunc)
     this.setState({ workTime: true });
@@ -102,10 +109,10 @@ export class SelectDonke extends Component {
               : <Donke />}
             {this.state.workTime
               ? <div>
-                <button onClick={this.handleClickBreak}>Take a break!</button>
+                <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
               </div>
               : <div>
-                <button onClick={this.handleClickWork}>Work time!</button>
+                <button onClick={(e) => this.handleClickWork(e, this.changeFullScreen)}>Work time!</button>
               </div>}
           </div>
         </div>
