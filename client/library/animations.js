@@ -50,10 +50,16 @@ export const dragHat = () => {
 //sun
 export const sunRotate = () => {
   let timeLine = new TimelineMax();
-  timeLine.to('#sunRays', 10, { rotation: "360", ease: Linear.easeNone, repeat: -1})
-  // function onRepeat(){
-  //   timeline.invalidate().restart()
-  // }
+  timeLine.to('#sunRays', 20, { rotation: "360", ease: Linear.easeNone, repeat: -1})
+}
+
+export const sunLeave = () => {
+  console.log("in sunRaysLeave")
+  let timeLine = new TimelineMax();
+  timeLine
+  .add()
+  .to('#sunFace', 5, { x: 700, y: -200, ease: Power1.easeOut })
+  .to('#sunFace', 5, { ease: Power1.easeInOut }, "-=5");
 }
 
 

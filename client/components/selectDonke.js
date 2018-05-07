@@ -6,7 +6,8 @@ import PartyHat from './partyHat';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth } from '../store'
+import store, { fetchHealth } from '../store';
+import { sunLeave, sunFaceLeave } from '../library/animations'
 
 let timerFunc;
 let healthFunc;
@@ -26,6 +27,7 @@ export class SelectDonke extends Component {
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
+    this.sunOut = this.sunOut.bind(this)
   }
 
   componentDidUpdate(){
@@ -95,6 +97,11 @@ export class SelectDonke extends Component {
     this.workTimer()
   }
 
+  sunOut(){
+    console.log("in sunOut")
+    sunLeave();
+  }
+
 
   render() {
     return (
@@ -102,7 +109,7 @@ export class SelectDonke extends Component {
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
           <div>
-            {this.props.health === 10 ? <div><Donke /><PartyHat/></div> : null}
+            {this.props.health === 10 ? <div><Donke /><PartyHat /><div>{this.sunOut()}</div></div> : null}
             {this.props.health < 10 && this.props.health > 1 ? <DonkeSick /> : null}
             {this.props.health === 1 ? <div><DonkeSick /></div> : null }
             {this.props.health === 0 ? <DonkeDead/> : null}

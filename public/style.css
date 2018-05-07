@@ -27,13 +27,15 @@ a {
 #donke {
   position: absolute;
   left: 0px;
-  top: 250px;
+  top: 300px;
+  width: 60%;
 }
 
 #grass {
   position: absolute;
   left: 0px;
   top: 450px;
+  width: 100%;
 }
 
 #sunFace {
@@ -41,6 +43,7 @@ a {
   left: 300px;
   top: 100px;
   z-index: -1;
+  width: 30%;
 }
 
 #sunRays {
@@ -48,6 +51,7 @@ a {
   left: 300px;
   top: 100px;
   z-index: -1;
+  width: 30%;
 }
 
 
