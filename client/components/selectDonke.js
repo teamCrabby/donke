@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Donke from './donke';
 import DonkeSick from './donkeSick';
 import DonkeDead from './donkeDead';
+import PartyHat from './partyHat';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
@@ -105,7 +106,7 @@ export class SelectDonke extends Component {
               ? this.props.health === 0
                 ? <DonkeDead/>
                 : <DonkeSick />
-              : <Donke />}
+              : <div><Donke /><PartyHat/></div> }
             {this.state.workTime
               ? <div>
                 <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
