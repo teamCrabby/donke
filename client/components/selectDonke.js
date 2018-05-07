@@ -101,7 +101,6 @@ export class SelectDonke extends Component {
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
           <div>
-            <p>Health: {this.props.health}</p>
             {this.props.health < 10
               ? this.props.health === 0
                 ? <DonkeDead/>
