@@ -47,6 +47,15 @@ export const dragHat = () => {
   Draggable.create('#hat')
 }
 
+//sun
+export const sunRotate = () => {
+  let timeLine = new TimelineMax();
+  timeLine.to('#sunRays', 10, { rotation: "360", ease: Linear.easeNone, repeat: -1})
+  // function onRepeat(){
+  //   timeline.invalidate().restart()
+  // }
+}
+
 
 //health bar
 

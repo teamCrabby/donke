@@ -16,11 +16,37 @@ a {
   overflow: hidden;
 }
 
-/********************** ANIMAL *********************/
-.animal {
+/********************** ANIMAL SCREEN *********************/
+/* .animal {
+  position: absolute;
+  left: 0px;
+  top: 240px;
+  z-index: -1;
+} */
+
+#donke {
   position: absolute;
   left: 0px;
   top: 250px;
+}
+
+#grass {
+  position: absolute;
+  left: 0px;
+  top: 450px;
+}
+
+#sunFace {
+  position: absolute;
+  left: 300px;
+  top: 100px;
+  z-index: -1;
+}
+
+#sunRays {
+  position: absolute;
+  left: 300px;
+  top: 100px;
   z-index: -1;
 }
 
