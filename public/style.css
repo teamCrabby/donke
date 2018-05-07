@@ -141,6 +141,43 @@ a {
   top: -120px;
 }
 
+/********************** Clouds *********************/
+
+#cloud1{
+  position: absolute;
+  left: 180px;
+  top: -90px;
+  z-index: 1;
+}
+
+#cloud2{
+  position: absolute;
+  left: 250px;
+  top: -100px;
+  z-index: 5;
+}
+
+#cloud3{
+  position: absolute;
+  left: 300px;
+  top: -150px;
+  z-index: 2;
+}
+
+#cloud4{
+  position: absolute;
+  left: 500px;
+  top: -100px;
+  z-index: 1;
+}
+
+#cloud5{
+  position: absolute;
+  left: 470px;
+  top: -100px;
+  z-index: 2;
+}
+
 /********************** HEART and BATTERY *********************/
 
 /* #heart {
