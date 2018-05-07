@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { sunRotate } from '../library/animations'
-import { playAudio } from '../library/audio'
+import { sunRotate } from '../library/animations';
+import { playAudio } from '../library/audio';
+import { connect } from 'react-redux';
 
 
-export default class Donke extends Component {
+
+class Donke extends Component {
   constructor(props) {
     super(props);
-  }
-  componentDidMount() {
-    sunRotate();
+
   }
 
 
@@ -16,13 +16,21 @@ export default class Donke extends Component {
 
     return (
       <div className="panel">
-        <img id="sunFace" src="../img/sunFace.svg" />
-        <img id="sunRays" src="../img/sunRays.svg" />
-        <img id="donke" src="../img/donke10.svg" onClick={() => playAudio('happy')} />
-        <img id="grass" src="../img/grass.svg" />
+        <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
       </div>
     )
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+
+    health: state.health
+  }
+}
+
+
+export default connect(mapStateToProps)(Donke)
 
 
