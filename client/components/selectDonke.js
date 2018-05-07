@@ -7,7 +7,8 @@ import Cloud from './cloud';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth } from '../store'
+import store, { fetchHealth } from '../store';
+import { sunLeave, sunFaceLeave } from '../library/animations'
 
 let timerFunc;
 let healthFunc;
@@ -27,6 +28,7 @@ export class SelectDonke extends Component {
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
+    this.sunOut = this.sunOut.bind(this)
   }
 
   componentDidUpdate(){
@@ -94,6 +96,11 @@ export class SelectDonke extends Component {
     clearTimeout(timerFunc)
     this.setState({ workTime: true });
     this.workTimer()
+  }
+
+  sunOut(){
+    console.log("in sunOut")
+    sunLeave();
   }
 
 
