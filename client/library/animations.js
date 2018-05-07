@@ -49,6 +49,14 @@ export const dragHat = () => {
 
 
 //health bar
+export const clouds = () => {
+  let timeLine = new TimelineMax();
+  timeLine.to('#cloud1', 3, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
+  timeLine.to('#cloud2', 2.8, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
+  timeLine.to('#cloud3', 3.2, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
+  timeLine.to('#cloud4', 2.9, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
+  timeLine.to('#cloud5', 3.1, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
+}
 
 //export const healthBarStatus = () => {}
 
