@@ -3,8 +3,9 @@ module.exports = {
     mode : 'development',
     output : {
         path : __dirname + '/public',
-        filename : 'bundle.js'
+        filename : 'bundle.js',
     },
+    target: 'electron-renderer',
     devtool : 'source-maps',
     module : {
         rules : [
