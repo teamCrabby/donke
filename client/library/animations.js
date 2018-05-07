@@ -57,9 +57,9 @@ export const sunLeave = () => {
   console.log("in sunRaysLeave")
   let timeLine = new TimelineMax();
   timeLine
-  .add()
-  .to('#sunFace', 5, { x: 700, y: -200, ease: Power1.easeOut })
-  .to('#sunFace', 5, { ease: Power1.easeInOut }, "-=5");
+  .add("sunOut")
+  .to('#sunFace', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut")
+  .to('#sunRays', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut");
 }
 
 
