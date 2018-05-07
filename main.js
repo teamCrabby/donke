@@ -4,6 +4,8 @@ const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const url = require('url')
 let mainWindow = null
+const idler = require('./idler')
+
 
 app.on('ready', function () {
   mainWindow = new BrowserWindow({
@@ -27,8 +29,10 @@ app.on('ready', function () {
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
-}
-)
+
+  const sendIdleUpdate = msg => mainWindow.webContents.send('idle-update', msg)
+  idler.on('update', sendIdleUpdate)
+})
 
 app.on('window-all-closed', function () {
   if (process.platform != 'darwin') {
