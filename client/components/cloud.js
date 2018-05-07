@@ -13,7 +13,8 @@ export default class Cloud extends Component {
 
     return (
       <div>
-        <img id="cloud" src="../img/cloud.svg" width="30" height="30" />
+        <img id="cloud1" src="../img/cloud.svg" width="220" height="220" />
+        <img id="cloud2" src="../img/cloud.svg" width="220" height="220" />
       </div>
     );
   }

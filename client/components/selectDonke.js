@@ -103,10 +103,20 @@ export class SelectDonke extends Component {
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
           <div>
-            {this.props.health === 10 ? <div><Donke /><PartyHat/></div> : null}
-            {this.props.health < 10 && this.props.health > 1 ? <DonkeSick /> : null}
-            {this.props.health === 1 ? <div><DonkeSick /><Cloud /></div> : null }
-            {this.props.health === 0 ? <DonkeDead/> : null}
+            {/*this.props.health === 10 ? 
+              <div>
+                <Donke />
+                <PartyHat/>
+              </div> : null
+            */}
+            {/*this.props.health < 10 && this.props.health > 1 ? <DonkeSick /> : null*/}
+            {//this.props.health === 1 ? 
+              <div>
+                <DonkeSick />
+                <Cloud />
+              </div> //: null 
+            }
+            {/*this.props.health === 0 ? <DonkeDead/> : null*/}
             {this.state.workTime
               ? <div>
                 <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
