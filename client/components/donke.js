@@ -17,7 +17,7 @@ export default class Donke extends Component {
 
     return (
       <div className="panel">
-        <img id="animal" src="../img/donke.svg" width="300" height="450" onClick={() => playAudio('happy')} />
+        <img id="animal" src="../img/donke10.svg" width="300" height="450" onClick={() => playAudio('happy')} />
       </div>
     );
   }
