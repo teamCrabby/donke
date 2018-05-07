@@ -1,4 +1,5 @@
 module.exports = {
+    externals: ['desktop-idle'],
     entry : './client/index.js',
     mode : 'development',
     output : {

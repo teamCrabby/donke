@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { entrance } from '../library/animations'
-import { playAudio } from '../library/audio'
-
+import { entrance } from '../library/animations';
+import { playAudio } from '../library/audio';
+import idler from 'desktop-idle'
+// var idler = require('desktop-idle');
 
 export default class Donke extends Component {
   constructor(props) {
