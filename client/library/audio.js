@@ -22,6 +22,9 @@ export const playAudio = soundName => {
     case 'thunder':
       options = ['http://www.wavsource.com/snds_2018-01-14_3453803176249356/sfx/thunder2.wav']
       break;
+    case 'dead':
+      options = ['http://www.wavsource.com/snds_2018-01-14_3453803176249356/sfx/ominous.wav']
+      break;
     default:
       options = ['http://www.nachoua.com/Animaux/ane.wav']   
   }

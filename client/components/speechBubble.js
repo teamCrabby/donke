@@ -15,7 +15,7 @@ export class SpeechBubble extends Component {
     return (
       <div id="speech">
         <img id="bubble" src="../img/quoteBubble.svg" width="300" height="200" />
-        <p id="text">{this.props.text}</p>
+        <div id="text"><p>{this.props.text}</p></div>
       </div>
     );
   }

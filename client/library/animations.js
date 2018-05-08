@@ -79,7 +79,7 @@ export const grassLeave = () => {
 }
 
 
-//health bar
+//clouds
 export const cloudEnter = (cloud) => {
   let timeLine = new TimelineMax();
   timeLine
@@ -94,6 +94,13 @@ export const clouds = () => {
   timeLine.to('#cloud3', 3.2, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
   timeLine.to('#cloud4', 2.9, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
   timeLine.to('#cloud5', 3.1, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
+}
+
+//lightening
+export const lighteningEnter = (lightening, xCoords, yCoords) => {
+  let timeLine = new TimelineMax();
+  timeLine
+    .from(lightening, 2, { x: xCoords, y: yCoords })
 }
 
 //export const healthBarStatus = () => {}

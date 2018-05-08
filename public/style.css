@@ -3,6 +3,7 @@ body {
   font-family: 'Helvetica';
   background-color: #e4d5cc;
   -webkit-app-region: drag;
+  overflow: hidden;
 }
 
 a {
@@ -83,7 +84,7 @@ a {
 #grass {
   position: absolute;
   left:0;
-  top: 500px;
+  top: 525px;
   width: 100%;
 }
 
@@ -119,9 +120,18 @@ a {
 
 #text {
   z-index: 1;
+  width: 200px;
   position: absolute;
-  top: 50px;
-  left: 85px;
+  top: 40px;
+  left: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+#text p{
+  font-family: 'Pangolin';
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 
@@ -142,10 +152,10 @@ a {
 #halo{
   position: absolute;
   left: 110px;
-  top: -120px;
+  top: 80px;
 }
 
-/********************** Clouds *********************/
+/********************** CLOUDS *********************/
 
 #cloud1{
   position: absolute;
@@ -180,6 +190,28 @@ a {
   left: 300px;
   top: 50px;
   z-index: 2;
+}
+
+/********************** LIGHTENING *********************/
+#lightening1{
+  position: absolute;
+  left: 180px;
+  top: 150px;
+  z-index: -1;
+}
+
+#lightening2{
+  position: absolute;
+  left: 250px;
+  top: 150px;
+  z-index: -1;
+}
+
+#lightening3{
+  position: absolute;
+  left: 50px;
+  top: 150px;
+  z-index: -1;
 }
 
 /********************** HEART and BATTERY *********************/

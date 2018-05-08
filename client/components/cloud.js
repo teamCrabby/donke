@@ -23,7 +23,6 @@ export class Cloud extends Component {
     }
     if (this.props.health === 4) {
       cloudEnter('#cloud5');
-      playAudio('thunder');
     }
 
   }

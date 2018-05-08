@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  } from '../library/animations';
+import { lighteningEnter } from '../library/animations';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
 
@@ -9,14 +9,14 @@ export class Lightening extends Component {
     }
     componentDidMount() {
         if (this.props.health === 3) {
-            lighteningEnter("#lightening1")
+            lighteningEnter("#lightening1", 200, 300)
             playAudio('thunder');
         }
         if (this.props.health === 2) {
-            lighteningEnter('#lightening2');
+            lighteningEnter('#lightening2', 100, 200);
         }
         if (this.props.health === 1) {
-            lighteningEnter('#lightening3');
+            lighteningEnter('#lightening3', 150, 250);
         }
     }
 
