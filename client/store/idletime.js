@@ -15,7 +15,7 @@ const UPDATE_IDLE_TIME = 'UPDATE_IDLE_TIME';
 /**
  * ACTION CREATORS
  */
-const setIdleTime = (idleTime) => ({type: UPDATE_IDLE_TIME, idleTime})
+// export const setIdleTime = (idleTime) => ({type: UPDATE_IDLE_TIME, idleTime})
 
 /**
  * THUNK CREATORS
