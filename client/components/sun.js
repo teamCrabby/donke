@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { sunRotate } from '../library/animations';
+import { sunRotate, sunLeave } from '../library/animations';
+import { connect } from 'react-redux';
 
 
-export default class Sun extends Component {
+
+export class Sun extends Component {
   constructor(props) {
     super(props);
 
   }
   componentDidMount() {
     sunRotate();
+    if (this.props.health === 9){
+      sunLeave()
+    }
   }
 
 
@@ -22,3 +27,13 @@ export default class Sun extends Component {
     )
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    health: state.health
+  }
+}
+
+
+export default connect(mapStateToProps)(Sun)

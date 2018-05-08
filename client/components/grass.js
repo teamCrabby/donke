@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import { grassLeave } from '../library/animations';
+import { connect } from 'react-redux';
 
 
-export default class Grass extends Component {
+export class Grass extends Component {
   constructor(props) {
     super(props);
 
+  }
+
+  componentDidMount() {
+    if (this.props.health === 6) {
+      grassLeave()
+    }
   }
 
   render() {
@@ -16,4 +24,13 @@ export default class Grass extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    health: state.health
+  }
+}
+
+
+export default connect(mapStateToProps)(Grass)
 

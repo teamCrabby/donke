@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { dead } from '../library/animations'
+import { dead } from '../library/animations';
+import { playAudio } from '../library/audio';
 
 
 export default class Halo extends Component {
@@ -7,6 +8,7 @@ export default class Halo extends Component {
     super(props);
   }
   componentDidMount() {
+    playAudio('dead');
     dead()
   }
 

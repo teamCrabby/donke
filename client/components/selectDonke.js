@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import Donke from './donke';
-import PartyHat from './partyHat';
-import Cloud from './cloud';
-import Sun from './sun';
-import Grass from './grass';
-import Halo from './halo';
-import SpeechBubble from './speechBubble';
+import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth } from '../store';
+import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval } from '../store';
 import { sunLeave, sunFaceLeave } from '../library/animations';
 
 let timerFunc;
 let healthFunc;
+let breakCountFunc;
+
 
 //all donkey sounds are the same
 //length of break doesn't really matter right now. is that ok?
@@ -23,9 +19,12 @@ export class SelectDonke extends Component {
     this.state = {
       start: true,
       workTime: true,
+      breakCounter: 0,
+      breakTimeMessage: false
     }
     this.handleClickWork = this.handleClickWork.bind(this)
     this.handleClickBreak = this.handleClickBreak.bind(this)
+    this.handleClickTryAgain = this.handleClickTryAgain.bind(this)
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
@@ -47,7 +46,8 @@ export class SelectDonke extends Component {
     this.setState({ start: false })
     const workInterval = this.props.workInterval * 1000
     timerFunc = setTimeout(() => {
-      playAudio('http://izzyweird.com/soundlib1/donkey2.wav');
+      playAudio();
+      this.setState({ breakTimeMessage: true })
       this.needBreak()
     }, workInterval)
     //console logs
@@ -65,42 +65,54 @@ export class SelectDonke extends Component {
   }
 
   breakTimer() {
-    // const breakInterval = this.props.breakInterval * 1000;
     healthFunc = setInterval(() => {
       if (this.props.health < 10) {
         this.props.setStoreHealth(this.props.health + 1)
       }
-    }, 3000);
-    //console logs
-    //console.log('in break timer setting interval', healthFunc)
+    }, this.props.breakInterval * 1000);
+    breakCountFunc = setInterval(() => {
+      this.setState({breakCounter: this.state.breakCounter += 1})
+      if(Math.abs(this.state.breakCounter - this.props.idleTime) > 5 && this.state.breakCounter < this.props.breakInterval){
+        alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
+        //this line docks you a point if you come back early. 
+        this.props.setStoreHealth(this.props.health - 1)
+        this.handleClickWork()
+      }
+    }, 1000)
   }
 
-  handleClickBreak(e, cb) {
-    //console logs
-    // console.log("in handleClickBreak")
-    // console.log("clearing setTimeout", timerFunc)
-    // console.log('clearing setInterval', healthFunc);
-    cb()
+  handleClickBreak() {
+    this.changeFullScreen()
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
     this.setState({ workTime: false })
     this.breakTimer()
   }
 
-  handleClickWork(e, cb) {
+  handleClickWork() {
     //console logs
     // console.log('in handleClickWork');
     // console.log('clearing setTimeout', timerFunc);
     // console.log('clearing setInterval', healthFunc);
-    cb()
+    // cb()
+    this.changeFullScreen()
+    clearInterval(breakCountFunc)
     clearInterval(healthFunc);
     clearTimeout(timerFunc)
     this.setState({ workTime: true });
+    this.setState({ breakCounter: 0 })
     this.workTimer()
   }
 
+  handleClickTryAgain() {
+    clearInterval(healthFunc)
+    clearTimeout(timerFunc)
+    this.setState({ workTime: true })
+    this.props.setStoreHealth(10)
+    this.props.getWorkInterval(0, 0)
+  }
+
   sunOut() {
-    console.log("in sunOut")
     sunLeave();
   }
 
@@ -112,45 +124,48 @@ export class SelectDonke extends Component {
         ? <div>
           <div>
             <Donke />
-            {
-              this.props.health === 10 ?
-                <div>
-                  <Sun />
-                  <Grass />
-                  <PartyHat />
-                </div> : null
+            {this.props.health === 10 ? 
+              this.state.breakTimeMessage ?
+              <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div> 
+              : <div> <Sun /> <Grass /> <PartyHat /> </div>
+              : null}
+            {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
+            {this.props.health === 8 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 7 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 6 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 5 ? <div> <Cloud /> <SpeechBubble text={"I'm so tired. Can we take a break now?"} /></div> : null}
+            {this.props.health === 4 ? <div> <Cloud /> </div> : null}
+            {this.props.health === 3 ? <div> <Cloud /> <Lightning/> </div> : null}
+            {this.props.health === 2 ? <div> <Cloud /> <Lightning/> </div> : null}
+            {this.props.health === 1 ? <div> <Cloud /> <Lightning/><SpeechBubble text={"I don't feel so well..."} /></div> : null}
+            {this.props.health === 0 ? <div><Halo /><Cloud /><Lightning/></div> : null}
+            {this.props.health > 0
+              ?
+              this.state.workTime
+                ? <div>
+                  <button onClick={this.handleClickBreak}>Take a break!</button>
+                </div>
+                : <div>
+                  <button onClick={this.handleClickWork}>Work time!</button>
+                </div>
+              :
+              <button onClick={this.handleClickTryAgain}>Try Again</button>
             }
-            {
-              this.props.health === 1 ?
-                <div>
-                  <Cloud />
-                </div> : null
-            }
-            {
-              this.props.health === 0 ? <Halo /> : null
-            }
-            {this.state.workTime
-              ? <div>
-                <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
-              </div>
-              : <div>
-                <button onClick={(e) => this.handleClickWork(e, this.changeFullScreen)}>Work time!</button>
-              </div>}
           </div>
         </div>
         //if the user has not submitted time specifications, just render happy donke
-        : <Donke />
+        : <div><Donke /></div>
     )
   }
 }
-
 
 
 const mapStateToProps = state => {
   return {
     workInterval: state.workInterval,
     breakInterval: state.breakInterval,
-    health: state.health
+    health: state.health,
+    idleTime: state.idleTime
   }
 }
 
@@ -158,6 +173,10 @@ const mapDispatchToProps = dispatch => {
   return {
     setStoreHealth(health) {
       dispatch(fetchHealth(health))
+    },
+    getWorkInterval(workTime, breakTime) {
+      dispatch(fetchWorkInterval(workTime))
+      dispatch(fetchBreakInterval(breakTime))
     }
   }
 }

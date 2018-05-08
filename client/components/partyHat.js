@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { dragHat } from '../library/animations'
+import { dragHat, hatLeave } from '../library/animations';
+import { connect } from 'react-redux';
 
-export default class PartyHat extends Component {
+
+export class PartyHat extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-
     dragHat()
+    if (this.props.health === 9) {
+      hatLeave()
+    }
   }
 
   render() {
@@ -18,3 +22,13 @@ export default class PartyHat extends Component {
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    health: state.health
+  }
+}
+
+
+export default connect(mapStateToProps)(PartyHat)

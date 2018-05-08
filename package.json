@@ -23,7 +23,7 @@
     "electromon": "^1.0.10",
     "electron": "^2.0.0",
     "electron-rebuild": "^1.7.3",
-    "firebase": "^4.13.0",
+    "firebase": "^4.13.1",
     "gsap": "^1.20.4",
     "history": "^4.7.2",
     "react": "^16.3.2",
@@ -35,6 +35,6 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "webpack": "^4.6.0",
-    "webpack-cli": "^2.1.2"
+    "webpack-cli": "^2.1.3"
   }
 }

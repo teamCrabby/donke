@@ -12,6 +12,7 @@ app.on('ready', function () {
     frame: false,
     height: 700,
     resizable: true,
+    //set resizable to false
     width: 900
     // width: 368
     //need to uncomment back in width
