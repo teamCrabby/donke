@@ -8,6 +8,7 @@ export { default as HealthBar } from './healthBar';
 export { default as Grass } from './grass';
 export { default as Sun } from './sun';
 export { default as Halo } from './halo';
+export { default as Login } from './login';
 
 
 
