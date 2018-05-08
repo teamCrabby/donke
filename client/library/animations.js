@@ -47,6 +47,12 @@ export const dragHat = () => {
   Draggable.create('#hat')
 }
 
+export const hatLeave = () => {
+  let timeLine = new TimelineMax();
+  timeLine
+    .to('#hat', 2, { x: -500, y: -200, rotation:360 })
+}
+
 //sun
 export const sunRotate = () => {
   let timeLine = new TimelineMax();
@@ -54,7 +60,6 @@ export const sunRotate = () => {
 }
 
 export const sunLeave = () => {
-  console.log("in sunRaysLeave")
   let timeLine = new TimelineMax();
   timeLine
   .add("sunOut")
@@ -64,6 +69,13 @@ export const sunLeave = () => {
 
 
 //health bar
+export const cloudEnter = (cloud) => {
+  let timeLine = new TimelineMax();
+  timeLine
+  .from(cloud, 2, {x: 500, y: -100})
+  .to(cloud, 3, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1 })
+}
+
 export const clouds = () => {
   let timeLine = new TimelineMax();
   timeLine.to('#cloud1', 3, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})

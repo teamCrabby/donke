@@ -23,6 +23,8 @@
     "electromon": "^1.0.10",
     "electron": "^2.0.0",
     "electron-rebuild": "^1.7.3",
+    "express": "^4.16.3",
+    "express-ws": "^3.0.0",
     "gsap": "^1.20.4",
     "history": "^4.7.2",
     "react": "^16.3.2",

@@ -113,23 +113,17 @@ export class SelectDonke extends Component {
         ? <div>
           <div>
             <Donke />
-            {
-              this.props.health === 10 ?
-                <div>
-                  <Sun />
-                  <Grass />
-                  <PartyHat />
-                </div> : null
-            }
-            {
-              this.props.health === 1 ?
-                <div>
-                  <Cloud />
-                </div> : null
-            }
-            {
-              this.props.health === 0 ? <Halo /> : null
-            }
+            {this.props.health === 10 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
+            {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
+            {this.props.health === 8 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 7 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 6 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 5 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 4 ? <div> <Cloud /> </div> : null}
+            {this.props.health === 3 ? <div> <Cloud /> </div> : null}
+            {this.props.health === 2 ? <div> <Cloud /> </div> : null}
+            {this.props.health === 1 ? <div> <Cloud /> </div> : null}
+            {this.props.health === 0 ? <Halo /> : null}
             {this.state.workTime
               ? <div>
                 <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
