@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Donke from './donke';
 import DonkeSick from './donkeSick';
-import DonkeDead from './donkeDead';
 import PartyHat from './partyHat';
 import Cloud from './cloud';
+import Sun from './sun';
+import Grass from './grass';
+import Halo from './halo';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
 import store, { fetchHealth } from '../store';
-import { sunLeave, sunFaceLeave } from '../library/animations'
+import { sunLeave, sunFaceLeave } from '../library/animations';
 
 let timerFunc;
 let healthFunc;
@@ -31,54 +33,54 @@ export class SelectDonke extends Component {
     this.sunOut = this.sunOut.bind(this)
   }
 
-  componentDidUpdate(){
-    if (this.props.workInterval > 0 && this.state.start){
+  componentDidUpdate() {
+    if (this.props.workInterval > 0 && this.state.start) {
       this.workTimer()
     }
   }
 
-  changeFullScreen(){
+  changeFullScreen() {
     let win = window.require('electron').remote.getCurrentWindow()
     win.isFullScreen() === false ? win.setFullScreen(true) : win.setFullScreen(false)
   }
 
   workTimer() {
-    this.setState({start: false})
+    this.setState({ start: false })
     const workInterval = this.props.workInterval * 1000
     timerFunc = setTimeout(() => {
       playAudio('http://izzyweird.com/soundlib1/donkey2.wav');
       this.needBreak()
     }, workInterval)
     //console logs
-      // console.log('in worktimer setting timeout', timerFunc)
+    // console.log('in worktimer setting timeout', timerFunc)
   }
 
   needBreak() {
     healthFunc = setInterval(() => {
-      if(this.props.health > 0){
+      if (this.props.health > 0) {
         this.props.setStoreHealth(this.props.health - 1)
       }
     }, 3000)
     //console logs
-      // console.log("in needBreak setting interval", healthFunc)
+    // console.log("in needBreak setting interval", healthFunc)
   }
 
   breakTimer() {
     // const breakInterval = this.props.breakInterval * 1000;
     healthFunc = setInterval(() => {
-      if (this.props.health < 10 ){
+      if (this.props.health < 10) {
         this.props.setStoreHealth(this.props.health + 1)
       }
     }, 3000);
     //console logs
-      //console.log('in break timer setting interval', healthFunc)
+    //console.log('in break timer setting interval', healthFunc)
   }
 
   handleClickBreak(e, cb) {
     //console logs
-      // console.log("in handleClickBreak")
-      // console.log("clearing setTimeout", timerFunc)
-      // console.log('clearing setInterval', healthFunc);
+    // console.log("in handleClickBreak")
+    // console.log("clearing setTimeout", timerFunc)
+    // console.log('clearing setInterval', healthFunc);
     cb()
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
@@ -88,9 +90,9 @@ export class SelectDonke extends Component {
 
   handleClickWork(e, cb) {
     //console logs
-      // console.log('in handleClickWork');
-      // console.log('clearing setTimeout', timerFunc);
-      // console.log('clearing setInterval', healthFunc);
+    // console.log('in handleClickWork');
+    // console.log('clearing setTimeout', timerFunc);
+    // console.log('clearing setInterval', healthFunc);
     cb()
     clearInterval(healthFunc);
     clearTimeout(timerFunc)
@@ -98,7 +100,7 @@ export class SelectDonke extends Component {
     this.workTimer()
   }
 
-  sunOut(){
+  sunOut() {
     console.log("in sunOut")
     sunLeave();
   }
@@ -110,20 +112,24 @@ export class SelectDonke extends Component {
         //if the user has submitted time specifications timer is running and render is dependent on timer
         ? <div>
           <div>
-            {this.props.health === 10 ? 
-              <div>
-                <Donke />
-                <PartyHat/>
-              </div> : null
+            <Donke />
+            {
+              this.props.health === 10 ?
+                <div>
+                  <Sun />
+                  <Grass />
+                  <PartyHat />
+                </div> : null
             }
-            {this.props.health < 10 && this.props.health > 1 ? <DonkeSick /> : null}
-            {this.props.health === 1 ? 
-              <div>
-                <DonkeSick />
-                <Cloud />
-              </div> : null 
+            {
+              this.props.health === 1 ?
+                <div>
+                  <Cloud />
+                </div> : null
             }
-            {this.props.health === 0 ? <DonkeDead/> : null}
+            {
+              this.props.health === 0 ? <Halo /> : null
+            }
             {this.state.workTime
               ? <div>
                 <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
@@ -149,11 +155,12 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => { 
+const mapDispatchToProps = dispatch => {
   return {
     setStoreHealth(health) {
       dispatch(fetchHealth(health))
     }
-  }}
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectDonke)

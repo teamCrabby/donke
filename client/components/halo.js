@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { entrance, dead } from '../library/animations'
+import { dead } from '../library/animations'
 
 
-export default class DonkeDead extends Component {
+export default class Halo extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    // entrance()
     dead()
   }
 
@@ -15,7 +14,6 @@ export default class DonkeDead extends Component {
     return (
       <div className="panel">
         <img id="halo" src="../img/halo.svg" width="100" height="300" />
-        <img id="animal" src="../img/donke0.svg" width="300" height="450" />
       </div>
     );
   }
