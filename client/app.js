@@ -31,11 +31,11 @@ db.settings(settings);
 //     console.error("Error adding document: ", error);
 //   });
 
-db.collection("avatars").get().then((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-  });
-});
+// db.collection("avatars").get().then((querySnapshot) => {
+//   querySnapshot.forEach((doc) => {
+//     console.log(`${doc.id} => ${doc.data()}`);
+//   });
+// });
 
 export default class App extends Component {
   constructor(props) {
