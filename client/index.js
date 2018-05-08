@@ -6,6 +6,11 @@ import {Router} from 'react-router-dom'
 import store from './store'
 import history from './history'
 
+require('electron').ipcRenderer.on('idle-update', (_, idleTime) => store.dispatch({
+  type: 'UPDATE_IDLE_TIME',
+  idleTime,
+}))
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

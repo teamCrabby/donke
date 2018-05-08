@@ -7,6 +7,7 @@ import { sunLeave, sunFaceLeave } from '../library/animations';
 
 let timerFunc;
 let healthFunc;
+let breakCountFunc;
 
 //all donkey sounds are the same
 //length of break doesn't really matter right now. is that ok?
@@ -17,6 +18,7 @@ export class SelectDonke extends Component {
     this.state = {
       start: true,
       workTime: true,
+      breakCounter: 0,
     }
     this.handleClickWork = this.handleClickWork.bind(this)
     this.handleClickBreak = this.handleClickBreak.bind(this)
@@ -59,37 +61,44 @@ export class SelectDonke extends Component {
   }
 
   breakTimer() {
-    // const breakInterval = this.props.breakInterval * 1000;
     healthFunc = setInterval(() => {
       if (this.props.health < 10) {
         this.props.setStoreHealth(this.props.health + 1)
       }
-    }, 3000);
-    //console logs
-    //console.log('in break timer setting interval', healthFunc)
+    }, this.props.breakInterval*1000);
+    breakCountFunc = setInterval(() => {
+      this.setState({breakCounter: this.state.breakCounter += 1})
+      console.log('BREAKCOUNTER', this.state.breakCounter)
+      if(Math.abs(this.state.breakCounter - this.props.idleTime) > 5 && this.state.breakCounter < this.props.breakInterval){
+        alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
+        //this line docks you a point if you come back early. 
+        this.props.setStoreHealth(this.props.health - 1)
+        this.handleClickWork()
+      }
+    }, 1000)
   }
 
-  handleClickBreak(e, cb) {
-    //console logs
-    // console.log("in handleClickBreak")
-    // console.log("clearing setTimeout", timerFunc)
-    // console.log('clearing setInterval', healthFunc);
-    cb()
+  handleClickBreak() {
+    
+    this.changeFullScreen()
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
     this.setState({ workTime: false })
     this.breakTimer()
   }
 
-  handleClickWork(e, cb) {
+  handleClickWork() {
     //console logs
     // console.log('in handleClickWork');
     // console.log('clearing setTimeout', timerFunc);
     // console.log('clearing setInterval', healthFunc);
-    cb()
+    // cb()
+    this.changeFullScreen()
+    clearInterval(breakCountFunc)
     clearInterval(healthFunc);
     clearTimeout(timerFunc)
     this.setState({ workTime: true });
+    this.setState({breakCounter: 0})
     this.workTimer()
   }
 
@@ -119,10 +128,10 @@ export class SelectDonke extends Component {
             {this.props.health === 0 ? <Halo /> : null}
             {this.state.workTime
               ? <div>
-                <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
+                <button onClick={this.handleClickBreak}>Take a break!</button>
               </div>
               : <div>
-                <button onClick={(e) => this.handleClickWork(e, this.changeFullScreen)}>Work time!</button>
+                <button onClick={this.handleClickWork}>Work time!</button>
               </div>}
           </div>
         </div>
@@ -138,7 +147,8 @@ const mapStateToProps = state => {
   return {
     workInterval: state.workInterval,
     breakInterval: state.breakInterval,
-    health: state.health
+    health: state.health,
+    idleTime: state.idleTime
   }
 }
 
