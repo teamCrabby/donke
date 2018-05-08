@@ -96,11 +96,11 @@ export const clouds = () => {
   timeLine.to('#cloud5', 3.1, { scale: 1.1, yoyo: true, opacity: .7, ease: Power1.easeInOut, repeat: -1})
 }
 
-//lightening
-export const lighteningEnter = (lightening, xCoords, yCoords) => {
+//lightning
+export const lightningEnter = (lightning, xCoords, yCoords) => {
   let timeLine = new TimelineMax();
   timeLine
-    .from(lightening, 2, { x: xCoords, y: yCoords })
+    .from(lightning, 2, { x: xCoords, y: yCoords })
 }
 
 //export const healthBarStatus = () => {}

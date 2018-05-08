@@ -193,22 +193,22 @@ a {
   z-index: 2;
 }
 
-/********************** LIGHTENING *********************/
-#lightening1{
+/********************** LIGHTNING *********************/
+#lightning1{
   position: absolute;
   left: 180px;
-  top: 150px;
+  top: 200px;
   z-index: -1;
 }
 
-#lightening2{
+#lightning2{
   position: absolute;
   left: 250px;
-  top: 150px;
+  top: 175px;
   z-index: -1;
 }
 
-#lightening3{
+#lightning3{
   position: absolute;
   left: 50px;
   top: 150px;

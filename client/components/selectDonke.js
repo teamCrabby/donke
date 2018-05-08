@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightening } from './index';
+import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
 import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval } from '../store';
@@ -129,42 +129,16 @@ export class SelectDonke extends Component {
               <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div> 
               : <div> <Sun /> <Grass /> <PartyHat /> </div>
               : null}
-            {this.props.health === 10 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
             {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
             {this.props.health === 8 ? <div> <Grass /> <Cloud /> </div> : null}
             {this.props.health === 7 ? <div> <Grass /> <Cloud /> </div> : null}
             {this.props.health === 6 ? <div> <Grass /> <Cloud /> </div> : null}
             {this.props.health === 5 ? <div> <Cloud /> <SpeechBubble text={"I'm so tired. Can we take a break now?"} /></div> : null}
             {this.props.health === 4 ? <div> <Cloud /> </div> : null}
-            {this.props.health === 3 ? <div> <Cloud /> <Lightening/> </div> : null}
-            {this.props.health === 2 ? <div> <Cloud /> <Lightening/> </div> : null}
-            {this.props.health === 1 ? <div> <Cloud /> <Lightening/><SpeechBubble text={"I don't feel so well..."} /></div> : null}
-            {this.props.health === 0 ? <div><Halo /><Cloud /><Lightening/></div> : null}
-            {this.state.workTime
-              ? <div>
-                <button onClick={this.handleClickBreak}>Take a break!</button>
-              </div>
-              : <div>
-                <button onClick={this.handleClickWork}>Work time!</button>
-              </div>}
-            {
-              this.props.health === 10 ?
-                <div>
-                  <Sun />
-                  <Grass />
-                  <PartyHat />
-                </div> : null
-            }
-            {
-              this.props.health === 1 ?
-                <div>
-                  <Cloud />
-                </div> : null
-            }
-            {
-              this.props.health === 0 ? <Halo /> : null
-            }
-
+            {this.props.health === 3 ? <div> <Cloud /> <Lightning/> </div> : null}
+            {this.props.health === 2 ? <div> <Cloud /> <Lightning/> </div> : null}
+            {this.props.health === 1 ? <div> <Cloud /> <Lightning/><SpeechBubble text={"I don't feel so well..."} /></div> : null}
+            {this.props.health === 0 ? <div><Halo /><Cloud /><Lightning/></div> : null}
             {this.props.health > 0
               ?
               this.state.workTime
