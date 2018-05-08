@@ -3,6 +3,7 @@ body {
   font-family: 'Helvetica';
   background-color: #e4d5cc;
   -webkit-app-region: drag;
+  font-family: 'Pangolin', cursive;
   overflow: hidden;
 }
 
@@ -239,4 +240,53 @@ a {
 
 #heart {
   flex-grow: 1;
+}
+
+/********************** LOGIN *********************/
+
+.login {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 100px);
+  margin: auto;
+  align-items: center;
+  text-align: center;
+  z-index: 100;
+}
+
+.login button {
+  padding: 5px;
+  border: 2px solid #F0F0F0	;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.login button:hover {
+  cursor: pointer;
+}
+.login-container {
+  border: 2px solid #F0F0F0	;
+  padding: 10px;
+  background-color: #F0F0F0;
+  border-radius: 5px;
+}
+
+.email-password {
+  display: inline-block;
+}
+
+.email-label {
+  text-align: left;
+}
+
+.password-label {
+  text-align: left;
+}
+
+.signIn, .create-new-label {
+  margin: 5px auto 5px auto;
+}
+
+.create-new-button {
+  margin: 5px auto auto auto;
 }
