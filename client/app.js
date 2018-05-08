@@ -21,15 +21,15 @@ var db = firebase.firestore();
 const settings = {/* your settings... */ timestampsInSnapshots: true };
 db.settings(settings);
 
-db.collection("avatars").add({
-  name: "Beyonce My Girl"
-})
-  .then(function (docRef) {
-    console.log("Document written with ID: ", docRef.id);
-  })
-  .catch(function (error) {
-    console.error("Error adding document: ", error);
-  });
+// db.collection("avatars").add({
+//   name: "Beyonce My Girl"
+// })
+//   .then(function (docRef) {
+//     console.log("Document written with ID: ", docRef.id);
+//   })
+//   .catch(function (error) {
+//     console.error("Error adding document: ", error);
+//   });
 
 db.collection("avatars").get().then((querySnapshot) => {
   querySnapshot.forEach((doc) => {

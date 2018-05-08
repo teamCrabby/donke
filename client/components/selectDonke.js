@@ -8,11 +8,12 @@ import Halo from './halo';
 import SpeechBubble from './speechBubble';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth } from '../store';
+import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval } from '../store';
 import { sunLeave, sunFaceLeave } from '../library/animations';
 
 let timerFunc;
 let healthFunc;
+
 
 //all donkey sounds are the same
 //length of break doesn't really matter right now. is that ok?
@@ -26,6 +27,7 @@ export class SelectDonke extends Component {
     }
     this.handleClickWork = this.handleClickWork.bind(this)
     this.handleClickBreak = this.handleClickBreak.bind(this)
+    this.handleClickTryAgain = this.handleClickTryAgain.bind(this)
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
@@ -93,14 +95,21 @@ export class SelectDonke extends Component {
     // console.log('clearing setTimeout', timerFunc);
     // console.log('clearing setInterval', healthFunc);
     cb()
-    clearInterval(healthFunc);
+    clearInterval(healthFunc)
     clearTimeout(timerFunc)
-    this.setState({ workTime: true });
+    this.setState({ workTime: true })
     this.workTimer()
   }
 
+  handleClickTryAgain() {
+    clearInterval(healthFunc)
+    clearTimeout(timerFunc)
+    this.setState({ workTime: true })
+    this.props.setStoreHealth(10)
+    this.props.getWorkInterval(0, 0)
+  }
+
   sunOut() {
-    console.log("in sunOut")
     sunLeave();
   }
 
@@ -129,13 +138,21 @@ export class SelectDonke extends Component {
             {
               this.props.health === 0 ? <Halo /> : null
             }
-            {this.state.workTime
-              ? <div>
-                <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
-              </div>
-              : <div>
-                <button onClick={(e) => this.handleClickWork(e, this.changeFullScreen)}>Work time!</button>
-              </div>}
+
+            {this.props.health > 0
+              ?
+              this.state.workTime
+                ? <div>
+                  <button onClick={(e) => this.handleClickBreak(e, this.changeFullScreen)}>Take a break!</button>
+                </div>
+                : <div>
+                  <button onClick={(e) => this.handleClickWork(e, this.changeFullScreen)}>Work time!</button>
+                </div>
+              :
+              <button onClick={this.handleClickTryAgain}>Try Again</button>
+            }
+
+
           </div>
         </div>
         //if the user has not submitted time specifications, just render happy donke
@@ -143,6 +160,10 @@ export class SelectDonke extends Component {
     )
   }
 }
+
+
+
+
 
 
 
@@ -158,6 +179,10 @@ const mapDispatchToProps = dispatch => {
   return {
     setStoreHealth(health) {
       dispatch(fetchHealth(health))
+    },
+    getWorkInterval(workTime, breakTime) {
+      dispatch(fetchWorkInterval(workTime))
+      dispatch(fetchBreakInterval(breakTime))
     }
   }
 }

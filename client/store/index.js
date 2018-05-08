@@ -10,7 +10,7 @@ import health from './health'
 const reducer = combineReducers({ workInterval, breakInterval, health })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
-  createLogger({ collapsed: true })
+  //createLogger({ collapsed: true })
 ))
 const store = createStore(reducer, middleware)
 
