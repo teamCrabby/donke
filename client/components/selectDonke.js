@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import Donke from './donke';
-import PartyHat from './partyHat';
-import Cloud from './cloud';
-import Sun from './sun';
-import Grass from './grass';
-import Halo from './halo';
-import SpeechBubble from './speechBubble';
+import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightening } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
 import store, { fetchHealth } from '../store';
@@ -47,7 +41,7 @@ export class SelectDonke extends Component {
     this.setState({ start: false })
     const workInterval = this.props.workInterval * 1000
     timerFunc = setTimeout(() => {
-      playAudio('http://izzyweird.com/soundlib1/donkey2.wav');
+      playAudio();
       this.needBreak()
     }, workInterval)
     //console logs
@@ -113,11 +107,11 @@ export class SelectDonke extends Component {
           <div>
             <Donke />
             {this.props.health === 10 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
-            {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
+            {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"Time for a break!"}/> </div> : null}
             {this.props.health === 8 ? <div> <Grass /> <Cloud /> </div> : null}
             {this.props.health === 7 ? <div> <Grass /> <Cloud /> </div> : null}
             {this.props.health === 6 ? <div> <Grass /> <Cloud /> </div> : null}
-            {this.props.health === 5 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 5 ? <div> <Cloud /> <SpeechBubble text={"I'm so tired."} /></div> : null}
             {this.props.health === 4 ? <div> <Cloud /> </div> : null}
             {this.props.health === 3 ? <div> <Cloud /> </div> : null}
             {this.props.health === 2 ? <div> <Cloud /> </div> : null}
@@ -133,7 +127,7 @@ export class SelectDonke extends Component {
           </div>
         </div>
         //if the user has not submitted time specifications, just render happy donke
-        : <Donke />
+        : <div><Donke /></div>
     )
   }
 }

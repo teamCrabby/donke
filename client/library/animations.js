@@ -30,16 +30,20 @@ export const dead = () => {
   // timeLine.to('#animal', 3, {rotation: 90, transformOrigin: '100% 100%', ease: Power2.easeInOut})		
 }
 
+
+
 export const heartBeat = () => {
   let timeLine = new TimelineMax();
   timeLine.to('#heart', 1, { scale: .5, opacity: .5, repeat: -1 })
 }
 
-//speech bubble
+
+// speech bubble
+
 export const bubbleAlert = () => {
   let timeLine = new TimelineMax();
-  timeLine.from('#bubble', 1, { scale: 0 })
-  timeLine.set('#bubble', { y: 100 })
+  timeLine.from('#speech', 1, { scale: 0 })
+  //timeLine.set('#bubble', { y: 100 })
 }
 
 //party hat draggable code
@@ -62,9 +66,16 @@ export const sunRotate = () => {
 export const sunLeave = () => {
   let timeLine = new TimelineMax();
   timeLine
-  .add("sunOut")
-  .to('#sunFace', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut")
-  .to('#sunRays', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut");
+    .add("sunOut")
+    .to('#sunFace', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut")
+    .to('#sunRays', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut");
+}
+
+//grass
+export const grassLeave = () => {
+  let timeLine = new TimelineMax();
+  timeLine
+    .to('#grass', 8, { y: 1000})
 }
 
 

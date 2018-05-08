@@ -19,6 +19,9 @@ export const playAudio = soundName => {
     case 'heehaw':
       options = ['http://www.mountaincharlie1850.org/sounds/hee_haw_04.wav']
       break;
+    case 'thunder':
+      options = ['http://www.wavsource.com/snds_2018-01-14_3453803176249356/sfx/thunder2.wav']
+      break;
     default:
       options = ['http://www.nachoua.com/Animaux/ane.wav']   
   }

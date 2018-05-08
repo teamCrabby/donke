@@ -16,47 +16,6 @@ a {
   overflow: hidden;
 }
 
-/********************** ANIMAL SCREEN *********************/
-/* .animal {
-  position: absolute;
-  left: 0px;
-  top: 240px;
-  z-index: -1;
-} */
-
-#donke {
-  position: absolute;
-  height: 450px;
-  width: 300px;
-  left: 0px;
-  top: 300px;
-  width: 60%;
-}
-
-#grass {
-  position: absolute;
-  left: 0px;
-  top: 450px;
-  width: 100%;
-}
-
-#sunFace {
-  position: absolute;
-  left: 300px;
-  top: 100px;
-  z-index: -1;
-  width: 30%;
-}
-
-#sunRays {
-  position: absolute;
-  left: 300px;
-  top: 100px;
-  z-index: -1;
-  width: 30%;
-}
-
-
 /********************** NAV BAR *********************/
 
 .navbar-container {
@@ -81,18 +40,6 @@ a {
   border-radius: 10px;
 }
 
-/* .gearImg {
-  display: flex;
-  flex-grow: 1;
-  align-content: flex-start;
-}
-
-.health {
-  flex-grow: 1;
-  align-content: flex-end;
-} */
-
-
 .navbar-work, .navbar-break {
   overflow: hidden;
   float: left;
@@ -105,11 +52,6 @@ a {
 .navbar-break-select {
   padding: 10px 10px;
 }
-/* 
-.navbar-options img {
-  height: 20px;
-  width: 20px;
-} */
 
 .gearImg {
   height: 30px;
@@ -123,6 +65,66 @@ a {
   flex-direction: column;
   z-index: 1;
 }
+
+/********************** DONKE *********************/
+
+#donke {
+  position: absolute;
+  height: 450px;
+  width: 300px;
+  left: 0px;
+  top: 300px;
+  width: 60%;
+}
+
+/********************** GRASS *********************/
+
+
+#grass {
+  position: absolute;
+  left:0;
+  top: 500px;
+  width: 100%;
+}
+
+/********************** SUN *********************/
+
+
+#sunFace {
+  position: absolute;
+  left: 300px;
+  top: 100px;
+  z-index: -1;
+  width: 30%;
+}
+
+#sunRays {
+  position: absolute;
+  left: 300px;
+  top: 100px;
+  z-index: -1;
+  width: 30%;
+}
+
+/********************** SPEECH BUBBLE *********************/
+#speech {
+  position: absolute;
+  left: 150px;
+  top: 300px;
+}
+
+#bubble {
+  z-index: -1;
+}
+
+#text {
+  z-index: 1;
+  position: absolute;
+  top: 50px;
+  left: 85px;
+}
+
+
 
 /********************** PARTY HAT *********************/
 

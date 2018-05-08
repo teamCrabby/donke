@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { bubbleAlert } from '../library/animations'
+import { bubbleAlert } from '../library/animations';
+import { connect } from 'react-redux';
 
 
-export default class SpeechBubble extends Component {
+export class SpeechBubble extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,9 +13,19 @@ export default class SpeechBubble extends Component {
 
   render() {
     return (
-      <div className="speech">
+      <div id="speech">
         <img id="bubble" src="../img/quoteBubble.svg" width="300" height="200" />
+        <p id="text">{this.props.text}</p>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    health: state.health
+  }
+}
+
+
+export default connect(mapStateToProps)(SpeechBubble)
