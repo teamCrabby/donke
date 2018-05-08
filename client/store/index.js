@@ -20,7 +20,3 @@ export * from './workInterval'
 export * from './breakInterval'
 export * from './health'
 
-require('electron').ipcRenderer.on('idle-update', (_, idleTime) => store.dispatch({
-  type: 'UPDATE_IDLE_TIME',
-  idleTime,
-}))
