@@ -17,3 +17,12 @@ export default class Grass extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    health: state.health
+  }
+}
+
+
+export default connect(mapStateToProps)(Grass)
+
