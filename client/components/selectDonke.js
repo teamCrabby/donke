@@ -110,6 +110,7 @@ export class SelectDonke extends Component {
     this.setState({ workTime: true })
     this.props.setStoreHealth(10)
     this.props.getWorkInterval(0, 0)
+    this.setState({ start: true })
   }
 
   sunOut() {
