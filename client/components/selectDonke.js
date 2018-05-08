@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Donke from './donke';
-import DonkeSick from './donkeSick';
 import PartyHat from './partyHat';
 import Cloud from './cloud';
 import Sun from './sun';
