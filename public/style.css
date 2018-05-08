@@ -3,6 +3,7 @@ body {
   font-family: 'Helvetica';
   background-color: #e4d5cc;
   -webkit-app-region: drag;
+  overflow: hidden;
 }
 
 a {
@@ -15,47 +16,6 @@ a {
   display: none;
   overflow: hidden;
 }
-
-/********************** ANIMAL SCREEN *********************/
-/* .animal {
-  position: absolute;
-  left: 0px;
-  top: 240px;
-  z-index: -1;
-} */
-
-#donke {
-  position: absolute;
-  height: 450px;
-  width: 300px;
-  left: 0px;
-  top: 300px;
-  width: 60%;
-}
-
-#grass {
-  position: absolute;
-  left: 0px;
-  top: 450px;
-  width: 100%;
-}
-
-#sunFace {
-  position: absolute;
-  left: 300px;
-  top: 100px;
-  z-index: -1;
-  width: 30%;
-}
-
-#sunRays {
-  position: absolute;
-  left: 300px;
-  top: 100px;
-  z-index: -1;
-  width: 30%;
-}
-
 
 /********************** NAV BAR *********************/
 
@@ -81,18 +41,6 @@ a {
   border-radius: 10px;
 }
 
-/* .gearImg {
-  display: flex;
-  flex-grow: 1;
-  align-content: flex-start;
-}
-
-.health {
-  flex-grow: 1;
-  align-content: flex-end;
-} */
-
-
 .navbar-work, .navbar-break {
   overflow: hidden;
   float: left;
@@ -105,11 +53,6 @@ a {
 .navbar-break-select {
   padding: 10px 10px;
 }
-/* 
-.navbar-options img {
-  height: 20px;
-  width: 20px;
-} */
 
 .gearImg {
   height: 30px;
@@ -123,6 +66,75 @@ a {
   flex-direction: column;
   z-index: 1;
 }
+
+/********************** DONKE *********************/
+
+#donke {
+  position: absolute;
+  height: 450px;
+  width: 300px;
+  left: 0px;
+  top: 300px;
+  width: 60%;
+}
+
+/********************** GRASS *********************/
+
+
+#grass {
+  position: absolute;
+  left:0;
+  top: 525px;
+  width: 100%;
+}
+
+/********************** SUN *********************/
+
+
+#sunFace {
+  position: absolute;
+  left: 300px;
+  top: 100px;
+  z-index: -1;
+  width: 30%;
+}
+
+#sunRays {
+  position: absolute;
+  left: 300px;
+  top: 100px;
+  z-index: -1;
+  width: 30%;
+}
+
+/********************** SPEECH BUBBLE *********************/
+#speech {
+  position: absolute;
+  left: 150px;
+  top: 300px;
+}
+
+#bubble {
+  z-index: -1;
+}
+
+#text {
+  z-index: 1;
+  width: 200px;
+  position: absolute;
+  top: 40px;
+  left: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+#text p{
+  font-family: 'Pangolin';
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
 
 /********************** PARTY HAT *********************/
 
@@ -140,44 +152,67 @@ a {
 #halo{
   position: absolute;
   left: 110px;
-  top: -120px;
+  top: 80px;
+  z-index: 6;
 }
 
-/********************** Clouds *********************/
+/********************** CLOUDS *********************/
 
 #cloud1{
   position: absolute;
   left: 180px;
-  top: -90px;
+  top: 100px;
   z-index: 1;
 }
 
 #cloud2{
   position: absolute;
   left: 250px;
-  top: -100px;
+  top: 125px;
   z-index: 5;
 }
 
 #cloud3{
   position: absolute;
-  left: 300px;
-  top: -150px;
+  left: 50px;
+  top: 50px;
   z-index: 2;
 }
 
 #cloud4{
   position: absolute;
-  left: 500px;
-  top: -100px;
+  left: 75px;
+  top: 150px;
   z-index: 1;
 }
 
 #cloud5{
   position: absolute;
-  left: 470px;
-  top: -100px;
+  left: 300px;
+  top: 50px;
   z-index: 2;
+}
+
+/********************** LIGHTNING *********************/
+#lightning1{
+  position: absolute;
+  left: 180px;
+  top: 200px;
+  z-index: -1;
+}
+
+#lightning2{
+  position: absolute;
+  left: 250px;
+  top: 175px;
+  z-index: -1;
+}
+
+#lightning3{
+  position: absolute;
+  left: 50px;
+  top: 150px;
+  z-index: -1;
 }
 
 /********************** HEART and BATTERY *********************/

@@ -53,7 +53,7 @@ class Navbar extends Component {
               <div className="navbar-work-select">
                 <select name="workInterval" onChange={this.handleChange}>
                   {
-                  [0, 3, 10,20,30,40].map((interval, idx) => {
+                  [0, 1, 3, 10,20,30,40].map((interval, idx) => {
                     return (
                     <option key={idx}>{interval}</option>
                     )})
