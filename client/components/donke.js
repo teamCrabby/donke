@@ -4,7 +4,6 @@ import { playAudio } from '../library/audio';
 import { connect } from 'react-redux';
 
 
-
 class Donke extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +28,6 @@ const mapStateToProps = state => {
     health: state.health
   }
 }
-
 
 export default connect(mapStateToProps)(Donke)
 
