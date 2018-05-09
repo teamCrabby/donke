@@ -68,7 +68,7 @@ class Navbar extends Component {
       <div className="navbar-container">
         <div className="navbar-options">
 
-          <img className="gearImg" name='workBreakClicked' src="../img/tool.svg" />
+          <img className="gearImg" src="../img/tool.svg" />
           <img className="gearImg" src="../img/tool.svg" onClick={this.workBreakForm} />
           <img className="gearImg" src="../img/tool.svg" onClick={this.handledForm} />
           <img className="gearImg" src="../img/tool.svg" onClick={this.handleLogOut} />
