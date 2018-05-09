@@ -98,7 +98,7 @@ export const clouds = () => {
 export const lightningEnter = (lightning) => {
   let timeLine = new TimelineMax();
   timeLine
-    .from(lightning, 2, { x: 0, y: -40 })
+    .from(lightning, 2, { x: 0, y: -40123 })
 }
 
 //export const healthBarStatus = () => {}
