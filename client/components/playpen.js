@@ -20,12 +20,12 @@ export default class Playpen extends Component {
     console.log(`you picked: ${this.state.playPenName}`)
   }
 
-  componentDidMount() {
-    this.setState({
-      playPenName: this.state.playPenName,
-      inviteName: this.state.inviteName
-    })
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     playPenName: event.target.playPenName,
+  //     inviteName: event.target.inviteName
+  //   })
+  // }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
@@ -36,10 +36,11 @@ export default class Playpen extends Component {
     return (
       <div className="playPen">
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Pick a name for your playpen:
-      <input type="text" name='playPennName' value={this.state.playPenName} onChange={this.handleChange} />
-          </label>
+          <label>Pick a name for your playpen: </label>
+          <div>
+            <input name='playPennName' type="text" value={this.state.playPenName} onChange={this.handleChange} />
+          </div>
+          <button type="submit">Submit</button>
         </form>
       </div>
     )
