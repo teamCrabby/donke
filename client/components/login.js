@@ -109,14 +109,13 @@ export default class Login extends Component {
             <input name="password" type="string" onChange={this.handleChange} value=  {this.state.password}/>
           </div>
         </div>
-        <div className="signIn">
-          <button onClick={(e) => this.handleSignIn(e, this.state.email, this.state.password)}>Sign In</button>
-        </div>
-        <div className="create-new-label">
-          <label>New to Break Buddy?</label>
-        </div>
-        <div className="create-new-button">
-          <button onClick={(e) => this.handleCreateUser(e, this.state.email, this.state.password, this.state.displayName)}>Create Your New Account</button>
+        <div className="signIn-and-signUp">
+          <div className="signIn">
+            <button onClick={(e) => this.handleSignIn(e, this.state.email, this.state.password)}>Sign In</button>
+          </div>
+          <div className="signUp">
+            <button onClick={(e) => this.handleCreateUser(e, this.state.email, this.state.password, this.state.displayName)}>Sign Up</button>
+          </div>
         </div>
       </div>
       : null
