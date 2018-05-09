@@ -126,13 +126,13 @@ export class SelectDonke extends Component {
               <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div> 
               : <div> <Sun /> <Grass /> <PartyHat /> </div>
               : null}
-            {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
+            {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"No break?"} /></div> : null}
             {this.props.health === 8 ? <div> <Sun /> <Cloud /> </div> : null}
-            {this.props.health === 7 ? <div> <Grass /> <Cloud /> </div> : null}
-            {this.props.health === 6 ? <div> <Grass /> <Cloud /> </div> : null}
-            {this.props.health === 5 ? <div> <Cloud /> <SpeechBubble text={"I'm so tired. Can we take a break now?"} /></div> : null}
+            {this.props.health === 7 ? <div> <Cloud /> </div> : null}
+            {this.props.health === 6 ? <div> <Cloud /> </div> : null}
+            {this.props.health === 5 ? <div> <Cloud /> </div> : null}
             {this.props.health === 4 ? <div> <Cloud /> </div> : null}
-            {this.props.health === 3 ? <div> <Cloud /> <Lightning/> </div> : null}
+            {this.props.health === 3 ? <div> <Cloud /> <Lightning /> <SpeechBubble text={"I'm so tired. Can we take a break now?"} /></div> : null}
             {this.props.health === 2 ? <div> <Cloud /> <Lightning/> </div> : null}
             {this.props.health === 1 ? <div> <Cloud /> <Lightning/><SpeechBubble text={"I don't feel so well..."} /></div> : null}
             {this.props.health === 0 ? <div><Halo /><Cloud /><Lightning/></div> : null}
