@@ -283,10 +283,15 @@ a {
   text-align: left;
 }
 
+.signIn-and-signUp {
+  display: flex;
+  flex-direction: row;
+}
+
 .signIn, .create-new-label {
   margin: 5px auto 5px auto;
 }
 
-.create-new-button {
+.signUp {
   margin: 5px auto auto auto;
 }
