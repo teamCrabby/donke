@@ -11,7 +11,7 @@ export class Sun extends Component {
   }
   componentDidMount() {
     sunRotate();
-    if (this.props.health === 9){
+    if (this.props.health === 8){
       sunLeave()
     }
   }
@@ -20,7 +20,7 @@ export class Sun extends Component {
   render() {
 
     return (
-      <div className="panel">
+      <div id="sun">
         <img id="sunFace" src="../img/sunFace.svg" />
         <img id="sunRays" src="../img/sunRays.svg" />
       </div>

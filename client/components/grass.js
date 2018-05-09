@@ -10,7 +10,7 @@ export class Grass extends Component {
   }
 
   componentDidMount() {
-    if (this.props.health === 6) {
+    if (this.props.health === 9) {
       grassLeave()
     }
   }

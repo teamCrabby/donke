@@ -66,9 +66,7 @@ export const sunRotate = () => {
 export const sunLeave = () => {
   let timeLine = new TimelineMax();
   timeLine
-    .add("sunOut")
-    .to('#sunFace', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut")
-    .to('#sunRays', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut");
+    .to('#sun', 5, { x: 700, y: -200, ease: Power1.easeOut }, "sunOut")
 }
 
 //grass
@@ -97,10 +95,10 @@ export const clouds = () => {
 }
 
 //lightning
-export const lightningEnter = (lightning, xCoords, yCoords) => {
+export const lightningEnter = (lightning) => {
   let timeLine = new TimelineMax();
   timeLine
-    .from(lightning, 2, { x: xCoords, y: yCoords })
+    .from(lightning, 2, { x: 0, y: -40123 })
 }
 
 //export const healthBarStatus = () => {}
