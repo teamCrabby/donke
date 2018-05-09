@@ -9,14 +9,14 @@ export class Lightning extends Component {
     }
     componentDidMount() {
         if (this.props.health === 3) {
-            lightningEnter("#lightning1", 0, -20)
+            lightningEnter("#lightning1")
             playAudio('thunder');
         }
         if (this.props.health === 2) {
-            lightningEnter('#lightning2', 0, -20);
+            lightningEnter('#lightning2');
         }
         if (this.props.health === 1) {
-            lightningEnter('#lightning3', 0, -20);
+            lightningEnter('#lightning3');
         }
     }
 

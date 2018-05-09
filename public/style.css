@@ -70,13 +70,15 @@ a {
 
 /********************** DONKE *********************/
 
+.panel {
+  width: 100%;
+}
+
 #donke {
   position: absolute;
-  height: 450px;
-  width: 300px;
-  left: 0px;
-  top: 300px;
-  width: 60%;
+  height: 300px;
+  left: -40px;
+  top: 390px;
 }
 
 /********************** GRASS *********************/
@@ -85,8 +87,8 @@ a {
 #grass {
   position: absolute;
   left:0;
-  top: 525px;
-  width: 100%;
+  top: 600px;
+  width: 368px;
 }
 
 /********************** SUN *********************/
@@ -94,25 +96,25 @@ a {
 
 #sunFace {
   position: absolute;
-  left: 300px;
-  top: 100px;
+  left: 200px;
+  top: 175px;
   z-index: -1;
-  width: 30%;
+  width: 150px;
 }
 
 #sunRays {
   position: absolute;
-  left: 300px;
-  top: 100px;
+  left: 200px;
+  top: 175px;
   z-index: -1;
-  width: 30%;
+  width: 150px;
 }
 
 /********************** SPEECH BUBBLE *********************/
 #speech {
   position: absolute;
-  left: 150px;
-  top: 300px;
+  left: 100px;
+  top: 350px;
 }
 
 #bubble {
@@ -141,19 +143,18 @@ a {
 
 .draggable-box .draggable-item{
   position:absolute;
-  top: 100px;
+  top: 300px;
+  left: 125px;
+  z-index: 5;
 }
 
-.draggable-box .draggable-hat {
-  left: 200px;
-}
 
 /********************** HALO *********************/
 
 #halo{
   position: absolute;
-  left: 110px;
-  top: 80px;
+  left: 60px;
+  top: 180px;
   z-index: 6;
 }
 
@@ -161,36 +162,36 @@ a {
 
 #cloud1{
   position: absolute;
-  left: 180px;
-  top: 100px;
+  left: 80px;
+  top: 150px;
   z-index: 1;
 }
 
 #cloud2{
   position: absolute;
-  left: 250px;
-  top: 125px;
+  left: 130px;
+  top: 175px;
   z-index: 5;
 }
 
 #cloud3{
   position: absolute;
-  left: 50px;
-  top: 50px;
+  left: -10px;
+  top: 100px;
   z-index: 2;
 }
 
 #cloud4{
   position: absolute;
-  left: 75px;
-  top: 150px;
+  left: 25px;
+  top: 200px;
   z-index: 1;
 }
 
 #cloud5{
   position: absolute;
-  left: 300px;
-  top: 50px;
+  left: 180px;
+  top: 100px;
   z-index: 2;
 }
 
@@ -198,21 +199,21 @@ a {
 #lightning1{
   position: absolute;
   left: 180px;
-  top: 200px;
+  top: 250px;
   z-index: -1;
 }
 
 #lightning2{
   position: absolute;
-  left: 250px;
-  top: 175px;
+  left: 100px;
+  top: 225px;
   z-index: -1;
 }
 
 #lightning3{
   position: absolute;
-  left: 50px;
-  top: 150px;
+  left: 30px;
+  top: 225px;
   z-index: -1;
 }
 
