@@ -18,7 +18,6 @@ export default class PlaypenForm extends Component {
 
 
   handleSubmit(event, db, playPenName, users) {
-    //event.preventDefault()
     db.collection('playPen').doc().set({
       name: playPenName,
       users: users
