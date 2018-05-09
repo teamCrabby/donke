@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { db } from '../app'
 
 
-export default class Playpen extends Component {
+export default class PlaypenForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       playPenName: '',
       invitedUser: '',
-      users: ['trice']
+      users: []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)

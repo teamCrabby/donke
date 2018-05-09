@@ -4,7 +4,7 @@ import { fetchWorkInterval, fetchBreakInterval } from '../store'
 import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar } from './index'
-import Playpen from './playpen'
+import PlaypenForm from './playpenForm'
 
 
 
@@ -116,7 +116,7 @@ class Navbar extends Component {
           this.state.playPenFormClicked === true
             ?
             <div>
-              <Playpen />
+              <PlaypenForm />
             </div>
             :
             null
