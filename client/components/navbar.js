@@ -1,14 +1,14 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchWorkInterval, fetchBreakInterval} from '../store'
-import {annoyed} from '../library/audio'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchWorkInterval, fetchBreakInterval } from '../store'
+import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar } from './index'
-
+import Playpen from './playpen'
 
 
 class Navbar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       clicked: false,
@@ -21,63 +21,66 @@ class Navbar extends Component {
   }
 
   handleClicked(event) {
-    this.setState({ clicked : !this.state.clicked})
+    this.setState({ clicked: !this.state.clicked })
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name] : event.target.value })
+    this.setState({ [event.target.name]: event.target.value })
 
   }
 
-  handleSubmit(event, workTime, breakTime, callback){
+  handleSubmit(event, workTime, breakTime, callback) {
     event.preventDefault()
     this.props.getWorkInterval(workTime, breakTime)
     callback()
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div className="navbar-container">
-          <div className="navbar-options">
-            <img className="gearImg" src="../img/tool.svg" onClick={this.handleClicked} />
-            <div className="health">
-              <HealthBar />
-            </div>
+        <div className="navbar-options">
+          <img className="gearImg" src="../img/tool.svg" onClick={this.handleClicked} />
+          <div className="health">
+            <HealthBar />
+            <Playpen />
           </div>
-          {
-            this.state.clicked === true
+        </div>
+        {
+          this.state.clicked === true
             ?
-          <div className="navbar-wrapper">
-            <div className="navbar-work-container">
-              <div className="navbar-work">Set Work Interval</div>
-              <div className="navbar-work-select">
-                <select name="workInterval" onChange={this.handleChange}>
-                  {
-                  [0, 1, 3, 10,20,30,40].map((interval, idx) => {
-                    return (
-                    <option key={idx}>{interval}</option>
-                    )})
-                  }
-                </select>
-              </div>
-            </div>
-            <div className="navbar-break-container">
-              <div className="navbar-break">Set Break Interval</div>
-                <div className="navbar-break-select">
-                  <select name="breakInterval" onChange={this.handleChange}>
-                  {
-                    [0, 1, 5,10,20,30].map((interval,idx) => {
-                    return (
-                    <option key={idx}>{interval}</option>
-                    )})
-                  }
+            <div className="navbar-wrapper">
+              <div className="navbar-work-container">
+                <div className="navbar-work">Set Work Interval</div>
+                <div className="navbar-work-select">
+                  <select name="workInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
                   </select>
                 </div>
+              </div>
+              <div className="navbar-break-container">
+                <div className="navbar-break">Set Break Interval</div>
+                <div className="navbar-break-select">
+                  <select name="breakInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 5, 10, 20, 30].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>Set Time</button>
             </div>
-            <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>Set Time</button>
-          </div>
-          : null
-          }
+            : null
+        }
       </div>
     )
   }
@@ -91,7 +94,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getWorkInterval(workTime, breakTime){
+    getWorkInterval(workTime, breakTime) {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     }
