@@ -11,7 +11,7 @@ export class Sun extends Component {
   }
   componentDidMount() {
     sunRotate();
-    if (this.props.health === 9){
+    if (this.props.health === 8){
       sunLeave()
     }
   }

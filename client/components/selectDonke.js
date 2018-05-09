@@ -9,10 +9,6 @@ let timerFunc;
 let healthFunc;
 let breakCountFunc;
 
-
-//all donkey sounds are the same
-//length of break doesn't really matter right now. is that ok?
-
 export class SelectDonke extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +47,7 @@ export class SelectDonke extends Component {
       this.needBreak()
     }, workInterval)
     //console logs
-    // console.log('in worktimer setting timeout', timerFunc)
+      // console.log('in worktimer setting timeout', timerFunc)
   }
 
   needBreak() {
@@ -61,7 +57,7 @@ export class SelectDonke extends Component {
       }
     }, 3000)
     //console logs
-    // console.log("in needBreak setting interval", healthFunc)
+      // console.log("in needBreak setting interval", healthFunc)
   }
 
   breakTimer() {
@@ -69,7 +65,7 @@ export class SelectDonke extends Component {
       if (this.props.health < 10) {
         this.props.setStoreHealth(this.props.health + 1)
       }
-    }, this.props.breakInterval * 1000);
+    }, this.props.breakInterval * 10000);
     breakCountFunc = setInterval(() => {
       this.setState({breakCounter: this.state.breakCounter += 1})
       if(Math.abs(this.state.breakCounter - this.props.idleTime) > 5 && this.state.breakCounter < this.props.breakInterval){
@@ -91,10 +87,10 @@ export class SelectDonke extends Component {
 
   handleClickWork() {
     //console logs
-    // console.log('in handleClickWork');
-    // console.log('clearing setTimeout', timerFunc);
-    // console.log('clearing setInterval', healthFunc);
-    // cb()
+      // console.log('in handleClickWork');
+      // console.log('clearing setTimeout', timerFunc);
+      // console.log('clearing setInterval', healthFunc);
+      // cb()
     this.changeFullScreen()
     clearInterval(breakCountFunc)
     clearInterval(healthFunc);
@@ -131,7 +127,7 @@ export class SelectDonke extends Component {
               : <div> <Sun /> <Grass /> <PartyHat /> </div>
               : null}
             {this.props.health === 9 ? <div> <Sun /> <Grass /> <PartyHat /> </div> : null}
-            {this.props.health === 8 ? <div> <Grass /> <Cloud /> </div> : null}
+            {this.props.health === 8 ? <div> <Sun /> <Cloud /> </div> : null}
             {this.props.health === 7 ? <div> <Grass /> <Cloud /> </div> : null}
             {this.props.health === 6 ? <div> <Grass /> <Cloud /> </div> : null}
             {this.props.health === 5 ? <div> <Cloud /> <SpeechBubble text={"I'm so tired. Can we take a break now?"} /></div> : null}
