@@ -7,22 +7,50 @@ import { HealthBar } from './index'
 import Playpen from './playpen'
 
 
+
 class Navbar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      clicked: false,
+      workBreakClicked: false,
+      playPenFormClicked: false,
+      logOutClicked: false,
       workInterval: 0,
       breakInterval: 0,
+
     }
-    this.handleClicked = this.handleClicked.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.workBreakForm = this.workBreakForm.bind(this)
+    this.handledForm = this.handledForm.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleClicked(event) {
-    this.setState({ clicked: !this.state.clicked })
+  workBreakForm(event) {
+    console.log('hai im workBreakform', event.target.name)
+    this.setState({
+      workBreakClicked: !this.state.workBreakClicked,
+      playPenFormClicked: false,
+      logOutClicked: false,
+    })
   }
+  handledForm(event) {
+    console.log('im handled form', event.target.name)
+    this.setState({
+      playPenFormClicked: !this.state.playPenFormClicked,
+      logOutClicked: false,
+      workBreakForm: false
+    })
+  }
+  handleLogOut(event) {
+    console.log('hai im handleLogout', event.target.name)
+    this.setState({
+      logOutClicked: !this.state.logOutClicked,
+      workBreakClicked: false,
+      playPenFormClicked: false
+    })
+  }
+
+
+
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
@@ -39,14 +67,17 @@ class Navbar extends Component {
     return (
       <div className="navbar-container">
         <div className="navbar-options">
-          <img className="gearImg" src="../img/tool.svg" onClick={this.handleClicked} />
+
+          <img className="gearImg" name='workBreakClicked' src="../img/tool.svg" />
+          <img className="gearImg" src="../img/tool.svg" onClick={this.workBreakForm} />
+          <img className="gearImg" src="../img/tool.svg" onClick={this.handledForm} />
+          <img className="gearImg" src="../img/tool.svg" onClick={this.handleLogOut} />
           <div className="health">
             <HealthBar />
-            <Playpen />
           </div>
         </div>
         {
-          this.state.clicked === true
+          this.state.workBreakClicked === true
             ?
             <div className="navbar-wrapper">
               <div className="navbar-work-container">
@@ -81,7 +112,17 @@ class Navbar extends Component {
             </div>
             : null
         }
+        {
+          this.state.playPenFormClicked === true
+            ?
+            <div>
+              <Playpen />
+            </div>
+            :
+            null
+        }
       </div>
+
     )
   }
 }

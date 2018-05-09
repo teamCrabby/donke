@@ -11,7 +11,7 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     frame: false,
     height: 700,
-    resizable: false,
+    resizable: true,
     //set resizable to false
     // width: 900
     width: 368
@@ -25,7 +25,7 @@ app.on('ready', function () {
     slashes: true
   }));
 
-  // mainWindow.openDevTools();
+  mainWindow.openDevTools();
 
   mainWindow.on('closed', function () {
     mainWindow = null;

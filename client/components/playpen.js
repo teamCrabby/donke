@@ -47,19 +47,16 @@ export default class Playpen extends Component {
         <div className="pickFriend">
           <form onSubmit={this.handleSubmit}>
             <label>Who do you want to invite over?</label>
-            <div>
-              <input name='inviteName' type="text" value={this.state.inviteName} onChange={this.handleChange} />
-            </div>
-            <button type="submit">Pick a buddy for your buddy</button>
+            <select name="inviteName" onChange={this.handleChange}>
+              {
+                ['boddy', 'suzie', 'trashcan', 'poopsie', 'puberty'].map((name, idx) => {
+                  return (<option key={idx}>{name}</option>)
+                })
+              }
+            </select>
           </form>
         </div>
       </div>
     )
   }
 }
-
-
-// <label>
-// Invite a buddy:
-// </label>
-// <input type="submit" value="Submit" />
