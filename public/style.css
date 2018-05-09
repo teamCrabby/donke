@@ -113,8 +113,8 @@ a {
 /********************** SPEECH BUBBLE *********************/
 #speech {
   position: absolute;
-  left: 125px;
-  top: 300px;
+  left: 100px;
+  top: 350px;
 }
 
 #bubble {
