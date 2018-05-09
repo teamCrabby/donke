@@ -68,6 +68,31 @@ a {
   z-index: 1;
 }
 
+/********************** DONKE BUTTON *********************/
+#donkeBtn {
+  position: absolute;
+  left: 20px;
+  top: 100px;
+  background-color: rgb(200, 236, 250);
+  border: 2px solid #87CEEB;
+  color: grey;
+  /* padding: 40px 10px; */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  /* margin: 4px 2px; */
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: 'Pangolin';
+  transition-duration: 0.4s;
+}
+
+#donkeBtn:hover{
+  background-color: #87CEEB;
+  color: white;
+}
+
 /********************** DONKE *********************/
 
 .panel {
@@ -80,6 +105,28 @@ a {
   left: -40px;
   top: 390px;
 }
+
+/********************** SLEEPING DONKE *********************/
+
+#sleeping {
+  position: absolute;
+  width: 70%;
+  left: 10%;
+  top: 10%;
+}
+
+#sleepingDonke {
+  width: 100%;
+  top: 10%;
+}
+
+#belly {
+  width: 40%;
+  position: absolute;
+  left: 48.5%;
+  top: 7%;
+}
+
 
 /********************** GRASS *********************/
 
@@ -177,7 +224,7 @@ a {
 #cloud3{
   position: absolute;
   left: -10px;
-  top: 100px;
+  top: 120px;
   z-index: 2;
 }
 
@@ -191,7 +238,7 @@ a {
 #cloud5{
   position: absolute;
   left: 180px;
-  top: 100px;
+  top: 120px;
   z-index: 2;
 }
 
@@ -218,16 +265,6 @@ a {
 }
 
 /********************** HEART and BATTERY *********************/
-
-/* #heart {
-  position: absolute;
-  margin-top: 38px;
-  margin-left: 20px
-}
-#healthBar {
-  position: absolute;
-  margin-left: 100px;
-} */
 
 .healthBar {
   display: flex;
