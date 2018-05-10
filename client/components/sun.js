@@ -11,7 +11,7 @@ export class Sun extends Component {
   }
   componentDidMount() {
     sunRotate();
-    if (this.props.health === 8){
+    if (this.props.health === 8 && this.props.status === 'needBreak'){
       sunLeave()
     }
   }
@@ -31,7 +31,8 @@ export class Sun extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health
+    health: state.health,
+    status: state.status
   }
 }
 
