@@ -137,7 +137,7 @@ export class SelectDonke extends Component {
             {this.props.health === 9 
               ? this.props.status === 'needBreak'
                 ? this.state.needBreakMessage
-                  ? <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div>
+                  ? <div> <Sun /> <Grass /> <SpeechBubble text={"Time for a break!"} /></div>
                   : <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"No break?"} /></div> 
                 : <div> <Sun /> </div>
               : null}
@@ -146,7 +146,7 @@ export class SelectDonke extends Component {
                 ? <div> <Sun /> <Cloud /> <SpeechBubble text={"Time for a break!"} /></div> 
                 : <div> <Sun /> <Cloud /> </div>
               : null}
-            {8 > this.props.health > 3 
+            {8 > this.props.health && this.props.health > 3 
               ? this.state.needBreakMessage
                 ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div> 
                 : <div> <Cloud /> </div> 
