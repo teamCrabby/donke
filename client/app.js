@@ -26,10 +26,10 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.farts = this.avatar.onSnapshot(this.onUpdate);
+    this.unsubscribe = this.avatar.onSnapshot(this.onUpdate);
   }
   componentWillUnmount() {
-    this.farts();
+    this.unsubscribe();
   }
 
   onUpdate (snapshot) {
@@ -41,7 +41,7 @@ export default class App extends Component {
       <div>
         <div className="navbar">
           <Navbar />
-          {/* <Login /> */}
+          <Login /> 
         </div>
         <div className="animal">
           {
