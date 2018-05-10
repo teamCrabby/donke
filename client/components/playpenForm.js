@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../app'
-
+const firebase = require("firebase")
 
 export default class PlaypenForm extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ export default class PlaypenForm extends Component {
       playPenName: '',
       invitedUser: '',
       users: [],
+      owner: ''
       //need to add owner here
     }
     this.handleChange = this.handleChange.bind(this)
@@ -17,10 +18,18 @@ export default class PlaypenForm extends Component {
     this.handleAddABuddy = this.handleAddABuddy.bind(this)
   }
 
+  componentDidMount(){
+    let user = firebase.auth().currentUser
+    if (user !== null) {
+      this.setState({ owner : { name: user.displayName, email: user.email, uid: user.uid } })
+    }
+  }
+
   handleSubmit(event) {
     db.collection('playPen').doc().set({
       name: this.state.playPenName,
-      users: this.state.users
+      users: this.state.users,
+      owner: this.state.owner.name
     })
       .then((res) => console.log('Document successfully written, HOORAY'))
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
