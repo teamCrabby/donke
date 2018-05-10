@@ -40,11 +40,7 @@ export class Login extends Component {
         if (error) {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
-<<<<<<< HEAD
-      })
-=======
       });
->>>>>>> master
   }
 
   handleCreateUser(event) {
