@@ -17,10 +17,10 @@ export default class PlaypenForm extends Component {
     this.handleRemoveUser = this.handleRemoveUser.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     let user = firebase.auth().currentUser
     if (user !== null) {
-      this.setState({ owner : { name: user.displayName, email: user.email, uid: user.uid } })
+      this.setState({ owner: { name: user.displayName, email: user.email, uid: user.uid } })
     }
   }
 
@@ -45,16 +45,17 @@ export default class PlaypenForm extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleRemoveUser(event, index){
+  handleRemoveUser(event, index) {
     let updatedUsers = this.state.users.filter((user, idx) => {
       return idx !== index
     })
-    this.setState({ users : updatedUsers })
+    this.setState({ users: updatedUsers })
   }
 
   render() {
     console.log(this.state)
     return (
+
       <div className="navbar-wrapper">
         <div className="navbar-container">
           <div>
@@ -74,18 +75,18 @@ export default class PlaypenForm extends Component {
             }
           </select> */}
             <div>
-            {
-            this.state.users.length
-            ?
-            this.state.users.map((user, idx) => {
-              return (
-                <div className="playPen-invitedUser" key={idx}>
-                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`- ${user}`}</div>
-                </div>
-              )
-            })
-            : null
-          }
+              {
+                this.state.users.length
+                  ?
+                  this.state.users.map((user, idx) => {
+                    return (
+                      <div className="playPen-invitedUser" key={idx}>
+                        <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`- ${user}`}</div>
+                      </div>
+                    )
+                  })
+                  : null
+              }
               <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
             </div>
             <div>
