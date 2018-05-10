@@ -9,15 +9,6 @@ let timerFunc;
 let healthFunc;
 let breakCountFunc;
 
-<<<<<<< HEAD
-//three stages -- working, need break, on break
-//working -- no health change/no scene change -- render scene for current health
-//need break -- health decrementing, scenes changing, animation
-//break -- sleeping donke, health increments by 1 when break interval is met
-=======
-//only render work time button if break time has run out
->>>>>>> perfection
-
 export class SelectDonke extends Component {
   constructor(props) {
     super(props);
@@ -76,10 +67,7 @@ export class SelectDonke extends Component {
       if (this.props.health < 10) {
         this.props.setStoreHealth(this.props.health + 1)
       }
-<<<<<<< HEAD
-=======
       this.setState({breakTimeOver: true})
->>>>>>> perfection
     }, this.props.breakInterval * 1000);
     breakCountFunc = setInterval(() => {
       this.setState({breakCounter: this.state.breakCounter += 1})
