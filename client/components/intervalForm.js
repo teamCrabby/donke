@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { fetchWorkInterval, fetchBreakInterval } from '../store'
 
 class IntervalForm extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       workInterval: 0,
@@ -25,39 +25,39 @@ class IntervalForm extends Component {
     callback()
   }
 
-  render(){
+  render() {
     return (
       <div className="navbar-wrapper">
-      <div className="navbar-work-container">
-        <div className="navbar-work">Set Work Interval</div>
-        <div className="navbar-work-select">
-          <select name="workInterval" onChange={this.handleChange}>
-            {
-              [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
-                return (
-                  <option key={idx}>{interval}</option>
-                )
-              })
-            }
-          </select>
+        <div className="navbar-container-form">
+          <div className="navbar-name">Set Work Interval</div>
+          <div className="navbar-select">
+            <select name="interval" onChange={this.handleChange}>
+              {
+                [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
+                  return (
+                    <option key={idx} className="options">{interval}</option>
+                  )
+                })
+              }
+            </select>
+          </div>
         </div>
-      </div>
-      <div className="navbar-break-container">
-        <div className="navbar-break">Set Break Interval</div>
-        <div className="navbar-break-select">
-          <select name="breakInterval" onChange={this.handleChange}>
-            {
-              [0, 1, 5, 10, 20, 30].map((interval, idx) => {
-                return (
-                  <option key={idx}>{interval}</option>
-                )
-              })
-            }
-          </select>
+        <div className="navbar-container-form">
+          <div className="navbar-name">Set Break Interval</div>
+          <div className="navbar-select">
+            <select name="interval" onChange={this.handleChange}>
+              {
+                [0, 1, 5, 10, 20, 30].map((interval, idx) => {
+                  return (
+                    <option key={idx} className="options">{interval}</option>
+                  )
+                })
+              }
+            </select>
+          </div>
         </div>
+        <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>SET TIME</button>
       </div>
-      <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>Set Time</button>
-    </div>
     )
   }
 }
