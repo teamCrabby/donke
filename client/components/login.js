@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 const firebase = require("firebase")
 
-
-
 export default class Login extends Component {
   constructor(props) {
     super(props)
