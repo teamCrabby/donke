@@ -8,15 +8,13 @@ export class Lightning extends Component {
         super(props);
     }
     componentDidMount() {
-        if (this.props.health === 3) {
-            lightningEnter("#lightning1")
-            playAudio('thunder');
-        }
-        if (this.props.health === 2) {
-            lightningEnter('#lightning2');
-        }
-        if (this.props.health === 1) {
-            lightningEnter('#lightning3');
+        if (this.props.status === 'needBreak') {
+            if (this.props.health === 3) {
+                lightningEnter("#lightning1")
+                playAudio('thunder');
+            }
+            if (this.props.health === 2) lightningEnter('#lightning2');
+            if (this.props.health === 1) lightningEnter('#lightning3');
         }
     }
 
@@ -34,7 +32,8 @@ export class Lightning extends Component {
 
 const mapStateToProps = state => {
     return {
-        health: state.health
+        health: state.health,
+        status: state.status
     }
 }
 

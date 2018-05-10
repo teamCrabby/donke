@@ -9,22 +9,13 @@ export class Cloud extends Component {
   }
   componentDidMount() {
     clouds()
-    if (this.props.health === 8){
-      cloudEnter("#cloud1")
+    if (this.props.status === 'needBreak'){
+      if (this.props.health === 8) cloudEnter("#cloud1")
+      if (this.props.health === 7) cloudEnter('#cloud2');
+      if (this.props.health === 6) cloudEnter('#cloud3');
+      if (this.props.health === 5) cloudEnter('#cloud4');
+      if (this.props.health === 4) cloudEnter('#cloud5');
     }
-    if (this.props.health === 7) {
-      cloudEnter('#cloud2');
-    }
-    if (this.props.health === 6) {
-      cloudEnter('#cloud3');
-    }
-    if (this.props.health === 5) {
-      cloudEnter('#cloud4');
-    }
-    if (this.props.health === 4) {
-      cloudEnter('#cloud5');
-    }
-
   }
 
   render() {
@@ -43,7 +34,8 @@ export class Cloud extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health
+    health: state.health,
+    status: state.status
   }
 }
 

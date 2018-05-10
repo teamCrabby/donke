@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-const firebase = require("firebase")
-
+import {db, auth} from '../app'
 
 
 export default class Login extends Component {
@@ -25,7 +24,7 @@ export default class Login extends Component {
 
   handleSignIn(event) {
     event.preventDefault()
-    firebase.auth()
+    auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => {
         res.uid.length ? this.setState({ loggedIn: true }) : null
@@ -44,7 +43,7 @@ export default class Login extends Component {
   }
 
   handleCreateUser(event) {
-    firebase.auth()
+    auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
         user.updateProfile({
