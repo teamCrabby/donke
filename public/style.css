@@ -353,9 +353,10 @@ a {
   text-align: left;
 }
 
-.signIn-and-signUp {
+.login-button {
   display: flex;
   flex-direction: row;
+  align-self: center;
 }
 
 .displayName-label {
