@@ -36,9 +36,7 @@ export default class Login extends Component {
         if (error) {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
-      });
-
-
+      })
   }
 
   handleCreateUser(event) {

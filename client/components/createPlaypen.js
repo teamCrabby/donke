@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {db} from '../app'
+import {db, auth} from '../app'
+
 export default class Playpen extends Component {
   constructor(props){
     super(props)
@@ -7,6 +8,7 @@ export default class Playpen extends Component {
       playpenName: '',
       users: [],
       user: '',
+      owner: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -17,11 +19,10 @@ export default class Playpen extends Component {
     this.setState({ [event.target.name] : event.target.value })
   }
 
-  handleCreatePlaypen(e, fb, playpenName, users){
-    // fb.collection('playPen').doc('buenas playpen').set({
-    fb.collection('playPen').doc().set({
-      name: 'playpen placeholder',
-      users: ['z', 'g', 'x']
+  handleCreatePlaypen(e){
+    db.collection('playPen').doc().set({
+      name: this.state.playpenName,
+      users: this.state.users,
     })
     .then(console.log)
     .catch((error) => console.error(`Unable to save playpen ${error.message}`))
@@ -74,7 +75,7 @@ export default class Playpen extends Component {
             <button onClick={(e) => this.handleSignIn(e, this.state.email, this.state.password)}>Sign In</button>
           </div>
           <div className="signUp">
-            <button onClick={(e) => this.handleCreatePlaypen(e, db, this.state.playpenName, this.state.users)}>Create Playpen</button>
+            <button onClick={this.handleCreatePlaypen}>Create Playpen</button>
           </div>
         </div>
         </div>

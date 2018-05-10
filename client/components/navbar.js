@@ -55,7 +55,6 @@ class Navbar extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
-
   }
 
   render() {
@@ -74,7 +73,7 @@ class Navbar extends Component {
         {
           this.state.workBreakClicked === true
             ?
-            <IntervalForm />
+            <IntervalForm disabled={this.state.workBreakClicked}/>
             : null
         }
         {
