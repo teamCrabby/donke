@@ -51,6 +51,10 @@ a {
   border-radius: 10px;
 }
 
+.options {
+  margin-left: 10px;
+  margin-top:25px;
+}
 .navbar-name {
   overflow: hidden;
   /* float: left; */
@@ -61,19 +65,27 @@ a {
 
 .navbar-select {
   padding: 5px 10px;
-  margin-top: 10px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
 
-.options {
-  margin-left: 10px;
-  margin-top:25px;
+select {
+  height: 25px;
+  overflow: hidden;
+  width: 50px;
 }
+
 
 .Img {
   height: 30px;
   width: 30px;
   align-self: center;
   padding-left: 10px;
+  background-color: white;
+  border: 1px solid; 
+  border-radius: 25px;
+  padding: 5px;
 }
 
 .navbar-wrapper {
@@ -86,21 +98,22 @@ a {
 
 .navbar-wrapper button {
   /* width: calc(100% - 100px); */
-  width: auto;
+  width: 100px;
   height: 30px;
-  border: 1px solid  rgba(241, 212, 42, 0.986);
+  border: 1px solid  rgba(41, 172, 224, 0.986);
   border-radius: 25px;
   transition-duration: .25s;
   cursor: pointer;
   color:  rgba(22, 20, 8, 0.986);
   font-size: 1 em;
-  background-color: rgba(238, 240, 155, 0.986);
+  background-color:rgba(235, 222, 224, 0.986);
   text-shadow: 0 1px 1px rgba(0,0,0,0.2);
   margin: 5px;
 }
 .navbar-wrapper button:hover {
   color: white;
-  background:  rgba(241, 212, 42, 0.986);
+  background:   rgba(238, 240, 155, 0.986);
+  color: black;
 }
 
 
@@ -380,7 +393,12 @@ a {
 
 .playpen-container {
   display: flex;
+  align-items: center;
   flex: inline-block;
+}
+
+.friends {
+  display: inline-block;
 }
 
 .playpen-container input {
@@ -419,6 +437,10 @@ a {
   border: 1px solid #cccc;
   border-radius: 4px;
   resize: vertical;
+} */
+/* .playpenFriends{
+  color: black;
+  position: relative;
 } */
 
 .playPen-invitedUser {

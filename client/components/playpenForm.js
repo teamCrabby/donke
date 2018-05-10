@@ -94,20 +94,25 @@ export default class PlaypenForm extends Component {
                 })
               }
             </select> */}
-                <div>
-                  {
-                    this.state.users.length
-                      ?
-                      this.state.users.map((user, idx) => {
-                        return (
-                          <div className="playPen-invitedUser" key={idx}>
-                            <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`- ${user}`}</div>
-                          </div>
-                        )
-                      })
-                      : null
-                  }
-                  <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+
+                <div className="navbar-options">
+                  <div className="playpenFriends">
+                    <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+                    <div className="friends">
+                      {
+                        this.state.users.length
+                          ?
+                          this.state.users.map((user, idx) => {
+                            return (
+                              <div className="playPen-invitedUser" key={idx}>
+                                <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`- ${user}`}</div>
+                              </div>
+                            )
+                          })
+                          : null
+                      }
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
@@ -117,6 +122,7 @@ export default class PlaypenForm extends Component {
                 </div>
               </div>
             </div>
+
             : null
         }
       </div>
