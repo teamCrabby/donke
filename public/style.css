@@ -335,6 +335,10 @@ a {
   flex-direction: row;
 }
 
+.displayName-label {
+  text-align: left;
+}
+
 .signIn, .create-new-label {
   margin: 5px auto 5px auto;
 }
