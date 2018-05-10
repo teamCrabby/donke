@@ -36,8 +36,8 @@ export default class PlaypenForm extends Component {
 
   handleAddABuddy(event) {
     this.setState({
+      invitedUser: '',
       users: [this.state.invitedUser, ...this.state.users]
-
     })
   }
 

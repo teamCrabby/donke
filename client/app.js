@@ -21,7 +21,7 @@ db.settings(settings);
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.avatar = firebase1.firestore().collection('avatars').doc('RLAstb3EigfEWlhL1I4m')
+    this.avatar = db.collection('avatars').doc('RLAstb3EigfEWlhL1I4m')
     this.onUpdate = this.onUpdate.bind(this)
   }
 
