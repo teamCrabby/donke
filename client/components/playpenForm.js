@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase'
+import { auth } from '../app'
 
 export default class PlaypenForm extends Component {
   constructor(props) {
@@ -35,6 +36,8 @@ export default class PlaypenForm extends Component {
   }
 
   handleAddABuddy(event) {
+    event.preventDefault()
+    auth.listUsers().then((users) => console.log(users))
     this.setState({
       invitedUser: '',
       users: [this.state.invitedUser, ...this.state.users]
