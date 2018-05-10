@@ -80,7 +80,7 @@ class Navbar extends Component {
         {
           this.state.playPenFormClicked === true
             ?
-            <div className="playpen-container">
+            <div className="navbar-container">
               <PlaypenForm />
             </div>
             :

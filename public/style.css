@@ -26,6 +26,12 @@ a {
   font-family: 'Pangolin', cursive;
   border-radius: 10px;
 }
+.navbar input {
+  padding: 6px;
+  border: 1px solid #cccc;
+  border-radius: 4px;
+  resize: vertical;
+}
 
 .navbar-container-form {
   display: flex;
@@ -406,13 +412,13 @@ a {
   width: 30%;
 } */
 
-.playPen-name input {
+/* .playPen-name input {
   width: calc(100% - 10px);
   padding: 8px;
   border: 1px solid #cccc;
   border-radius: 4px;
   resize: vertical;
-}
+} */
 
 .playPen-invitedUser {
   display: flex;

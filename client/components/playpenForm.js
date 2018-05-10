@@ -77,7 +77,7 @@ export default class PlaypenForm extends Component {
               })
             }
           </select> */}
-            <div>
+            <div className="navbar-options">
               {
                 this.state.users.length
                   ?
