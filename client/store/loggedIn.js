@@ -15,12 +15,6 @@ const defaultStatus = false;
  */
 export const setLoggedIn = (loggedInBool) => ({ type: SET_LOGGED_IN, loggedInBool })
 
-/**
- * THUNK CREATORS
- */
-// export const fetchHealth = (health) =>
-//   dispatch =>
-//     dispatch(setHealth(health))
 
 /**
  * REDUCER
