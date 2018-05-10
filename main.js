@@ -13,8 +13,8 @@ app.on('ready', function () {
     height: 700,
     resizable: true,
     //set resizable to false
-    // width: 900
-    width: 368
+    width: 900
+    // width: 368
     //need to uncomment back in width
   })
   //one approach
@@ -25,7 +25,7 @@ app.on('ready', function () {
     slashes: true
   }));
 
-  // mainWindow.openDevTools();
+  mainWindow.openDevTools();
 
   mainWindow.on('closed', function () {
     mainWindow = null;
