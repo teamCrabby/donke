@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 const firebase = require("firebase")
 
+
+
 export default class Login extends Component {
   constructor(props) {
     super(props)
@@ -9,6 +11,7 @@ export default class Login extends Component {
       email: '',
       password: '',
       displayName: '',
+      buddyName: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -62,6 +65,19 @@ export default class Login extends Component {
 
   }
 
+  handleNameBuddy(event) {
+    event.preventDefault
+    firebase.firestore.collection("avatars").doc().set({
+      name: this.state.buddyName,
+    })
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+  }
+
 
   render() {
     return (
@@ -93,7 +109,7 @@ export default class Login extends Component {
                   <input name="password" type="string" onChange={this.handleChange} value={this.state.password} />
                 </div>
               </div>
-              <div className="signIn-and-signUp">
+              <div className="login-button">
                 <div className="signIn">
                   <button onClick={this.handleSignIn}>Sign In</button>
                 </div>
@@ -102,7 +118,24 @@ export default class Login extends Component {
                 </div>
               </div>
             </div>
-            : null
+            : <div className="login-container">
+                <div>
+                  <label>Name Your Buddy</label>
+                </div>
+                <div className="email-password">
+                  <div className="buddyName">
+                    <div className="buddyName-label">
+                      <label>Name</label>
+                    </div>
+                    <input name="buddyName" type="string" onChange={this.handleChange} value={this.state.buddyName}/>
+                  </div> 
+                </div>
+              <div className="login-button">
+                <div className="submit-buddy">
+                  <button onClick={this.handleNameBuddy}>Let's Go!</button>
+                </div>
+              </div>
+            </div>
         }
       </div>
     )
