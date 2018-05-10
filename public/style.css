@@ -1,7 +1,7 @@
 /********************** MAIN *********************/
 body {
   font-family: 'Helvetica';
-  background-color: #e4d5cc;
+  background-color: #f3ede9;
   -webkit-app-region: drag;
   font-family: 'Pangolin', cursive;
   overflow: hidden;
@@ -23,11 +23,11 @@ a {
 .navbar-container {
   display: flex;
   flex-direction: column;
-  background-color: #87CEEB;
+  font-family: 'Pangolin', cursive;
   border-radius: 10px;
 }
 
-.navbar-work-container, .navbar-break-container {
+.navbar-container-form {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -35,6 +35,7 @@ a {
 }
 
 .navbar-options {
+  font-family: 'Pangolin', cursive;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -44,20 +45,26 @@ a {
   border-radius: 10px;
 }
 
-.navbar-work, .navbar-break {
+.navbar-name {
   overflow: hidden;
   /* float: left; */
   padding: 5px 10px;
-  color:	white;
+  color:	rgb(7, 53, 90);
   border-radius: 10px;
 }
 
-.navbar-work-select,
-.navbar-break-select {
+.navbar-select {
   padding: 5px 10px;
+  margin-top: 10px;
+  background-color: pink;
 }
 
-.gearImg {
+.options {
+  margin-left: 10px;
+  margin-top:25px;
+}
+
+.Img {
   height: 30px;
   width: 30px;
   align-self: center;
@@ -73,9 +80,25 @@ a {
 }
 
 .navbar-wrapper button {
-  width: calc(100% - 50px);
-  margin: auto;
+  /* width: calc(100% - 100px); */
+  width: auto;
+  height: 30px;
+  border: 1px solid  rgba(241, 212, 42, 0.986);
+  border-radius: 25px;
+  transition-duration: .25s;
+  cursor: pointer;
+  color:  rgba(22, 20, 8, 0.986);
+  font-size: 1 em;
+  background-color: rgba(238, 240, 155, 0.986);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  margin: 5px;
 }
+.navbar-wrapper button:hover {
+  color: white;
+  background:  rgba(241, 212, 42, 0.986);
+}
+
+
 
 /********************** DONKE BUTTON *********************/
 #donkeBtn {

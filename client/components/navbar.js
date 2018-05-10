@@ -63,10 +63,10 @@ class Navbar extends Component {
       <div className="navbar-container">
         <div className="navbar-options">
 
-          <img className="gearImg" src="../img/tool.svg" onClick={this.handleCloseForms} />
-          <img className="gearImg" src="../img/hourglass-2.svg" onClick={this.handleWorkBreakForm} />
-          <img className="gearImg" src="../img/diamond.svg" onClick={this.handlePlayPenForm} />
-          <img className="gearImg" src="../img/locked-1.svg" onClick={this.handleLogOut} />
+          <img className="Img" src="../img/tool.svg" onClick={this.handleCloseForms} />
+          <img className="Img" src="../img/hourglass-2.svg" onClick={this.handleWorkBreakForm} />
+          <img className="Img" src="../img/diamond.svg" onClick={this.handlePlayPenForm} />
+          <img className="Img" src="../img/locked-1.svg" onClick={this.handleLogOut} />
           <div className="health">
             <HealthBar />
           </div>
