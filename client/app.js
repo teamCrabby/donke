@@ -3,7 +3,7 @@ import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, P
 import * as firebase from 'firebase'
 const secrets = require('../secrets.js')
 require("firebase/firestore")
-let admin = require('firebase-admin');
+require('firebase-admin');
 import * as admin from 'firebase-admin';
 
 firebase.initializeApp({
@@ -26,6 +26,7 @@ admin.initializeApp({
 
 export const db = firebase.firestore();
 export const auth = firebase.auth()
+export const authAdmin = admin.auth()
 const settings = {/* your settings... */ timestampsInSnapshots: true };
 db.settings(settings);
 
