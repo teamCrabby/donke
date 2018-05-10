@@ -23,6 +23,7 @@ a {
 .navbar-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   font-family: 'Pangolin', cursive;
   border-radius: 10px;
 }
@@ -37,6 +38,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   margin: auto;
 }
 
@@ -93,6 +95,7 @@ select {
   width: calc(100% - 100px);
   margin: auto auto 5px auto;
   flex-direction: column;
+  justify-content: center;
   z-index: 1;
 }
 

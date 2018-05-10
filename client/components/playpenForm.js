@@ -77,7 +77,7 @@ export default class PlaypenForm extends Component {
         {
           this.state.onToggle === true
             ?
-            <div className="navbar-container">
+            <div className="navbar-wrapper">
               <div>
                 <label className="navbar-name">Playpen Name</label>
               </div>
