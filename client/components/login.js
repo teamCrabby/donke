@@ -15,6 +15,7 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
     this.handleCreateUser = this.handleCreateUser.bind(this)
+    this.handleNameBuddy = this.handleNameBuddy.bind(this)
   }
 
   handleChange(event) {
@@ -47,7 +48,7 @@ export default class Login extends Component {
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
         user.updateProfile({
-                displayName: this.state.displayName
+          displayName: this.state.displayName
         })
         user.uid.length ? this.setState({ loggedIn: true }) : null
       })    
@@ -66,8 +67,9 @@ export default class Login extends Component {
 
   handleNameBuddy(event) {
     event.preventDefault
-    firebase.firestore.collection("avatars").doc().set({
+    db.collection("avatars").doc().set({
       name: this.state.buddyName,
+      userId: auth.currentUser.uid
     })
     .then(function() {
         console.log("Document successfully written!");
@@ -140,3 +142,9 @@ export default class Login extends Component {
     )
   }
 }
+
+
+
+
+
+

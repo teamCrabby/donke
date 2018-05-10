@@ -41,7 +41,7 @@ export default class App extends Component {
       <div>
         <div className="navbar">
           <Navbar />
-          {/*<Login />*/}
+          <Login />
         </div>
         <div className="animal">
           {
