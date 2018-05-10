@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { db } from '../app'
+const firebase = require("firebase")
+
 
 
 export default class Login extends Component {
@@ -20,9 +21,11 @@ export default class Login extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSignIn(event, email, password, db) {
-    db.auth()
-      .signInWithEmailAndPassword(email, password)
+
+  handleSignIn(event) {
+    event.preventDefault()
+    firebase.auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => {
         res.uid.length ? this.setState({ loggedIn: true }) : null
       })
@@ -39,15 +42,14 @@ export default class Login extends Component {
 
   }
 
-  handleCreateUser(event, email, password, displayName, db) {
-    db.auth()
-      .createUserWithEmailAndPassword(email, password)
-      // .then(user => {
-      //   admin.auth().updateUser(user.uid, {
-      //     displayName
-      //   })
-      // })
-      // .then(console.log)
+  handleCreateUser(event) {
+    firebase.auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(user => {
+        user.updateProfile({
+                displayName: this.state.displayName
+            })
+      })
       .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -73,12 +75,12 @@ export default class Login extends Component {
                 <label>Login</label>
               </div>
               <div className="email-password">
-                {/* <div className="displayName">
-            <div className="displayName-label">
-              <label>Display Name</label>
-            </div>
-            <input name="displayName" type="string" onChange={this.handleChange} value={this.state.displayName}/>
-          </div> */}
+                <div className="displayName">
+                  <div className="displayName-label">
+                    <label>Display Name</label>
+                  </div>
+                  <input name="displayName" type="string" onChange={this.handleChange} value={this.state.displayName}/>
+                </div> 
                 <div className="email">
                   <div className="email-label">
                     <label>Email</label>
@@ -94,10 +96,10 @@ export default class Login extends Component {
               </div>
               <div className="signIn-and-signUp">
                 <div className="signIn">
-                  <button onClick={(e) => this.handleSignIn(e, this.state.email, this.state.password, db)}>Sign In</button>
+                  <button onClick={this.handleSignIn}>Sign In</button>
                 </div>
                 <div className="signUp">
-                  <button onClick={(e) => this.handleCreateUser(e, this.state.email, this.state.password, this.state.displayName, db)}>Sign Up</button>
+                  <button onClick={this.handleCreateUser}>Sign Up</button>
                 </div>
               </div>
             </div>

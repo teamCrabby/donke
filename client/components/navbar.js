@@ -12,17 +12,23 @@ class Navbar extends Component {
       workBreakClicked: false,
       playPenFormClicked: false,
       logOutClicked: false,
-      // workInterval: 0,
-      // breakInterval: 0,
 
     }
-    this.workBreakForm = this.workBreakForm.bind(this)
-    this.handledForm = this.handledForm.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleWorkBreakForm = this.handleWorkBreakForm.bind(this)
+    this.handlePlayPenForm = this.handlePlayPenForm.bind(this)
+    this.handleCloseForms = this.handleCloseForms.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
-  workBreakForm(event) {
+  handleCloseForms(event){
+    this.setState({
+      workBreakClicked: false,
+      playPenFormClicked: false,
+      logOutClicked: false,
+    })
+  }
+
+  handleWorkBreakForm(event) {
     console.log('hai im workBreakform', event.target.name)
     this.setState({
       playPenFormClicked: false,
@@ -30,7 +36,7 @@ class Navbar extends Component {
       workBreakClicked: !this.state.workBreakClicked
     })
   }
-  handledForm(event) {
+  handlePlayPenForm(event) {
     console.log('im handled form', event.target.name)
     this.setState({
       logOutClicked: false,
@@ -52,20 +58,14 @@ class Navbar extends Component {
 
   }
 
-  // handleSubmit(event, workTime, breakTime, callback) {
-  //   event.preventDefault()
-  //   this.props.getWorkInterval(workTime, breakTime)
-  //   callback()
-  // }
-
   render() {
     return (
       <div className="navbar-container">
         <div className="navbar-options">
 
-          <img className="gearImg" src="../img/tool.svg" />
-          <img className="gearImg" src="../img/tool.svg" onClick={this.workBreakForm} />
-          <img className="gearImg" src="../img/tool.svg" onClick={this.handledForm} />
+          <img className="gearImg" src="../img/tool.svg" onClick={this.handleCloseForms}/>
+          <img className="gearImg" src="../img/tool.svg" onClick={this.handleWorkBreakForm} />
+          <img className="gearImg" src="../img/tool.svg" onClick={this.handlePlayPenForm} />
           <img className="gearImg" src="../img/tool.svg" onClick={this.handleLogOut} />
           <div className="health">
             <HealthBar />
@@ -94,16 +94,13 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
   return {
-    // workInterval: state.workInterval
+
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    // getWorkInterval(workTime, breakTime) {
-    //   dispatch(fetchWorkInterval(workTime))
-    //   dispatch(fetchBreakInterval(breakTime))
-    // }
+
   }
 }
 
