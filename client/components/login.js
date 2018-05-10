@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { db } from '../app';
 const firebase = require("firebase")
-require("firebase/firestore")
+
 
 
 export default class Login extends Component {
@@ -22,9 +21,11 @@ export default class Login extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSignIn(event, email, password, db) {
+
+  handleSignIn(event) {
+    event.preventDefault()
     firebase.auth()
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => {
         res.uid.length ? this.setState({ loggedIn: true }) : null
       })
@@ -41,9 +42,9 @@ export default class Login extends Component {
 
   }
 
-  handleCreateUser(event, email, password, displayName, db) {
+  handleCreateUser(event) {
     firebase.auth()
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
       // .then(user => {
       //   admin.auth().updateUser(user.uid, {
       //     displayName
@@ -96,10 +97,10 @@ export default class Login extends Component {
               </div>
               <div className="signIn-and-signUp">
                 <div className="signIn">
-                  <button onClick={(e) => this.handleSignIn(e, this.state.email, this.state.password, db)}>Sign In</button>
+                  <button onClick={this.handleSignIn}>Sign In</button>
                 </div>
                 <div className="signUp">
-                  <button onClick={(e) => this.handleCreateUser(e, this.state.email, this.state.password, this.state.displayName, db)}>Sign Up</button>
+                  <button onClick={this.handleCreateUser}>Sign Up</button>
                 </div>
               </div>
             </div>
