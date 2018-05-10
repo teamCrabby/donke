@@ -48,8 +48,9 @@ export default class Login extends Component {
       .then(user => {
         user.updateProfile({
                 displayName: this.state.displayName
-            })
-      })
+        })
+        user.uid.length ? this.setState({ loggedIn: true }) : null
+      })    
       .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
