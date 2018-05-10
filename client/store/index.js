@@ -7,12 +7,13 @@ import breakInterval from './breakInterval';
 import health from './health';
 import idleTime from './idletime';
 import status from './status';
+import loggedIn from './loggedIn';
 
 
-const reducer = combineReducers({ workInterval, breakInterval, health, idleTime, status })
+const reducer = combineReducers({ workInterval, breakInterval, health, idleTime, status, loggedIn })
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
-  // createLogger({ collapsed: true })
+  createLogger({ collapsed: true })
 ))
 const store = createStore(reducer, middleware)
 
@@ -21,4 +22,6 @@ export * from './workInterval'
 export * from './breakInterval'
 export * from './health'
 export * from './status'
+export * from './idletime'
+export * from './loggedIn'
 

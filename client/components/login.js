@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {db, auth} from '../app'
+import store, { setLoggedIn } from '../store'
 
 
-export default class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loggedIn: false,
+      loggedInLocal: false,
       email: '',
       password: '',
       displayName: '',
+      buddyName: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
     this.handleCreateUser = this.handleCreateUser.bind(this)
+    this.handleNameBuddy = this.handleNameBuddy.bind(this)
   }
 
   handleChange(event) {
@@ -26,7 +30,7 @@ export default class Login extends Component {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => {
-        res.uid.length ? this.setState({ loggedIn: true }) : null
+        res.uid.length ? this.setState({ loggedInLocal: true }) : null
       })
       .catch(function (error) {
         // Handle Errors here.
@@ -36,7 +40,11 @@ export default class Login extends Component {
         if (error) {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
+<<<<<<< HEAD
       })
+=======
+      });
+>>>>>>> master
   }
 
   handleCreateUser(event) {
@@ -44,9 +52,10 @@ export default class Login extends Component {
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
         user.updateProfile({
-                displayName: this.state.displayName
-            })
-      })
+          displayName: this.state.displayName
+        })
+        user.uid.length ? this.setState({ loggedInLocal: true }) : null
+      })    
       .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -60,12 +69,27 @@ export default class Login extends Component {
 
   }
 
+  handleNameBuddy(event) {
+    event.preventDefault
+    db.collection("avatars").doc().set({
+      name: this.state.buddyName,
+      userId: auth.currentUser.uid
+    })
+    .then(res =>  {
+        console.log("Document successfully written!");
+        this.props.setStoreLoggedIn(true)
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+  }
+
 
   render() {
     return (
       <div className="login">
         {
-          this.state.loggedIn === false
+          this.state.loggedInLocal === false
             ?
             <div className="login-container">
               <div>
@@ -91,7 +115,7 @@ export default class Login extends Component {
                   <input name="password" type="string" onChange={this.handleChange} value={this.state.password} />
                 </div>
               </div>
-              <div className="signIn-and-signUp">
+              <div className="login-button">
                 <div className="signIn">
                   <button onClick={this.handleSignIn}>Sign In</button>
                 </div>
@@ -100,9 +124,47 @@ export default class Login extends Component {
                 </div>
               </div>
             </div>
-            : null
+            : <div className="login-container">
+                <div>
+                  <label>Name Your Buddy</label>
+                </div>
+                <div className="email-password">
+                  <div className="buddyName">
+                    <div className="buddyName-label">
+                      <label>Name</label>
+                    </div>
+                    <input name="buddyName" type="string" onChange={this.handleChange} value={this.state.buddyName}/>
+                  </div> 
+                </div>
+              <div className="login-button">
+                <div className="submit-buddy">
+                  <button onClick={this.handleNameBuddy}>Let's Go!</button>
+                </div>
+              </div>
+            </div>
         }
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.loggedIn
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setStoreLoggedIn(loggedInBool) {
+      dispatch(setLoggedIn(loggedInBool))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
+
+
+
+
+
