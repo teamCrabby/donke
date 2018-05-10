@@ -40,7 +40,7 @@ class IntervalForm extends Component {
                     {
                       [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
                         return (
-                          <option key={idx} className="options">{interval}</option>
+                          <option key={idx}>{interval}</option>
                         )
                       })
                     }
@@ -54,7 +54,7 @@ class IntervalForm extends Component {
                     {
                       [0, 1, 5, 10, 20, 30].map((interval, idx) => {
                         return (
-                          <option key={idx} className="options">{interval}</option>
+                          <option key={idx}>{interval}</option>
                         )
                       })
                     }

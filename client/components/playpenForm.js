@@ -81,12 +81,12 @@ export default class PlaypenForm extends Component {
               <div>
                 <label className="navbar-name">Playpen Name</label>
               </div>
-              <div className="navbar-options">
+              <div className="navbar-name">
                 <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
               </div>
 
               <div className="navbar-container">
-                <label className="navbar-name">Find a Friend</label>
+                <label className="navbar-name">Play date with</label>
                 {/* <select name="invitedUser" onChange={this.handleChange}>
               {
                 ['boddy', 'suzie', 'trashcan', 'poopsie', 'puberty'].map((name, idx) => {
@@ -95,7 +95,7 @@ export default class PlaypenForm extends Component {
               }
             </select> */}
 
-                <div className="navbar-options">
+                <div className="navbar-name">
                   <div className="playpenFriends">
                     <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
                     <div className="friends">
