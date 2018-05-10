@@ -6,6 +6,7 @@ class IntervalForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      onToggle: this.props.disabled,
       workInterval: 0,
       breakInterval: 0,
 
@@ -15,48 +16,55 @@ class IntervalForm extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value })
+    this.setState({ [event.target.name]: Number(event.target.value) })
 
   }
 
-  handleSubmit(event, workTime, breakTime, callback) {
+  handleSubmit(event) {
     event.preventDefault()
-    this.props.getWorkInterval(workTime, breakTime)
-    callback()
+    this.props.getWorkInterval(this.state.workInterval, this.state.breakInterval)
+    this.setState({ onToggle: false })
   }
 
   render() {
-    return (
-      <div className="navbar-wrapper">
-        <div className="navbar-container-form">
-          <div className="navbar-name">Set Work Interval</div>
-          <div className="navbar-select">
-            <select name="interval" onChange={this.handleChange}>
-              {
-                [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
-                  return (
-                    <option key={idx} className="options">{interval}</option>
-                  )
-                })
-              }
-            </select>
+    return(
+      <div> 
+      {
+        this.state.onToggle === true
+        ?
+        <div className="navbar-wrapper">
+          <div className="navbar-container-form">
+            <div className="navbar-name">Set Work Interval</div>
+            <div className="navbar-select">
+              <select name="workInterval" onChange={this.handleChange}>
+                {
+                  [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
+                    return (
+                      <option key={idx} className="options">{interval}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="navbar-container-form">
-          <div className="navbar-name">Set Break Interval</div>
-          <div className="navbar-select">
-            <select name="interval" onChange={this.handleChange}>
-              {
-                [0, 1, 5, 10, 20, 30].map((interval, idx) => {
-                  return (
-                    <option key={idx} className="options">{interval}</option>
-                  )
-                })
-              }
-            </select>
+          <div className="navbar-container-form">
+            <div className="navbar-name">Set Break Interval</div>
+            <div className="navbar-select">
+              <select name="breakInterval" onChange={this.handleChange}>
+                {
+                  [0, 1, 5, 10, 20, 30].map((interval, idx) => {
+                    return (
+                      <option key={idx} className="options">{interval}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
           </div>
+          <button onClick={this.handleSubmit}>SET TIME</button>
         </div>
-        <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>SET TIME</button>
+        : null
+      }
       </div>
     )
   }
