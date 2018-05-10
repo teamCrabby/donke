@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchWorkInterval, fetchBreakInterval } from '../store'
+// import { fetchWorkInterval, fetchBreakInterval } from '../store'
 import { annoyed } from '../library/audio'
 import path from 'path'
-import { HealthBar } from './index'
-import PlaypenForm from './playpenForm'
-
-
+import { HealthBar, PlaypenForm, IntervalForm } from './index'
 
 class Navbar extends Component {
   constructor(props) {
@@ -15,53 +12,51 @@ class Navbar extends Component {
       workBreakClicked: false,
       playPenFormClicked: false,
       logOutClicked: false,
-      workInterval: 0,
-      breakInterval: 0,
+      // workInterval: 0,
+      // breakInterval: 0,
 
     }
     this.workBreakForm = this.workBreakForm.bind(this)
     this.handledForm = this.handledForm.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   workBreakForm(event) {
     console.log('hai im workBreakform', event.target.name)
     this.setState({
-      workBreakClicked: !this.state.workBreakClicked,
       playPenFormClicked: false,
       logOutClicked: false,
+      workBreakClicked: !this.state.workBreakClicked
     })
   }
   handledForm(event) {
     console.log('im handled form', event.target.name)
     this.setState({
-      playPenFormClicked: !this.state.playPenFormClicked,
       logOutClicked: false,
-      workBreakForm: false
+      workBreakClicked: false,
+      playPenFormClicked: !this.state.playPenFormClicked
     })
   }
   handleLogOut(event) {
     console.log('hai im handleLogout', event.target.name)
     this.setState({
-      logOutClicked: !this.state.logOutClicked,
       workBreakClicked: false,
-      playPenFormClicked: false
+      playPenFormClicked: false,
+      logOutClicked: !this.state.logOutClicked
     })
   }
-
-
-
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
 
   }
 
-  handleSubmit(event, workTime, breakTime, callback) {
-    event.preventDefault()
-    this.props.getWorkInterval(workTime, breakTime)
-    callback()
-  }
+  // handleSubmit(event, workTime, breakTime, callback) {
+  //   event.preventDefault()
+  //   this.props.getWorkInterval(workTime, breakTime)
+  //   callback()
+  // }
 
   render() {
     return (
@@ -79,43 +74,13 @@ class Navbar extends Component {
         {
           this.state.workBreakClicked === true
             ?
-            <div className="navbar-wrapper">
-              <div className="navbar-work-container">
-                <div className="navbar-work">Set Work Interval</div>
-                <div className="navbar-work-select">
-                  <select name="workInterval" onChange={this.handleChange}>
-                    {
-                      [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
-                        return (
-                          <option key={idx}>{interval}</option>
-                        )
-                      })
-                    }
-                  </select>
-                </div>
-              </div>
-              <div className="navbar-break-container">
-                <div className="navbar-break">Set Break Interval</div>
-                <div className="navbar-break-select">
-                  <select name="breakInterval" onChange={this.handleChange}>
-                    {
-                      [0, 1, 5, 10, 20, 30].map((interval, idx) => {
-                        return (
-                          <option key={idx}>{interval}</option>
-                        )
-                      })
-                    }
-                  </select>
-                </div>
-              </div>
-              <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>Set Time</button>
-            </div>
+            <IntervalForm />
             : null
         }
         {
           this.state.playPenFormClicked === true
             ?
-            <div>
+            <div className="playpen-container">
               <PlaypenForm />
             </div>
             :
@@ -129,16 +94,16 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
   return {
-    workInterval: state.workInterval
+    // workInterval: state.workInterval
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getWorkInterval(workTime, breakTime) {
-      dispatch(fetchWorkInterval(workTime))
-      dispatch(fetchBreakInterval(breakTime))
-    }
+    // getWorkInterval(workTime, breakTime) {
+    //   dispatch(fetchWorkInterval(workTime))
+    //   dispatch(fetchBreakInterval(breakTime))
+    // }
   }
 }
 

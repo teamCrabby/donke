@@ -28,8 +28,10 @@ a {
 }
 
 .navbar-work-container, .navbar-break-container {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  margin: auto;
 }
 
 .navbar-options {
@@ -37,22 +39,22 @@ a {
   flex-direction: row;
   justify-content: space-between;
   overflow: hidden;
-  padding: 10px 10px;
+  padding: 10px 10px 5px 10px;
   color:	white;
   border-radius: 10px;
 }
 
 .navbar-work, .navbar-break {
   overflow: hidden;
-  float: left;
-  padding: 10px 10px;
+  /* float: left; */
+  padding: 5px 10px;
   color:	white;
   border-radius: 10px;
 }
 
 .navbar-work-select,
 .navbar-break-select {
-  padding: 10px 10px;
+  padding: 5px 10px;
 }
 
 .gearImg {
@@ -64,8 +66,15 @@ a {
 
 .navbar-wrapper {
   display: flex;
+  width: calc(100% - 100px);
+  margin: auto auto 5px auto;
   flex-direction: column;
   z-index: 1;
+}
+
+.navbar-wrapper button {
+  width: calc(100% - 50px);
+  margin: auto;
 }
 
 /********************** DONKE BUTTON *********************/
@@ -332,4 +341,40 @@ a {
 
 .signUp {
   margin: 5px auto auto auto;
+}
+
+/********************** PLAYPEN *********************/
+
+.playpen-container {
+  display: flex;
+  flex: inline-block;
+}
+
+.playpen-container input {
+  width: calc(50%)
+}
+
+.formContainer {
+  width: calc(100% - 20px);
+  margin: auto;
+  align-content: center;
+}
+
+.playPen-label-input {
+  display: flex;
+  flex-direction: row;
+}
+
+.playPen-label-input label {
+  margin-right: 5px;
+  width: 30%;
+}
+
+.pickFriend label{
+  margin-right: 5px;
+  width: 30%;
+}
+
+.playPen-name input {
+  width: calc(100% - 10px)
 }
