@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen } from './components'
 import * as firebase from 'firebase' 
+import { connect } from 'react-redux'
 const secrets = require('../secrets.js')
 require("firebase/firestore")
 
@@ -18,7 +19,7 @@ export const auth = firebase.auth()
 const settings = {/* your settings... */ timestampsInSnapshots: true };
 db.settings(settings);
 
-export default class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props)
     this.avatar = db.collection('avatars').doc('RLAstb3EigfEWlhL1I4m')
@@ -41,7 +42,7 @@ export default class App extends Component {
       <div>
         <div className="navbar">
           <Navbar />
-          <Login />
+          {!this.props.loggedIn ? <Login /> : null }
         </div>
         <div className="animal">
           {
@@ -53,3 +54,11 @@ export default class App extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.loggedIn
+  }
+}
+
+export default connect(mapStateToProps)(App)

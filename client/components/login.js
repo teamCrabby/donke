@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {db, auth} from '../app'
+import store, { setLoggedIn } from '../store'
 
 
-export default class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loggedIn: false,
+      loggedInLocal: false,
       email: '',
       password: '',
       displayName: '',
@@ -28,7 +30,7 @@ export default class Login extends Component {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => {
-        res.uid.length ? this.setState({ loggedIn: true }) : null
+        res.uid.length ? this.setState({ loggedInLocal: true }) : null
       })
       .catch(function (error) {
         // Handle Errors here.
@@ -39,8 +41,6 @@ export default class Login extends Component {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
       });
-
-
   }
 
   handleCreateUser(event) {
@@ -50,7 +50,7 @@ export default class Login extends Component {
         user.updateProfile({
           displayName: this.state.displayName
         })
-        user.uid.length ? this.setState({ loggedIn: true }) : null
+        user.uid.length ? this.setState({ loggedInLocal: true }) : null
       })    
       .catch(function (error) {
         // Handle Errors here.
@@ -71,8 +71,9 @@ export default class Login extends Component {
       name: this.state.buddyName,
       userId: auth.currentUser.uid
     })
-    .then(function() {
+    .then(res =>  {
         console.log("Document successfully written!");
+        this.props.setStoreLoggedIn(true)
     })
     .catch(function(error) {
         console.error("Error writing document: ", error);
@@ -84,7 +85,7 @@ export default class Login extends Component {
     return (
       <div className="login">
         {
-          this.state.loggedIn === false
+          this.state.loggedInLocal === false
             ?
             <div className="login-container">
               <div>
@@ -143,6 +144,21 @@ export default class Login extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.loggedIn
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setStoreLoggedIn(loggedInBool) {
+      dispatch(setLoggedIn(loggedInBool))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
 
 
 
