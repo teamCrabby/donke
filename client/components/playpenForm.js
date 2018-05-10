@@ -40,14 +40,21 @@ export default class PlaypenForm extends Component {
     let invitedUser = this.state.invitedUser
     authAdmin.listUsers()
     .then((userList) => {
-      console.log(userList.users.filter((user) => user.displayName === invitedUser))
-      //will return the thing for which this is true, or undefined if it's not true
-      console.log(userList.users)
+      let [user] = userList.users.filter((user) => user.displayName === invitedUser)
+      console.log('user is...', user)
+      if (user) {
+        this.setState({
+          invitedUser: '',
+          users: [invitedUser, ...this.state.users]
+        })
+        console.log('users array is...', this.state.users)
+      }
+      else alert("Can't find that user.")
+      // console.log(user)
+      // //will return the thing for which this is true, or [] if it's not true
+      // console.log(userList.users)
     })
-    this.setState({
-      invitedUser: '',
-      users: [this.state.invitedUser, ...this.state.users]
-    })
+   
   }
 
   handleChange(event) {
