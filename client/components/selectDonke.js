@@ -9,8 +9,6 @@ let timerFunc;
 let healthFunc;
 let breakCountFunc;
 
-//only render work time button if break time has run out
-
 export class SelectDonke extends Component {
   constructor(props) {
     super(props);

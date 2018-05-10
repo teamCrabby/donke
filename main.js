@@ -11,10 +11,10 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     frame: false,
     height: 700,
-    resizable: true,
+    resizable: false,
     //set resizable to false
-    width: 900
-    // width: 368
+    // width: 900
+    width: 368
     //need to uncomment back in width
   })
   //one approach
