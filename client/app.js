@@ -45,9 +45,9 @@ export default class App extends Component {
         </div>
         <div className="animal">
           {
-          //<SelectDonke />
+          //<Playpen />
           }
-          <Playpen />
+          <SelectDonke />
         </div>
       </div>
     )
