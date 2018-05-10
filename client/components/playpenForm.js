@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { db } from '../app'
-const firebase = require("firebase")
+import * as firebase from 'firebase'
 
 export default class PlaypenForm extends Component {
   constructor(props) {
@@ -11,11 +10,11 @@ export default class PlaypenForm extends Component {
       invitedUser: '',
       users: [],
       owner: ''
-      //need to add owner here
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleAddABuddy = this.handleAddABuddy.bind(this)
+    this.handleRemoveUser = this.handleRemoveUser.bind(this)
   }
 
   componentDidMount(){
@@ -26,7 +25,7 @@ export default class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
-    db.collection('playPen').doc().set({
+    firebase.collection('playPen').doc().set({
       name: this.state.playPenName,
       users: this.state.users,
       owner: this.state.owner.name
@@ -36,7 +35,6 @@ export default class PlaypenForm extends Component {
   }
 
   handleAddABuddy(event) {
-    event.preventDefault()
     this.setState({
       users: [this.state.invitedUser, ...this.state.users]
 
@@ -47,6 +45,12 @@ export default class PlaypenForm extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  handleRemoveUser(event, index){
+    let updatedUsers = this.state.users.filter((user, idx) => {
+      return idx !== index
+    })
+    this.setState({ users : updatedUsers })
+  }
 
   render() {
     console.log(this.state)
@@ -70,11 +74,25 @@ export default class PlaypenForm extends Component {
               })
             }
           </select> */}
+          <div>
+          {
+            this.state.users.length
+            ?
+            this.state.users.map((user, idx) => {
+              return (
+                <div className="playPen-invitedUser" key={idx}>
+                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`- ${user}`}</div>
+                </div>
+              )
+            })
+            : null
+          }
+          </div>
           <div className="pickFriend-input">
             <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser}/>
           </div>
-          <div>
-            <button onClick={this.handleAddABuddy}>Add a Buddy</button>
+          <div className="playPen-invitedUser-img">
+            <img onClick={this.handleAddABuddy} src="../img/addbutt.svg"/>
           </div>
           <div>
             <button onClick={this.handleSubmit}>Submit</button>

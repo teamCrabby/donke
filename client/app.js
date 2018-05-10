@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login } from './components'
-const firebase = require("firebase")
+import * as firebase from 'firebase' 
 const secrets = require('../secrets.js')
 require("firebase/firestore")
 
@@ -14,6 +14,7 @@ firebase.initializeApp({
 });
 
 export const db = firebase.firestore();
+export const auth = firebase.auth()
 const settings = {/* your settings... */ timestampsInSnapshots: true };
 db.settings(settings);
 
