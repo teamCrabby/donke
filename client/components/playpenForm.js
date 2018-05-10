@@ -37,7 +37,13 @@ export default class PlaypenForm extends Component {
 
   handleAddABuddy(event) {
     event.preventDefault()
-    authAdmin.listUsers().then((users) => console.log(users))
+    let invitedUser = this.state.invitedUser
+    authAdmin.listUsers()
+    .then((userList) => {
+      console.log(userList.users.filter((user) => user.displayName === invitedUser))
+      //will return the thing for which this is true, or undefined if it's not true
+      console.log(userList.users)
+    })
     this.setState({
       invitedUser: '',
       users: [this.state.invitedUser, ...this.state.users]
