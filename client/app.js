@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen } from './components'
-import * as firebase from 'firebase' 
+import * as firebase from 'firebase'
 const secrets = require('../secrets.js')
 require("firebase/firestore")
+require('firebase-admin');
+import * as admin from 'firebase-admin';
 
 firebase.initializeApp({
   apiKey: secrets.API_KEY,
@@ -13,8 +15,18 @@ firebase.initializeApp({
   messagingSenderId: secrets.MESSAGING_SENDER_ID
 });
 
+admin.initializeApp({
+  credential: admin.credential.cert({
+    projectId: secrets.PROJECT_ID,
+    clientEmail: secrets.CLIENT_EMAIL,
+    privateKey: secrets.PRIVATE_KEY
+  }),
+  databaseURL: secrets.DATABASE_URL
+});
+
 export const db = firebase.firestore();
 export const auth = firebase.auth()
+export const authAdmin = admin.auth()
 const settings = {/* your settings... */ timestampsInSnapshots: true };
 db.settings(settings);
 
@@ -32,7 +44,7 @@ export default class App extends Component {
     this.unsubscribe();
   }
 
-  onUpdate (snapshot) {
+  onUpdate(snapshot) {
     console.log('SNAPSHOT', snapshot.data())
   };
 
@@ -45,7 +57,7 @@ export default class App extends Component {
         </div>
         <div className="animal">
           {
-          //<Playpen />
+            //<Playpen />
           }
           <SelectDonke />
         </div>
