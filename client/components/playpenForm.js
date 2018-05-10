@@ -55,27 +55,26 @@ export default class PlaypenForm extends Component {
   render() {
     console.log(this.state)
     return (
-      <div className="formContainer">
-        <div className="playPen-name">
-            <div>
-              <label>Playpen Name </label>
-            </div>
-            <div className="playPen-input">
-              <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
-            </div>
-        </div>
-        <div className="pickFriend">
+      <div className="navbar-wrapper">
+        <div className="navbar-container">
+          <div>
+            <label className="navbar-name">Playpen Name</label>
+          </div>
+          <div className="navbar-options">
+            <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+          </div>
 
-          <label>Find a Friend</label>
-          {/* <select name="invitedUser" onChange={this.handleChange}>
+          <div className="navbar-container">
+            <label className="navbar-name">Find a Friend</label>
+            {/* <select name="invitedUser" onChange={this.handleChange}>
             {
               ['boddy', 'suzie', 'trashcan', 'poopsie', 'puberty'].map((name, idx) => {
                 return (<option key={idx}>{name}</option>)
               })
             }
           </select> */}
-          <div>
-          {
+            <div>
+            {
             this.state.users.length
             ?
             this.state.users.map((user, idx) => {
@@ -87,15 +86,14 @@ export default class PlaypenForm extends Component {
             })
             : null
           }
-          </div>
-          <div className="pickFriend-input">
-            <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser}/>
-          </div>
-          <div className="playPen-invitedUser-img">
-            <img onClick={this.handleAddABuddy} src="../img/addbutt.svg"/>
-          </div>
-          <div>
-            <button onClick={this.handleSubmit}>Submit</button>
+              <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+            </div>
+            <div>
+              <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
+            </div>
+            <div>
+              <button onClick={this.handleSubmit}>SUBMIT</button>
+            </div>
           </div>
         </div>
       </div>

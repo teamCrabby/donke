@@ -8,7 +8,7 @@ export class SpeechBubble extends Component {
     super(props);
   }
   componentDidMount() {
-    bubbleAlert()
+    if (this.props.status === 'needBreak') bubbleAlert()
   }
 
   render() {
@@ -23,7 +23,8 @@ export class SpeechBubble extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health
+    health: state.health,
+    status: state.status
   }
 }
 

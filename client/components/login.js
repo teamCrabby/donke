@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {db, auth} from '../app'
 
+
 export default class Login extends Component {
   constructor(props) {
     super(props)
@@ -18,6 +19,7 @@ export default class Login extends Component {
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
+
 
   handleSignIn(event) {
     event.preventDefault()
@@ -42,12 +44,11 @@ export default class Login extends Component {
   handleCreateUser(event) {
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      // .then(user => {
-      //   admin.auth().updateUser(user.uid, {
-      //     displayName
-      //   })
-      // })
-      // .then(console.log)
+      .then(user => {
+        user.updateProfile({
+                displayName: this.state.displayName
+            })
+      })
       .catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -73,12 +74,12 @@ export default class Login extends Component {
                 <label>Login</label>
               </div>
               <div className="email-password">
-                {/* <div className="displayName">
-            <div className="displayName-label">
-              <label>Display Name</label>
-            </div>
-            <input name="displayName" type="string" onChange={this.handleChange} value={this.state.displayName}/>
-          </div> */}
+                <div className="displayName">
+                  <div className="displayName-label">
+                    <label>Display Name</label>
+                  </div>
+                  <input name="displayName" type="string" onChange={this.handleChange} value={this.state.displayName}/>
+                </div> 
                 <div className="email">
                   <div className="email-label">
                     <label>Email</label>
