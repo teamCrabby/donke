@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen, Invitation, NewBuddy } from './components'
+import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen, Invitation, NewBuddy, Donke } from './components'
 import * as firebase from 'firebase' 
 import { connect } from 'react-redux'
 const secrets = require('../secrets.js')
@@ -42,16 +42,15 @@ export class App extends Component {
     return (
       <div>
         <div className="navbar">
-          {!this.props.loggedIn ? 
-            <Login /> 
-            : !this.props.avatar.name ? 
-              <NewBuddy /> 
-            : <Navbar /> }
+          {!this.props.loggedIn 
+            ? <div><Login /> <Donke /></div>
+            : !this.props.avatar.name 
+              ? <div> <NewBuddy /> <Donke /> </div>
+              :  <div className="animal">
+                <Navbar /> <SelectDonke />
+              </div> }
         </div>
         {/*<Invitation/>*/}
-        <div className="animal">
-          <SelectDonke />
-        </div>
       </div>
     )
   }
