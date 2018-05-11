@@ -105,7 +105,7 @@ export default class PlaypenForm extends Component {
                           this.state.users.map((user, idx) => {
                             return (
                               <div className="playPen-invitedUser" key={idx}>
-                                <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`- ${user}`}</div>
+                                <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
                               </div>
                             )
                           })

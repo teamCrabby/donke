@@ -61,10 +61,11 @@ class IntervalForm extends Component {
                   </select>
                 </div>
               </div>
-              <button onClick={this.handleSubmit}>SET TIME</button>
+              <button id="timeButton" onClick={this.handleSubmit}>SET TIME</button>
             </div>
             : null
         }
+
       </div>
     )
   }
