@@ -72,60 +72,61 @@ export default class PlaypenForm extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
-      <div className="navbar-wrapper">
-        {
-          this.state.onToggle === true
-            ?
-            <div className="navbar-wrapper">
-              <div>
-                <label className="navbar-name">Playpen Name</label>
-              </div>
-              <div className="navbar-name">
-                <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
-              </div>
-
-              <div className="navbar-container">
-                <label className="navbar-name">Play date with</label>
-                {/* <select name="invitedUser" onChange={this.handleChange}>
-              {
-                ['boddy', 'suzie', 'trashcan', 'poopsie', 'puberty'].map((name, idx) => {
-                  return (<option key={idx}>{name}</option>)
-                })
-              }
-            </select> */}
-
+      <div className="navbarForm">
+        <div className="navbar-wrapper">
+          {
+            this.state.onToggle === true
+              ?
+              <div className="navbar-wrapper">
+                <div>
+                  <label className="navbar-name">Playpen Name</label>
+                </div>
                 <div className="navbar-name">
-                  <div className="playpenFriends">
-                    <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
-                    <div className="friends">
-                      {
-                        this.state.users.length
-                          ?
-                          this.state.users.map((user, idx) => {
-                            return (
-                              <div className="playPen-invitedUser" key={idx}>
-                                <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
-                              </div>
-                            )
-                          })
-                          : null
-                      }
+                  <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+                </div>
+
+                <div className="navbar-container">
+                  <label className="navbar-name">Play date with</label>
+                  {/* <select name="invitedUser" onChange={this.handleChange}>
+                {
+                  ['boddy', 'suzie', 'trashcan', 'poopsie', 'puberty'].map((name, idx) => {
+                    return (<option key={idx}>{name}</option>)
+                  })
+                }
+              </select> */}
+
+                  <div className="navbar-name">
+                    <div className="playpenFriends">
+                      <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+                      <div className="friends">
+                        {
+                          this.state.users.length
+                            ?
+                            this.state.users.map((user, idx) => {
+                              return (
+                                <div className="playPen-invitedUser" key={idx}>
+                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
+                                </div>
+                              )
+                            })
+                            : null
+                        }
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div>
-                  <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
-                </div>
-                <div>
-                  <button onClick={this.handleSubmit}>SUBMIT</button>
+                  <div>
+                    <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
+                  </div>
+                  <div>
+                    <button onClick={this.handleSubmit}>SUBMIT</button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            : null
-        }
+              : null
+          }
+        </div>
       </div>
 
     )
