@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
 import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus } from '../store';
 
+
+//need to init cloud function so can add user to database immediately after auth
+//
+//make keys un-secret
+
+
 //create timer variables so can assign them in order to clear them
 let timerFunc;
 let healthFunc;

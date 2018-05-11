@@ -40,6 +40,7 @@ export default class PlaypenForm extends Component {
   handleAddABuddy(event) {
     event.preventDefault()
     let invitedUser = this.state.invitedUser
+    //change this to query users collection
     authAdmin.listUsers()
       .then((userList) => {
         let [user] = userList.users.filter((user) => user.displayName === invitedUser)

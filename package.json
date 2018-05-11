@@ -7,7 +7,9 @@
     "start": "electron .",
     "start-dev": "concurrently \"webpack -w\" \"electromon .\" ",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "electron-rebuild": "node -r babel-register ./rebuildScript.js"
+    "electron-rebuild": "node -r babel-register ./rebuildScript.js",
+    "functions-install": "cd functions && npx -p node@6 npm install",
+    "functions-deploy": "npx -p node@6 firebase deploy --only functions"
   },
   "author": "",
   "license": "ISC",

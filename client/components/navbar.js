@@ -4,10 +4,13 @@ import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
 import * as firebase from 'firebase'
+import { setLoggedIn } from '../store';
+
 
 class Navbar extends Component {
   constructor(props) {
     super(props)
+    this.logOut = this.props.setStoreLoggedIn.bind(this)
     this.state = {
       workBreakClicked: false,
       playPenFormClicked: false,
@@ -46,11 +49,12 @@ class Navbar extends Component {
     })
   }
   handleLogOut(event) {
-    console.log('hai im handleLogout', event.target.name)
     firebase.auth().signOut()
       .then(function () {
         console.log(`Sign-out successful.`)
+        console.log("THIS.PROPS IS...", this.props)
         alert(`Bye!`)
+        this.logOut(false)
       })
       .catch(function (error) {
         if (error) {
@@ -112,7 +116,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    setStoreLoggedIn(loggedInBool) {
+      dispatch(setLoggedIn(loggedInBool))
+    },
   }
 }
 

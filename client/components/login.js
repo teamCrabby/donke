@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {db, auth} from '../app'
 import store, { setLoggedIn } from '../store'
 
-
 export class Login extends Component {
   constructor(props) {
     super(props)
@@ -33,7 +32,6 @@ export class Login extends Component {
         res.uid.length ? this.setState({ loggedInLocal: true }) : null
       })
       .catch(function (error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         console.error(`Unable to log in, ${errorCode} : ${errorMessage}`)
@@ -47,20 +45,16 @@ export class Login extends Component {
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
-        user.updateProfile({
-          displayName: this.state.displayName
-        })
+        db.collection('users').doc(user.uid).set({ handle: this.state.displayName, email: this.state.email })
         user.uid.length ? this.setState({ loggedInLocal: true }) : null
       })    
       .catch(function (error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         console.error(`Unable to create Email, ${errorCode} : ${errorMessage}`)
         if (error) {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
-        // ...
       });
 
   }
