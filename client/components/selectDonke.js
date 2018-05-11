@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
+<<<<<<< HEAD
 import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus } from '../store';
+=======
+import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase } from '../store';
+import { sunLeave, sunFaceLeave } from '../library/animations';
+>>>>>>> 7d019fbf2f38c6878bbe0bd047c345b4cda9d696
 
 
 //need to init cloud function so can add user to database immediately after auth
@@ -122,11 +127,11 @@ export class SelectDonke extends Component {
     this.props.setStoreHealth(10)
     this.props.getWorkInterval(0, 0)
     this.setState({ start: true })
+    deleteAvatarFirebase(this.props.avatar.id)
   }
 
-
   render() {
-    console.log("in selectDonke...", this.props.inPlaypen)
+    // console.log('THIS IS THE WORKINTERVAL', this.props.workInterval)
     return (
       this.props.workInterval > 0
         //if the user has submitted their work/break intervals render the below
@@ -218,7 +223,11 @@ const mapStateToProps = state => {
     health: state.health,
     idleTime: state.idleTime,
     status: state.status,
+<<<<<<< HEAD
     inPlaypen: state.playpenStatus
+=======
+    avatar: state.avatar
+>>>>>>> 7d019fbf2f38c6878bbe0bd047c345b4cda9d696
   }
 }
 

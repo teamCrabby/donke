@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen, Invitation } from './components'
+import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen, Invitation, NewBuddy } from './components'
 import * as firebase from 'firebase' 
 import { connect } from 'react-redux'
 const secrets = require('../secrets.js')
@@ -27,12 +27,13 @@ export class App extends Component {
   }
 
   componentDidMount() {
+    //this works (see console for printout). You can update the avatar and you will get 
+    //a new snapshot. The doc id is just a sample from our database. 
     this.unsubscribe = this.avatar.onSnapshot(this.onUpdate);
   }
   componentWillUnmount() {
     this.unsubscribe();
   }
-
   onUpdate(snapshot) {
     console.log('SNAPSHOT', snapshot.data())
   };
@@ -42,7 +43,11 @@ export class App extends Component {
       <div>
         <div className="navbar">
           <Navbar />
-          {!this.props.loggedIn ? <Login /> : null }
+          {!this.props.loggedIn ? 
+            <Login /> 
+            : !this.props.avatar.name ? 
+              <NewBuddy /> 
+            : null }
         </div>
         {/*<Invitation/>*/}
         <div className="animal">
@@ -55,7 +60,8 @@ export class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    avatar: state.avatar
   }
 }
 
