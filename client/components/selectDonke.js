@@ -5,7 +5,6 @@ import { playAudio } from '../library/audio';
 import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase } from '../store';
 
 
-
 //need to init cloud function so can add user to database immediately after auth
 //
 //make keys un-secret
