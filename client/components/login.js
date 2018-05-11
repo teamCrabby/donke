@@ -40,7 +40,7 @@ export class Login extends Component {
       });
   }
 
-  handleCreateUser(event) {
+handleCreateUser(event) {
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
