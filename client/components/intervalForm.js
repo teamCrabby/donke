@@ -17,6 +17,7 @@ class IntervalForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: Number(event.target.value) })
+
   }
 
   handleSubmit(event) {
@@ -64,6 +65,7 @@ class IntervalForm extends Component {
             </div>
             : null
         }
+
       </div>
     )
   }
@@ -78,7 +80,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getWorkInterval(workTime, breakTime) {
-      console.log('GOT INSIDE GETWORKINTERVAL')
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     }
