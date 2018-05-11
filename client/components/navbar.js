@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { fetchWorkInterval, fetchBreakInterval } from '../store'
 import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
+import * as firebase from 'firebase'
 
 class Navbar extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class Navbar extends Component {
     this.handlePlayPenForm = this.handlePlayPenForm.bind(this)
     this.handleCloseForms = this.handleCloseForms.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleLogOut = this.handleLogOut.bind(this)
   }
 
   handleCloseForms(event) {
@@ -48,6 +49,17 @@ class Navbar extends Component {
   
   handleLogOut(event) {
     console.log('hai im handleLogout', event.target.name)
+    firebase.auth().signOut()
+      .then(function () {
+        console.log(`Sign-out successful.`)
+        alert(`Bye!`)
+      })
+      .catch(function (error) {
+        if (error) {
+          alert(`Uh oh! Unable to log out. ${error.message} Try again`)
+        }
+      })
+
     this.setState({
       workBreakClicked: false,
       playPenFormClicked: false,
@@ -57,7 +69,6 @@ class Navbar extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
-
   }
 
   render() {
@@ -76,14 +87,15 @@ class Navbar extends Component {
         {
           this.state.workBreakClicked === true
             ?
-            <IntervalForm />
+            <IntervalForm disabled={this.state.workBreakClicked} />
             : null
         }
         {
           this.state.playPenFormClicked === true
             ?
-            <div className="playpen-container">
+            <div className="navbar-container">
               <PlaypenForm />
+              <PlaypenForm disabled={this.state.playPenFormClicked} />
             </div>
             :
             null

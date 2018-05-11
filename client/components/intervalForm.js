@@ -6,6 +6,7 @@ class IntervalForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      onToggle: this.props.disabled,
       workInterval: 0,
       breakInterval: 0,
 
@@ -15,51 +16,54 @@ class IntervalForm extends Component {
   }
 
   handleChange(event) {
-    console.log('GETTING INSIDE HANDLE CHANGE')
-    console.log('this is the event object: ', event)
-    console.log('this is event.target')
-    this.setState({ [event.target.name]: event.target.value })
+    this.setState({ [event.target.name]: Number(event.target.value) })
   }
 
-  handleSubmit(event, workTime, breakTime, callback) {
-    console.log('GOT INSIDE HANDLE SUBMIT INTERVAL FORM')
+  handleSubmit(event) {
     event.preventDefault()
-    this.props.getWorkInterval(workTime, breakTime)
-    // callback()
+    this.props.getWorkInterval(this.state.workInterval, this.state.breakInterval)
+    this.setState({ onToggle: false })
   }
 
   render() {
     return (
-      <div className="navbar-wrapper">
-        <div className="navbar-container-form">
-          <div className="navbar-name">Set Work Interval</div>
-          <div className="navbar-select">
-            <select name="workInterval" onChange={this.handleChange}>
-              {
-                [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
-                  return (
-                    <option key={idx} className="options">{interval}</option>
-                  )
-                })
-              }
-            </select>
-          </div>
-        </div>
-        <div className="navbar-container-form">
-          <div className="navbar-name">Set Break Interval</div>
-          <div className="navbar-select">
-            <select name="breakInterval" onChange={this.handleChange}>
-              {
-                [0, 1, 5, 10, 20, 30].map((interval, idx) => {
-                  return (
-                    <option key={idx} className="options">{interval}</option>
-                  )
-                })
-              }
-            </select>
-          </div>
-        </div>
-        <button onClick={(event) => this.handleSubmit(event, this.state.workInterval, this.state.breakInterval, this.handleClicked)}>SET TIME</button>
+      <div>
+        {
+          this.state.onToggle === true
+            ?
+            <div className="navbar-wrapper">
+              <div className="navbar-container-form">
+                <div className="navbar-name">Set Work Interval</div>
+                <div className="navbar-select">
+                  <select name="workInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <div className="navbar-container-form">
+                <div className="navbar-name">Set Break Interval</div>
+                <div className="navbar-select">
+                  <select name="breakInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 5, 10, 20, 30].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <button id="timeButton" onClick={this.handleSubmit}>SET TIME</button>
+            </div>
+            : null
+        }
       </div>
     )
   }
