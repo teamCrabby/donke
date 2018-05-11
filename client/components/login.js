@@ -44,15 +44,8 @@ export class Login extends Component {
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
-<<<<<<< HEAD
         db.collection('users').doc(user.uid).set({ handle: this.state.displayName, email: this.state.email })
         user.uid.length ? this.setState({ loggedInLocal: true }) : null
-=======
-        user.updateProfile({
-          displayName: this.state.displayName
-        })
-        user.uid.length ? this.props.setStoreLoggedIn(true) : null
->>>>>>> 7d019fbf2f38c6878bbe0bd047c345b4cda9d696
       })    
       .catch(function (error) {
         var errorCode = error.code;
