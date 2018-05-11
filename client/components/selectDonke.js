@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-<<<<<<< HEAD
-import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus } from '../store';
-=======
 import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase } from '../store';
-import { sunLeave, sunFaceLeave } from '../library/animations';
->>>>>>> 7d019fbf2f38c6878bbe0bd047c345b4cda9d696
+
 
 
 //need to init cloud function so can add user to database immediately after auth
@@ -223,11 +219,8 @@ const mapStateToProps = state => {
     health: state.health,
     idleTime: state.idleTime,
     status: state.status,
-<<<<<<< HEAD
-    inPlaypen: state.playpenStatus
-=======
+    inPlaypen: state.playpenStatus,
     avatar: state.avatar
->>>>>>> 7d019fbf2f38c6878bbe0bd047c345b4cda9d696
   }
 }
 
