@@ -11,7 +11,8 @@ export default class PlaypenForm extends Component {
       playPenName: '',
       invitedUser: '',
       users: [],
-      owner: ''
+      owner: '',
+      avatars: []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,20 +28,22 @@ export default class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
-    db.collection('playPen').doc(this.state.playPenName).set({
+    let avatars = this.state.avatars
+    db.collection('playPen').add({
       name: this.state.playPenName,
       users: this.state.users,
-      owner: this.state.owner.name
+      owner: this.state.owner.name,
+      avatars: this.state.avatars
     })
-      .then(() => {
-        this.state.users.map(user => {
-          let foundUser = db.collection('users').where('displayName', '==', user)
-          db.collection('avatars').where('userId','==', foundUser.uid)
-          //update avatar's playpenId here
+      .then((res) => {
+        console.log('CREATED PLAYPEN RES', res)
+        db.collection('playPen').doc(res.id).get()
+        .then((res) => {
+          console.log('GOT PLAYPEN', res.data())
+          // let playpen = res.data()
+          // avatars.map(avatar)
         })
       })
-    //   .then(console.log)
-    // )
       .then((res) => console.log('Document successfully written, HOORAY'))
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({ onToggle: false, invitedUser: '', users: [] })
@@ -49,28 +52,60 @@ export default class PlaypenForm extends Component {
   handleAddABuddy(event) {
     event.preventDefault()
     if (this.state.users.indexOf(this.state.invitedUser) === -1) {
-      let invitedUser = this.state.invitedUser
-      //change this to query users collection
-      authAdmin.listUsers()
-        .then((userList) => {
-          let [user] = userList.users.filter((user) => user.displayName === invitedUser)
-          console.log('user is...', user)
-          if (user) {
-            this.setState({
-              invitedUser: '',
-              users: [invitedUser, ...this.state.users]
-            })
-            console.log('users array is...', this.state.users)
-          }
-          else alert("Can't find that user.")
-          // console.log(user)
-          // //will return the thing for which this is true, or [] if it's not true
-          // console.log(userList.users)
+      db.collection('users').where('displayName','==',this.state.invitedUser)
+        .get()
+        .then(function(querySnapshot) {
+          // console.log('query snap', querySnapshot)
+          let foundUser;
+          querySnapshot.forEach(function(doc) {
+            // console.log(doc.id, '==>', doc.data())
+            if (doc) {
+              console.log('FOUND USER:', foundUser)
+              foundUser = doc.data()
+              foundUser.id = doc.id
+            } else {
+              alert(`Sorry, that user does not exist.`)
+            }
+          })
+          return foundUser;
+      })
+      .then((user) => {
+        console.log('USER', user)
+        return db.collection('avatar').where('userId', '==', user.id)
+        .get()
+        .then(function(querySnapshot) {
+          let foundAvatar;
+          querySnapshot.forEach(function(doc) {
+            console.log(doc.id, '==>', doc.data())
+            if (doc) {
+              foundAvatar = doc.data()
+              foundAvatar.id = doc.id
+              console.log('FOUND AVATAR:', foundAvatar)
+            } else {
+              alert(`Sorry, that avatar does not exist.`)
+            }
+          })
+          console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+          return foundAvatar;
         })
+      })                 
+      .then(avatar => {
+        //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
+        // db.collection('avatar').doc(avatar.id).update({
+
+        // })
+        console.log('AVATAR', avatar)
+        this.setState({
+          invitedUser: '',
+          users: [this.state.invitedUser, ...this.state.users],
+          avatars: [avatar, ...this.state.avatars]
+        })
+        console.log('users array is...', this.state.users)
+        console.log('avatars array is ...', this.state.avatars)
+      }) 
     } else {
         alert(`User ${this.state.invitedUser} already added`)
-    }
-
+   }
   }
 
   handleChange(event) {
