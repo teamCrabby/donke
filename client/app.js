@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen, NewBuddy } from './components'
+import { Navbar, Heart, SpeechBubble, SelectDonke, PartyHat, HealthBar, Login, Playpen, Invitation, NewBuddy } from './components'
 import * as firebase from 'firebase' 
 import { connect } from 'react-redux'
 const secrets = require('../secrets.js')
 require("firebase/firestore")
-require('firebase-admin');
-import * as admin from 'firebase-admin';
 
 firebase.initializeApp({
   apiKey: secrets.API_KEY,
@@ -16,18 +14,8 @@ firebase.initializeApp({
   messagingSenderId: secrets.MESSAGING_SENDER_ID
 });
 
-admin.initializeApp({
-  credential: admin.credential.cert({
-    projectId: secrets.PROJECT_ID,
-    clientEmail: secrets.CLIENT_EMAIL,
-    privateKey: secrets.PRIVATE_KEY
-  }),
-  databaseURL: secrets.DATABASE_URL
-});
-
 export const db = firebase.firestore();
 export const auth = firebase.auth()
-export const authAdmin = admin.auth()
 const settings = {/* your settings... */ timestampsInSnapshots: true };
 db.settings(settings);
 
@@ -61,10 +49,8 @@ export class App extends Component {
               <NewBuddy /> 
             : null }
         </div>
+        {/*<Invitation/>*/}
         <div className="animal">
-          {
-            //<Playpen />
-          }
           <SelectDonke />
         </div>
       </div>
