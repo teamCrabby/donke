@@ -23,6 +23,7 @@ a {
 .navbar-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   font-family: 'Pangolin', cursive;
   border-radius: 10px;
 }
@@ -37,6 +38,7 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   margin: auto;
 }
 
@@ -46,7 +48,7 @@ a {
   flex-direction: row;
   justify-content: space-between;
   overflow: hidden;
-  padding: 10px 10px 5px 10px;
+  padding: 5px 10px 5px 5px;
   color:	white;
   border-radius: 10px;
 }
@@ -54,55 +56,68 @@ a {
 .navbar-name {
   overflow: hidden;
   /* float: left; */
-  padding: 5px 10px;
+  padding: 2px 5px;
   color:	rgb(7, 53, 90);
   border-radius: 10px;
 }
 
 .navbar-select {
   padding: 5px 10px;
-  margin-top: 10px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
 
-.options {
-  margin-left: 10px;
-  margin-top:25px;
+select {
+  height: 25px;
+  overflow: hidden;
+  width: 50px;
 }
+
 
 .Img {
   height: 30px;
   width: 30px;
   align-self: center;
   padding-left: 10px;
+  background-color: white;
+  border: 1px solid; 
+  border-radius: 25px;
+  padding: 5px;
 }
 
 .navbar-wrapper {
   display: flex;
   width: calc(100% - 100px);
-  margin: auto auto 5px auto;
+  margin: auto auto 2px auto;
   flex-direction: column;
+  justify-content: center;
   z-index: 1;
 }
 
 .navbar-wrapper button {
   /* width: calc(100% - 100px); */
-  width: auto;
+  width: 100px;
   height: 30px;
-  border: 1px solid  rgba(241, 212, 42, 0.986);
+  border: 1px solid  rgba(41, 172, 224, 0.986);
   border-radius: 25px;
   transition-duration: .25s;
   cursor: pointer;
   color:  rgba(22, 20, 8, 0.986);
   font-size: 1 em;
-  background-color: rgba(238, 240, 155, 0.986);
+  background-color:rgba(235, 222, 224, 0.986);
   text-shadow: 0 1px 1px rgba(0,0,0,0.2);
   margin: 5px;
 }
 .navbar-wrapper button:hover {
   color: white;
-  background:  rgba(241, 212, 42, 0.986);
+  background:   rgba(238, 240, 155, 0.986);
+  color: black;
 }
 
+#timeButton {
+  margin-left: 30px;
+}
 
 
 /********************** DONKE BUTTON *********************/
@@ -380,8 +395,19 @@ a {
 
 .playpen-container {
   display: flex;
+  align-items: center;
   flex: inline-block;
 }
+
+
+  .playPen-invitedUser{
+    display: inline-block;
+    border: 1px solid gray;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 3px;
+  }
+
 
 .playpen-container input {
   width: calc(50%);
@@ -421,11 +447,8 @@ a {
   resize: vertical;
 } */
 
-.playPen-invitedUser {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
+
+
 
 .playPen-invitedUser-img {
   height: 15px;
