@@ -11,7 +11,8 @@ export { default as Halo } from './halo';
 export { default as Login } from './login';
 export { default as Lightning } from './lightning';
 export { default as Cloud } from './cloud';
-export {default as Playpen } from './playpen';
+export { default as Playpen } from './playpen';
 export { default as PlaypenForm } from './playpenForm'
 export { default as SleepingDonke } from './sleepingDonke'
 export { default as IntervalForm } from './intervalForm'
+export { default as NewBuddy } from './NewBuddy'
