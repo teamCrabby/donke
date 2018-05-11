@@ -17,6 +17,7 @@ export class Playpen extends Component {
 
   leavePlaypen(){
     this.props.setPlaypen(false)
+    //add logic to update firebase
   }
 
   //render donkes -- avatars.forEach... render donkes according to health

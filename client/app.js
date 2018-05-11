@@ -50,7 +50,7 @@ export class App extends Component {
                 <Navbar /> <SelectDonke />
               </div> }
         </div>
-        {/*<Invitation/>*/}
+        <Invitation/>
       </div>
     )
   }

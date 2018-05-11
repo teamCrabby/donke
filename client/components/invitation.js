@@ -17,6 +17,7 @@ export class Invitation extends Component {
         this.handleClickNo = this.handleClickNo.bind(this)
     }
     handleClickYes(){
+        console.log('clicked yes')
         this.props.setPlaypen(true)
         this.setState({invited: false})
         //render playpen
