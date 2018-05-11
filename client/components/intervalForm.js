@@ -15,14 +15,17 @@ class IntervalForm extends Component {
   }
 
   handleChange(event) {
+    console.log('GETTING INSIDE HANDLE CHANGE')
+    console.log('this is the event object: ', event)
+    console.log('this is event.target')
     this.setState({ [event.target.name]: event.target.value })
-
   }
 
   handleSubmit(event, workTime, breakTime, callback) {
+    console.log('GOT INSIDE HANDLE SUBMIT INTERVAL FORM')
     event.preventDefault()
     this.props.getWorkInterval(workTime, breakTime)
-    callback()
+    // callback()
   }
 
   render() {
@@ -31,7 +34,7 @@ class IntervalForm extends Component {
         <div className="navbar-container-form">
           <div className="navbar-name">Set Work Interval</div>
           <div className="navbar-select">
-            <select name="interval" onChange={this.handleChange}>
+            <select name="workInterval" onChange={this.handleChange}>
               {
                 [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
                   return (
@@ -45,7 +48,7 @@ class IntervalForm extends Component {
         <div className="navbar-container-form">
           <div className="navbar-name">Set Break Interval</div>
           <div className="navbar-select">
-            <select name="interval" onChange={this.handleChange}>
+            <select name="breakInterval" onChange={this.handleChange}>
               {
                 [0, 1, 5, 10, 20, 30].map((interval, idx) => {
                   return (
@@ -71,6 +74,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getWorkInterval(workTime, breakTime) {
+      console.log('GOT INSIDE GETWORKINTERVAL')
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     }

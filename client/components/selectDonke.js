@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus } from '../store';
+import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase } from '../store';
 import { sunLeave, sunFaceLeave } from '../library/animations';
 
 let timerFunc;
 let healthFunc;
 let breakCountFunc;
-
-//only render work time button if break time has run out
 
 export class SelectDonke extends Component {
   constructor(props) {
@@ -49,8 +47,6 @@ export class SelectDonke extends Component {
       this.props.setStoreStatus('needBreak')
       this.needBreak()
     }, workInterval)
-    //console logs
-      // console.log('in worktimer setting timeout', timerFunc)
   }
 
   needBreak() {
@@ -60,8 +56,6 @@ export class SelectDonke extends Component {
         this.props.setStoreHealth(this.props.health - 1)
       }
     }, 5000)
-    //console logs
-      // console.log("in needBreak setting interval", healthFunc)
   }
 
   breakTimer() {
@@ -91,11 +85,6 @@ export class SelectDonke extends Component {
   }
 
   handleClickWork() {
-    //console logs
-      // console.log('in handleClickWork');
-      // console.log('clearing setTimeout', timerFunc);
-      // console.log('clearing setInterval', healthFunc);
-      // cb()
     this.changeFullScreen()
     clearInterval(breakCountFunc)
     clearInterval(healthFunc);
@@ -112,14 +101,15 @@ export class SelectDonke extends Component {
     this.props.setStoreHealth(10)
     this.props.getWorkInterval(0, 0)
     this.setState({ start: true })
+    deleteAvatarFirebase(this.props.avatar.id)
   }
 
   sunOut() {
     sunLeave();
   }
 
-
   render() {
+    // console.log('THIS IS THE WORKINTERVAL', this.props.workInterval)
     return (
       this.props.workInterval > 0
         //if the user has submitted time specifications timer is running and render is dependent on timer
@@ -195,7 +185,8 @@ const mapStateToProps = state => {
     breakInterval: state.breakInterval,
     health: state.health,
     idleTime: state.idleTime,
-    status: state.status
+    status: state.status,
+    avatar: state.avatar
   }
 }
 

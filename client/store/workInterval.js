@@ -20,9 +20,10 @@ const setWorkInterval = (time) => ({type: SET_WORK_INTERVAL, time})
 /**
  * THUNK CREATORS
  */
-export const fetchWorkInterval = (time) =>
+export const fetchWorkInterval = (time) => {
   dispatch =>
     dispatch(setWorkInterval(time))
+}
 
 /**
  * REDUCER

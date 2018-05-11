@@ -36,6 +36,7 @@ class Navbar extends Component {
       workBreakClicked: !this.state.workBreakClicked
     })
   }
+
   handlePlayPenForm(event) {
     console.log('im handled form', event.target.name)
     this.setState({
@@ -44,6 +45,7 @@ class Navbar extends Component {
       playPenFormClicked: !this.state.playPenFormClicked
     })
   }
+  
   handleLogOut(event) {
     console.log('hai im handleLogout', event.target.name)
     this.setState({
