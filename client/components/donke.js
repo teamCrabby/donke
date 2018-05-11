@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { sunRotate } from '../library/animations';
 import { playAudio } from '../library/audio';
 import { connect } from 'react-redux';
 
