@@ -32,6 +32,9 @@ export default class PlaypenForm extends Component {
       users: this.state.users,
       owner: this.state.owner.name
     })
+      .then(db.collection('playPen').get()
+      .then(console.log)
+    )
       .then((res) => console.log('Document successfully written, HOORAY'))
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({onToggle: false, invitedUser: '', users: []})
@@ -39,11 +42,15 @@ export default class PlaypenForm extends Component {
 
   handleAddABuddy(event) {
     event.preventDefault()
-    authAdmin.listUsers().then((users) => console.log(users))
-    this.setState({
-      invitedUser: '',
-      users: [this.state.invitedUser, ...this.state.users]
-    })
+    if (this.state.users.indexOf(this.state.invitedUser) === -1) {
+      authAdmin.listUsers().then((users) => console.log(users))
+      this.setState({
+        invitedUser: '',
+        users: [this.state.invitedUser, ...this.state.users]
+      })
+    } else {
+        alert(`User ${this.state.invitedUser} already added`)
+    }
   }
 
   handleChange(event) {
