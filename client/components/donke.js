@@ -7,6 +7,7 @@ class Donke extends Component {
   constructor(props) {
     super(props);
 
+
   }
 
 
@@ -15,6 +16,11 @@ class Donke extends Component {
     return (
       <div className="panel">
         <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
+        {this.props.name !== ''
+          ? <p id="buddyName">Hello, I'm {this.props.name}!</p>
+          :
+          null
+        }
       </div>
     )
   }
@@ -23,7 +29,7 @@ class Donke extends Component {
 
 const mapStateToProps = state => {
   return {
-
+    name: state.avatar.name,
     health: state.health
   }
 }
