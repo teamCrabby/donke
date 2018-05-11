@@ -19,10 +19,10 @@ export default class PlaypenForm extends Component {
     this.handleRemoveUser = this.handleRemoveUser.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     let user = firebase.auth().currentUser
     if (user !== null) {
-      this.setState({ owner : { name: user.displayName, email: user.email, uid: user.uid } })
+      this.setState({ owner: { name: user.displayName, email: user.email, uid: user.uid } })
     }
   }
 
@@ -34,92 +34,98 @@ export default class PlaypenForm extends Component {
     })
       .then((res) => console.log('Document successfully written, HOORAY'))
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
-    this.setState({onToggle: false, invitedUser: '', users: []})
+    this.setState({ onToggle: false, invitedUser: '', users: [] })
   }
 
   handleAddABuddy(event) {
     event.preventDefault()
     let invitedUser = this.state.invitedUser
     authAdmin.listUsers()
-    .then((userList) => {
-      let [user] = userList.users.filter((user) => user.displayName === invitedUser)
-      console.log('user is...', user)
-      if (user) {
-        this.setState({
-          invitedUser: '',
-          users: [invitedUser, ...this.state.users]
-        })
-        console.log('users array is...', this.state.users)
-      }
-      else alert("Can't find that user.")
-      // console.log(user)
-      // //will return the thing for which this is true, or [] if it's not true
-      // console.log(userList.users)
-    })
-   
+      .then((userList) => {
+        let [user] = userList.users.filter((user) => user.displayName === invitedUser)
+        console.log('user is...', user)
+        if (user) {
+          this.setState({
+            invitedUser: '',
+            users: [invitedUser, ...this.state.users]
+          })
+          console.log('users array is...', this.state.users)
+        }
+        else alert("Can't find that user.")
+        // console.log(user)
+        // //will return the thing for which this is true, or [] if it's not true
+        // console.log(userList.users)
+      })
+
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleRemoveUser(event, index){
+  handleRemoveUser(event, index) {
     let updatedUsers = this.state.users.filter((user, idx) => {
       return idx !== index
     })
-    this.setState({ users : updatedUsers })
+    this.setState({ users: updatedUsers })
   }
 
   render() {
     console.log(this.state)
     return (
-        <div className="navbar-wrapper">
-          {
-           this.state.onToggle === true
-           ?
-          <div className="navbar-container">
-            <div>
-              <label className="navbar-name">Playpen Name</label>
-            </div>
-            <div className="navbar-options">
-              <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
-            </div>
+      <div className="navbar-wrapper">
+        {
+          this.state.onToggle === true
+            ?
+            <div className="navbar-wrapper">
+              <div>
+                <label className="navbar-name">Playpen Name</label>
+              </div>
+              <div className="navbar-name">
+                <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+              </div>
 
-            <div className="navbar-container">
-              <label className="navbar-name">Find a Friend</label>
-              {/* <select name="invitedUser" onChange={this.handleChange}>
+              <div className="navbar-container">
+                <label className="navbar-name">Play date with</label>
+                {/* <select name="invitedUser" onChange={this.handleChange}>
               {
                 ['boddy', 'suzie', 'trashcan', 'poopsie', 'puberty'].map((name, idx) => {
                   return (<option key={idx}>{name}</option>)
                 })
               }
             </select> */}
-              <div>
-              {
-              this.state.users.length
-              ?
-              this.state.users.map((user, idx) => {
-                return (
-                  <div className="playPen-invitedUser" key={idx}>
-                    <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`- ${user}`}</div>
+
+                <div className="navbar-name">
+                  <div className="playpenFriends">
+                    <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+                    <div className="friends">
+                      {
+                        this.state.users.length
+                          ?
+                          this.state.users.map((user, idx) => {
+                            return (
+                              <div className="playPen-invitedUser" key={idx}>
+                                <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
+                              </div>
+                            )
+                          })
+                          : null
+                      }
+                    </div>
                   </div>
-                )
-              })
-              : null
-              }
-                <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
-              </div>
-              <div>
-                <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
-              </div>
-              <div>
-                <button onClick={this.handleSubmit}>SUBMIT</button>
+                </div>
+                <div>
+                  <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
+                </div>
+                <div>
+                  <button onClick={this.handleSubmit}>SUBMIT</button>
+                </div>
               </div>
             </div>
-          </div>
-          : null
-          }
-        </div>
+
+            : null
+        }
+      </div>
 
     )
   }
