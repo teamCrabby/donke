@@ -28,7 +28,7 @@ class IntervalForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className='navbarForm'>
         {
           this.state.onToggle === true
             ?
