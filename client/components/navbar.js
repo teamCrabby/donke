@@ -14,7 +14,7 @@ class Navbar extends Component {
       logOutClicked: false,
 
     }
-    this.handleWorkBreakForm.bind(this)
+    this.handleWorkBreakForm = this.handleWorkBreakForm.bind(this)
     this.handlePlayPenForm = this.handlePlayPenForm.bind(this)
     this.handleCloseForms = this.handleCloseForms.bind(this)
     this.handleChange = this.handleChange.bind(this)
