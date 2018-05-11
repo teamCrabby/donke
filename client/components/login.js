@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import { NewBuddy } from './index';
 import { connect } from 'react-redux'
 import {db, auth} from '../app'
 import store, { setLoggedIn } from '../store'
-
 
 export class Login extends Component {
   constructor(props) {
@@ -12,12 +12,10 @@ export class Login extends Component {
       email: '',
       password: '',
       displayName: '',
-      buddyName: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
     this.handleCreateUser = this.handleCreateUser.bind(this)
-    this.handleNameBuddy = this.handleNameBuddy.bind(this)
   }
 
   handleChange(event) {
@@ -30,10 +28,9 @@ export class Login extends Component {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => {
-        res.uid.length ? this.setState({ loggedInLocal: true }) : null
+        res.uid.length ? this.props.setStoreLoggedIn(true) : null
       })
       .catch(function (error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         console.error(`Unable to log in, ${errorCode} : ${errorMessage}`)
@@ -43,50 +40,27 @@ export class Login extends Component {
       });
   }
 
-  handleCreateUser(event) {
+handleCreateUser(event) {
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
-        user.updateProfile({
-          displayName: this.state.displayName
-        })
+        db.collection('users').doc(user.uid).set({ handle: this.state.displayName, email: this.state.email })
         user.uid.length ? this.setState({ loggedInLocal: true }) : null
       })    
       .catch(function (error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         console.error(`Unable to create Email, ${errorCode} : ${errorMessage}`)
         if (error) {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
-        // ...
       });
-
-  }
-
-  handleNameBuddy(event) {
-    event.preventDefault
-    db.collection("avatars").doc().set({
-      name: this.state.buddyName,
-      userId: auth.currentUser.uid
-    })
-    .then(res =>  {
-        console.log("Document successfully written!");
-        this.props.setStoreLoggedIn(true)
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
   }
 
 
   render() {
     return (
       <div className="login">
-        {
-          this.state.loggedInLocal === false
-            ?
             <div className="login-container">
               <div>
                 <label>Login</label>
@@ -120,25 +94,6 @@ export class Login extends Component {
                 </div>
               </div>
             </div>
-            : <div className="login-container">
-                <div>
-                  <label>Name Your Buddy</label>
-                </div>
-                <div className="email-password">
-                  <div className="buddyName">
-                    <div className="buddyName-label">
-                      <label>Name</label>
-                    </div>
-                    <input name="buddyName" type="string" onChange={this.handleChange} value={this.state.buddyName}/>
-                  </div> 
-                </div>
-              <div className="login-button">
-                <div className="submit-buddy">
-                  <button onClick={this.handleNameBuddy}>Let's Go!</button>
-                </div>
-              </div>
-            </div>
-        }
       </div>
     )
   }

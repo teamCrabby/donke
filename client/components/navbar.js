@@ -3,18 +3,21 @@ import { connect } from 'react-redux'
 import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
-import * as firebase from 'firebase' 
+import * as firebase from 'firebase'
+import { setLoggedIn } from '../store';
+
 
 class Navbar extends Component {
   constructor(props) {
     super(props)
+    this.logOut = this.props.setStoreLoggedIn.bind(this)
     this.state = {
       workBreakClicked: false,
       playPenFormClicked: false,
       logOutClicked: false,
 
     }
-    this.handleWorkBreakForm.bind(this)
+    this.handleWorkBreakForm = this.handleWorkBreakForm.bind(this)
     this.handlePlayPenForm = this.handlePlayPenForm.bind(this)
     this.handleCloseForms = this.handleCloseForms.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -37,6 +40,7 @@ class Navbar extends Component {
       workBreakClicked: !this.state.workBreakClicked
     })
   }
+
   handlePlayPenForm(event) {
     console.log('im handled form', event.target.name)
     this.setState({
@@ -45,18 +49,20 @@ class Navbar extends Component {
       playPenFormClicked: !this.state.playPenFormClicked
     })
   }
+  
   handleLogOut(event) {
-    console.log('hai im handleLogout', event.target.name)
     firebase.auth().signOut()
-    .then(function() {
-      console.log(`Sign-out successful.`)
-      alert(`Bye!`)
-    })
-    .catch(function(error) {
-      if (error) {
-        alert(`Uh oh! Unable to log out. ${error.message} Try again`)
-      }
-    })
+      .then(function () {
+        console.log(`Sign-out successful.`)
+        console.log("THIS.PROPS IS...", this.props)
+        alert(`Bye!`)
+        this.logOut(false)
+      })
+      .catch(function (error) {
+        if (error) {
+          alert(`Uh oh! Unable to log out. ${error.message} Try again`)
+        }
+      })
 
     this.setState({
       workBreakClicked: false,
@@ -85,14 +91,15 @@ class Navbar extends Component {
         {
           this.state.workBreakClicked === true
             ?
-            <IntervalForm disabled={this.state.workBreakClicked}/>
+            <IntervalForm disabled={this.state.workBreakClicked} />
             : null
         }
         {
           this.state.playPenFormClicked === true
             ?
             <div className="navbar-container">
-              <PlaypenForm disabled={this.state.playPenFormClicked}/>
+              <PlaypenForm />
+              <PlaypenForm disabled={this.state.playPenFormClicked} />
             </div>
             :
             null
@@ -111,7 +118,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    setStoreLoggedIn(loggedInBool) {
+      dispatch(setLoggedIn(loggedInBool))
+    },
   }
 }
 
