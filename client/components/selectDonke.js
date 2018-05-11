@@ -68,7 +68,7 @@ export class SelectDonke extends Component {
       if (this.props.health > 0) {
         this.props.setStoreHealth(this.props.health - 1)
       }
-    }, 5000)
+    }, 8000)
   }
 
   breakTimer() {

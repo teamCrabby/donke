@@ -42,13 +42,12 @@ export class App extends Component {
     return (
       <div>
         <div className="navbar">
-          <Navbar />
-          {!this.props.loggedIn ? 
-            <div><Login /> <Donke /></div>
-            : !this.props.avatar.name ? 
-              <div> <NewBuddy /> <Donke /> </div>
-            :  <div className="animal">
-                <SelectDonke />
+          {!this.props.loggedIn 
+            ? <div><Login /> <Donke /></div>
+            : !this.props.avatar.name 
+              ? <div> <NewBuddy /> <Donke /> </div>
+              :  <div className="animal">
+                <Navbar /> <SelectDonke />
               </div> }
         </div>
         {/*<Invitation/>*/}
