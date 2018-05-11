@@ -27,14 +27,20 @@ export default class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
-    db.collection('playPen').doc().set({
+    db.collection('playPen').doc(this.state.playPenName).set({
       name: this.state.playPenName,
       users: this.state.users,
       owner: this.state.owner.name
     })
-      .then(db.collection('playPen').get()
-      .then(console.log)
-    )
+      .then(() => {
+        this.state.users.map(user => {
+          let foundUser = db.collection('users').where('displayName', '==', user)
+          db.collection('avatars').where('userId','==', foundUser.uid)
+          //update avatar's playpenId here
+        })
+      })
+    //   .then(console.log)
+    // )
       .then((res) => console.log('Document successfully written, HOORAY'))
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({onToggle: false, invitedUser: '', users: []})
