@@ -13,6 +13,7 @@ export class Login extends Component {
       email: '',
       password: '',
       displayName: '',
+      signUp: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
@@ -66,10 +67,41 @@ export class Login extends Component {
 
   render() {
     return (
-      <div className="login">
+       !this.state.signUp ?
+          <div className="login">
             <div className="login-container">
               <div>
                 <label>Login</label>
+              </div>
+              <div className="email-password">
+                <div className="email">
+                  <div className="email-label">
+                    <label>Email</label>
+                  </div>
+                  <input name="email" type="string" onChange={this.handleChange} value={this.state.email} />
+                </div>
+                <div className="password">
+                  <div className="password-label">
+                    <label>Password</label>
+                  </div>
+                  <input name="password" type="string" onChange={this.handleChange} value={this.state.password} />
+                </div>
+              </div>
+              <div className="login-button">
+                <div className="signIn">
+                  <button onClick={this.handleSignIn}>Sign In</button>
+                </div>
+                <div>
+                  <button id="nav1" onClick={() => this.setState({signUp: true})}>Sign Up</button>
+                </div>
+              </div>
+            </div>
+          </div> 
+          : 
+          <div className="login">
+            <div className="login-container">
+              <div>
+                <label>Signup</label>
               </div>
               <div className="email-password">
                 <div className="displayName">
@@ -92,15 +124,15 @@ export class Login extends Component {
                 </div>
               </div>
               <div className="login-button">
-                <div className="signIn">
-                  <button onClick={this.handleSignIn}>Sign In</button>
-                </div>
                 <div className="signUp">
                   <button onClick={this.handleCreateUser}>Sign Up</button>
                 </div>
               </div>
+              <div>
+                <button id="nav2" onClick={() => this.setState({signUp: false})}>Log In</button>
+              </div>
             </div>
-      </div>
+          </div>
     )
   }
 }

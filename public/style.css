@@ -1,6 +1,5 @@
 /********************** MAIN *********************/
 body {
-  font-family: 'Helvetica';
   background-color: #f3ede9;
   -webkit-app-region: drag;
   font-family: 'Pangolin', cursive;
@@ -357,6 +356,7 @@ select {
 .login-container {
   border: 2px solid #F0F0F0	;
   padding: 10px;
+  margin-top: 60px;
   background-color: #F0F0F0;
   border-radius: 5px;
 }
@@ -366,25 +366,37 @@ select {
 }
 
 .email-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
   text-align: left;
 }
 
 .password-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
   text-align: left;
 }
 
 .login-button {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-self: center;
 }
 
 .displayName-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
   text-align: left;
 }
 
 .signIn, .create-new-label {
   margin: 5px auto 5px auto;
+}
+
+#nav1, #nav2 {
+  border-radius: 3;
+  background-color: transparent;
+  padding: 0;
 }
 
 .signUp {

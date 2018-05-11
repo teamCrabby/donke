@@ -54,12 +54,11 @@ export class App extends Component {
     return (
       <div>
         <div className="navbar">
-          <Navbar />
           {!this.props.loggedIn ? 
             <Login /> 
             : !this.props.avatar.name ? 
               <NewBuddy /> 
-            : null }
+            : <Navbar /> }
         </div>
         <div className="animal">
           {
