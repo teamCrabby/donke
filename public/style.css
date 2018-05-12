@@ -495,5 +495,6 @@ select {
    top: 450px; 
    height: 100px; 
    width: 150px; 
-   font-size: 2em;
+   font-size: 1.5em;
+   word-wrap: break-word;
    }
