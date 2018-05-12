@@ -16,11 +16,6 @@ export class Invitation extends Component {
         this.handleClickNo = this.handleClickNo.bind(this)
     }
     handleClickYes(){
-<<<<<<< HEAD
-        console.log('clicked yes')
-=======
-        console.log('in handle click yes')
->>>>>>> invitation-form
         this.props.setPlaypen(true)
         this.props.setStoreInvited(false)
         //render playpen

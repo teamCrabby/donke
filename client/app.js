@@ -61,10 +61,6 @@ export class App extends Component {
                   : null}
               </div> }
         </div>
-<<<<<<< HEAD
-        <Invitation/>
-=======
->>>>>>> invitation-form
       </div>
     )
   }
