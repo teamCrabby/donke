@@ -37,6 +37,7 @@ export class Playpen extends Component {
 
   leavePlaypen() {
     //reset the users playpen id to null to re-render their individual view
+    this.props.setPlaypen(false)
     db
       .collection('avatars')
       .doc(`${this.props.avatar.id}`)
