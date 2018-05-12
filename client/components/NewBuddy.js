@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {db, auth} from '../app'
-import store, { createAvatarFirebase } from '../store'
+import store, { createAvatarFirebase, updateAvatarFirebase } from '../store'
 
 
 export class NewBuddy extends Component {
@@ -21,13 +21,35 @@ export class NewBuddy extends Component {
 
   handleNameBuddy(event) {
     event.preventDefault
-    createAvatarFirebase({
-      name: this.state.buddyName,
-      userId: auth.currentUser.uid,
-      health: 10,
-      playpenId: null,
-      invited: false
-    })
+    db.collection('avatars').where('userId', '==',this.props.user).get()
+    .then(function(querySnapshot) {
+      // console.log('query snap', querySnapshot)
+      let foundAvatar;
+      querySnapshot.forEach(function(doc) {
+        // console.log(doc.id, '==>', doc.data())
+        if (doc) {
+          // console.log('FOUND USER:', foundUser)
+          foundAvatar = doc.data()
+          foundAvatar.id = doc.id
+        } else {
+          return false
+        }
+      })
+      return foundAvatar
+  })
+  .then(res => {
+    if (res) {
+      this.props.setAvatar(res.id, this.state.buddyName)
+    } else {
+      createAvatarFirebase({
+        name: this.state.buddyName,
+        userId: auth.currentUser.uid,
+        health: 10,
+        playpenId: null,
+        invited: false
+      })
+    }
+  })
   }
 
 
@@ -61,7 +83,8 @@ export class NewBuddy extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    user: state.user
   }
 }
 
@@ -70,6 +93,9 @@ const mapDispatchToProps = dispatch => {
     setStoreLoggedIn(loggedInBool) {
       dispatch(setLoggedIn(loggedInBool))
     },
+    setAvatar(avatarId, avatarName){
+      dispatch(updateAvatarFirebase(avatarId, avatarName))
+    }
   }
 }
 

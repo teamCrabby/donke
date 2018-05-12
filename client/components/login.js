@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NewBuddy } from './index';
 import { connect } from 'react-redux'
 import {db, auth} from '../app'
-import store, { setLoggedIn } from '../store'
+import store, { setLoggedIn, fetchUser } from '../store'
 
 export class Login extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export class Login extends Component {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(res => {
-        res.uid.length ? this.props.setStoreLoggedIn(true) : null
+        res.uid.length ? this.props.setStoreLoggedIn(true, res.uid) : null
       })
       .catch(function (error) {
         var errorCode = error.code;
@@ -46,7 +46,10 @@ handleCreateUser(event) {
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
         db.collection('users').doc(user.uid).set({ handle: this.state.displayName, email: this.state.email })
-        user.uid.length ? this.setState({ loggedInLocal: true }) : null
+        if(user.uid.length) {
+          this.setState({ loggedInLocal: true })
+          this.props.setUserId(user.uid)
+        } 
       })    
       .catch(function (error) {
         var errorCode = error.code;
@@ -139,9 +142,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setStoreLoggedIn(loggedInBool) {
+    setStoreLoggedIn(loggedInBool, uid) {
       dispatch(setLoggedIn(loggedInBool))
+      dispatch(fetchUser(uid))
     },
+    setUserID(id){
+      dispatch(fetchUser(uid))
+    }
   }
 }
 
