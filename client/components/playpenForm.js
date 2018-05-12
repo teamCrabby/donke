@@ -29,7 +29,7 @@ class PlaypenForm extends Component {
       .then(res => {
         let userinFS = res.data()
         // console.log('USER FROM FIRESTORE', userinFS)
-        this.setState({ owner: { name: userinFS.handle, email: userinFS.email, uid: user.uid } })
+        this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
       })
     }
   }
