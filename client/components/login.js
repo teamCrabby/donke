@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NewBuddy } from './index';
 import { connect } from 'react-redux'
 import {db, auth} from '../app'
-import store, { setLoggedIn } from '../store'
+import store, { setLoggedIn, fetchUser } from '../store'
 
 export class Login extends Component {
   constructor(props) {

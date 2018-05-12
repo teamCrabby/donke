@@ -22,6 +22,7 @@ export class NewBuddy extends Component {
   handleNameBuddy(event) {
     console.log('got inside handlenamebuddy')
     event.preventDefault
+    db.collection('avatars').
     createAvatarFirebase({
       name: this.state.buddyName,
       userId: auth.currentUser.uid,
