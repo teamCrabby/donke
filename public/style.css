@@ -485,8 +485,12 @@ select {
 
 /********************** BUDDY NAME*********************/
 
-#buddyName {
-  font-size: 2em;
-  padding-top: 50px;
-  padding-left: 20px;
-}
+.renderBuddyName p{
+   position: absolute; 
+   visibility: visible; 
+   left: 200px; 
+   top: 450px; 
+   height: 100px; 
+   width: 150px; 
+   font-size: 2em;
+   }
