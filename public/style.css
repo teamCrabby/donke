@@ -84,6 +84,9 @@ select {
   border-radius: 25px;
   padding: 5px;
 }
+ .Img:active {
+   background-color: rgba(127, 188, 212, 0.986);
+ }
 
 .navbar-wrapper {
   display: flex;
