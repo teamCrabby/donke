@@ -20,7 +20,6 @@ export class NewBuddy extends Component {
   }
 
   handleNameBuddy(event) {
-    console.log('got inside handlenamebuddy')
     event.preventDefault
     createAvatarFirebase({
       name: this.state.buddyName,

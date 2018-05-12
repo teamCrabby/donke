@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
-import store, { setPlaypenStatus } from '../store'
+import store, { setPlaypenStatus, setInvited } from '../store'
 
 
 export class Invitation extends Component {
@@ -11,35 +11,39 @@ export class Invitation extends Component {
         this.state = {
             user: "Butt",
             playpenName: "Butt's Playpen",
-            invited: true
         }
         this.handleClickYes = this.handleClickYes.bind(this)
         this.handleClickNo = this.handleClickNo.bind(this)
     }
+
+    componentDidMount(){
+        console.log('playpenId is...', this.props.avatar.playpenId)
+        db.collection("playPen").doc(`${this.props.avatar.playpenId}`).get()
+        .then((res) => {
+            console.log("res is..", res.data())
+            let playpen = res.data()
+            this.setState({ playpenName: playpen.name })
+        })
+        .catch((error) => console.log(`Unable to set playpen ${error.message}`))
+    }
+
     handleClickYes(){
         this.props.setPlaypen(true)
-        this.setState({invited: false})
-        //render playpen
-        //toggle invited to false
-        //db.collections("avatar").doc(avatarId).update({invited: false})
+        db.collection("avatars").doc(`${this.props.avatar.id}`).update({invited: false})
     }
+
     handleClickNo(){
-        this.setState({ invited: false })
-        //close window -- toggle invited to false and playpen id to null which should return normal view
-        //db.collections("avatar").doc(avatarId).update({invited: false, playpenId: null})
+        db.collection("avatars").doc(`${this.props.avatar.id}`).update({ invited: false, playpenId: null })
     }
 
     render(){
         return (
-            <div>
-            {this.state.invited
-                ? <div> 
-                    <p>{this.state.user} has invited you to join them in {this.state.playpenName}! Would you like to join this playpen?</p>
+            <div className='navbarForm navbar-container navbar-wrapper' id='invitation'>
+                <p>{this.props.avatar.name} has invited you to join them in {this.state.playpenName}! Would you like to join this playpen?</p>
+                <div id="invitation-btns">
                     <button onClick={this.handleClickYes}>Yes</button>
                     <button onClick={this.handleClickNo}>No</button> 
                 </div>
-                : null
-            }
             </div>
         )
     }
@@ -47,7 +51,7 @@ export class Invitation extends Component {
 
 const mapStateToProps = state => {
     return {
-        inPlaypen: state.playpenStatus
+        avatar: state.avatar
     }  
 }
 
@@ -56,6 +60,9 @@ const mapDispatchToProps = dispatch => {
         setPlaypen(bool) {
             dispatch(setPlaypenStatus(bool))
         },
+        setStoreInvited(bool) {
+            dispatch(setInvited(bool))
+        }
     }
 }
 
