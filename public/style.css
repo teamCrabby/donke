@@ -75,14 +75,14 @@ select {
 
 
 .Img {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   align-self: center;
   padding-left: 10px;
-  background-color: white;
-  border: 1px solid; 
+  background-color:#f0f0f0;
+  border: 2px solid #c5bebe; 
   border-radius: 25px;
-  padding: 5px;
+  padding: 6px;
 }
 
 .navbar-wrapper {
