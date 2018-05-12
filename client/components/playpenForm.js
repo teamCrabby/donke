@@ -28,7 +28,7 @@ class PlaypenForm extends Component {
       db.collection('users').doc(user.uid).get()
       .then(res => {
         let userinFS = res.data()
-        console.log('USER FROM FIRESTORE', userinFS)
+        // console.log('USER FROM FIRESTORE', userinFS)
         this.setState({ owner: { name: userinFS.handle, email: userinFS.email, uid: user.uid } })
       })
     }
@@ -43,18 +43,18 @@ class PlaypenForm extends Component {
       avatars: this.state.avatars
     })
       .then((res) => {
-        console.log('CREATED PLAYPEN RES', res)
+        // console.log('CREATED PLAYPEN RES', res)
         return db.collection('playPen').doc(res.id).get()
         .then((res) => {
           let playpen
           playpen = res.data()
           playpen.id = res.id
-          console.log('GOT PLAYPEN', playpen)
+          // console.log('GOT PLAYPEN', playpen)
           return playpen
         })
       })
       .then(pen => {
-        console.log('PLAYPEN RETURNED', pen)
+        // console.log('PLAYPEN RETURNED', pen)
         return this.state.avatars.map(avatar => {
           db.collection('avatars').doc(avatar.id).update({
             invited: true,
@@ -79,7 +79,7 @@ class PlaypenForm extends Component {
           querySnapshot.forEach(function(doc) {
             // console.log(doc.id, '==>', doc.data())
             if (doc) {
-              console.log('FOUND USER:', foundUser)
+              // console.log('FOUND USER:', foundUser)
               foundUser = doc.data()
               foundUser.id = doc.id
             } else {
@@ -89,13 +89,13 @@ class PlaypenForm extends Component {
           return foundUser;
       })
       .then((user) => {
-        console.log('USER', user)
+        // console.log('USER', user)
         return db.collection('avatars').where('userId', '==', user.id)
         .get()
         .then(function(querySnapshot) {
           let foundAvatar;
           querySnapshot.forEach(function(doc) {
-            console.log(doc.id, '==>', doc.data())
+            // console.log(doc.id, '==>', doc.data())
             if (doc) {
               foundAvatar = doc.data()
               foundAvatar.id = doc.id
@@ -104,7 +104,7 @@ class PlaypenForm extends Component {
               alert(`Sorry, that avatar does not exist.`)
             }
           })
-          console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+          // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
           return foundAvatar;
         })
       })                 
@@ -112,14 +112,14 @@ class PlaypenForm extends Component {
         //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
         // db.collection('avatar').doc(avatar.id).update({
         // })
-        console.log('AVATAR', avatar)
+        // console.log('AVATAR', avatar)
         this.setState({
           invitedUser: '',
           users: [this.state.invitedUser, ...this.state.users],
           avatars: [avatar, ...this.state.avatars]
         })
-        console.log('users array is...', this.state.users)
-        console.log('avatars array is ...', this.state.avatars)
+        // console.log('users array is...', this.state.users)
+        // console.log('avatars array is ...', this.state.avatars)
       }) 
     } else {
         alert(`User ${this.state.invitedUser} already added`)
@@ -138,7 +138,7 @@ class PlaypenForm extends Component {
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <div className="navbar-wrapper">
         {
