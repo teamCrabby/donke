@@ -501,6 +501,12 @@ select {
   max-height: 100%;
 }
 
+.playpenComponent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 40%;
+}
 
 /********************** BUDDY NAME*********************/
 
@@ -514,3 +520,4 @@ select {
    font-size: 1.5em;
    word-wrap: break-word;
    }
+

@@ -69,7 +69,6 @@ export class Playpen extends Component {
   }
 
   render() {
-    console.log('avatars in render is...', this.state.playpen.avatars);
     const avatarsArr = this.state.playpen.avatars
     return (
       <div>
@@ -78,9 +77,16 @@ export class Playpen extends Component {
           <button className="donkeBtn" onClick={this.leavePlaypen}>
               Leave Playpen
           </button>
-            {this.state.playpen.avatars.forEach(avatar => {
-              <img id="donke" src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />;
+            <div className='playpenComponent'>
+            {avatarsArr.map(avatar => {
+              return (
+                <div key={avatar.id}>
+                  <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
+                  <p>{avatar.name}</p>
+                </div>
+              )
             })}
+            </div>
       </div>  
       : null}   
       </div>
