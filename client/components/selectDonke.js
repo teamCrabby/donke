@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase } from '../store';
-
+import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart } from '../store';
 
 
 //need to init cloud function so can add user to database immediately after auth
@@ -39,6 +38,14 @@ export class SelectDonke extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(healthFunc);
+    clearTimeout(timerFunc);
+    this.props.getWorkInterval(0, 0)
+    this.props.setStartTimer(true)
+    this.props.setStoreStatus('working')
+  }
+
   workTimer() {
     this.setState({ start: false })
     const workInterval = this.props.workInterval * 1000
@@ -61,7 +68,7 @@ export class SelectDonke extends Component {
       if (this.props.health > 0) {
         this.props.setStoreHealth(this.props.health - 1)
       }
-    }, 5000)
+    }, 8000)
   }
 
   breakTimer() {
@@ -117,13 +124,9 @@ export class SelectDonke extends Component {
 
   handleClickTryAgain() {
     //this is if the donke died... sad. need to reset everything.
-    clearInterval(healthFunc)
-    clearTimeout(timerFunc)
-    this.setState({ workTime: true })
-    this.props.setStoreHealth(10)
-    this.props.getWorkInterval(0, 0)
-    this.setState({ start: true })
     deleteAvatarFirebase(this.props.avatar.id)
+    // this.props.getWorkInterval(0, 0)
+    setTimeout(() => this.props.setStoreHealth(10), 3000)
   }
 
   render() {
@@ -235,6 +238,9 @@ const mapDispatchToProps = dispatch => {
     getWorkInterval(workTime, breakTime) {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
+    },
+    setStartTimer(bool) {
+      dispatch(setStart(bool))
     }
   }
 }

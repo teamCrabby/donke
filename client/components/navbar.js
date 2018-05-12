@@ -4,13 +4,12 @@ import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
 import * as firebase from 'firebase'
-import { setLoggedIn } from '../store';
+import { setLoggedIn, fetchWorkInterval, fetchBreakInterval, setStart } from '../store';
 
 
 class Navbar extends Component {
   constructor(props) {
     super(props)
-    this.logOut = this.props.setStoreLoggedIn.bind(this)
     this.state = {
       workBreakClicked: false,
       playPenFormClicked: false,
@@ -33,7 +32,6 @@ class Navbar extends Component {
   }
 
   handleWorkBreakForm(event) {
-    console.log('hai im workBreakform', event.target.name)
     this.setState({
       playPenFormClicked: false,
       logOutClicked: false,
@@ -42,21 +40,19 @@ class Navbar extends Component {
   }
 
   handlePlayPenForm(event) {
-    console.log('im handled form', event.target.name)
     this.setState({
       logOutClicked: false,
       workBreakClicked: false,
       playPenFormClicked: !this.state.playPenFormClicked
     })
   }
-  
+
   handleLogOut(event) {
+    this.props.setStoreLoggedIn(false)
     firebase.auth().signOut()
       .then(function () {
         console.log(`Sign-out successful.`)
-        console.log("THIS.PROPS IS...", this.props)
-        alert(`Bye!`)
-        this.logOut(false)
+        //alert(`Bye!`)
       })
       .catch(function (error) {
         if (error) {
@@ -80,7 +76,7 @@ class Navbar extends Component {
       <div className="navbar-container">
         <div className="navbar-options">
 
-          <img className="Img" src="../img/tool.svg" onClick={this.handleCloseForms} />
+          <img className="Img" id="gearIcon" src="../img/close.svg" onClick={this.handleCloseForms} />
           <img className="Img" src="../img/hourglass-2.svg" onClick={this.handleWorkBreakForm} />
           <img className="Img" src="../img/diamond.svg" onClick={this.handlePlayPenForm} />
           <img className="Img" src="../img/locked-1.svg" onClick={this.handleLogOut} />
@@ -121,6 +117,13 @@ const mapDispatchToProps = dispatch => {
     setStoreLoggedIn(loggedInBool) {
       dispatch(setLoggedIn(loggedInBool))
     },
+    getWorkInterval(workTime, breakTime) {
+      dispatch(fetchWorkInterval(workTime))
+      dispatch(fetchBreakInterval(breakTime))
+    },
+    setStartTimer(bool) {
+      dispatch(setStart(bool))
+    }
   }
 }
 

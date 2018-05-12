@@ -35,7 +35,7 @@ export const createAvatarFirebase = (avatar) => {
   db.collection("avatars").add(avatar)
     .then(res =>  {
     	avatar.id=res.id;
-        store.dispatch(createAvatar(avatar));
+      store.dispatch(createAvatar(avatar));
     })
     .catch(function(error) {
         console.error("Error writing document: ", error);

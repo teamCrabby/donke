@@ -8,10 +8,11 @@ import health from './health';
 import idleTime from './idletime';
 import status from './status';
 import loggedIn from './loggedIn';
-import playpenStatus from './playpenStatus';
+import playpenStatus from './playpenStatus'
 import avatar from './avatar';
+import startTimer from './startTimer'
 
-const reducer = combineReducers({ workInterval, breakInterval, health, idleTime, status, loggedIn, playpenStatus, avatar })
+const reducer = combineReducers({ workInterval, breakInterval, health, idleTime, status, loggedIn, playpenStatus, avatar, startTimer })
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -28,5 +29,4 @@ export * from './idletime'
 export * from './loggedIn'
 export * from './playpenStatus'
 export * from './avatar'
-
-
+export * from './startTimer'
