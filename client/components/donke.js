@@ -8,26 +8,12 @@ class Donke extends Component {
     super(props);
   }
 
-
-  //   render() {
-  //     return (
-  //       <div className="panel">
-  //         <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
-  //         {this.props.name !== ''
-  //           ? <p id="buddyName">Hello, I'm {this.props.name}!</p>
-  //           :
-  //           null
-  //         }
-  //       </div>
-  //     )
-  //   }
-  // }
   render() {
     return (
       <div className="panel">
         <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
         <div className="renderBuddyName">
-          {this.props.name !== '' && this.props.health > 0
+          {this.props.name !== '' && this.props.health > 0 && this.props.loggedIn
             ?
             <p id="buddyName">Hello, I'm {this.props.name}!</p>
             :
@@ -51,7 +37,8 @@ class Donke extends Component {
 const mapStateToProps = state => {
   return {
     name: state.avatar.name,
-    health: state.health
+    health: state.health,
+    loggedIn: state.loggedIn
   }
 }
 
