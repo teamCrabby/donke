@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 const secrets = require('../secrets.js')
 require("firebase/firestore")
 
+
 firebase.initializeApp({
   apiKey: secrets.API_KEY,
   authDomain: secrets.AUTH_DOMAIN,
@@ -22,35 +23,24 @@ db.settings(settings);
 export class App extends Component {
   constructor(props) {
     super(props)
-    this.avatar = db.collection('avatars').doc('RLAstb3EigfEWlhL1I4m')
-    this.onUpdate = this.onUpdate.bind(this)
   }
-
-  componentDidMount() {
-    //this works (see console for printout). You can update the avatar and you will get 
-    //a new snapshot. The doc id is just a sample from our database. 
-    this.unsubscribe = this.avatar.onSnapshot(this.onUpdate);
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-  onUpdate(snapshot) {
-    console.log('SNAPSHOT', snapshot.data())
-  };
 
   render() {
     return (
       <div>
         <div className="navbar">
           {!this.props.loggedIn 
-            ? <div><Login /> <Donke /></div>
+            ? <div> <Login /> <Donke /></div>
             : !this.props.avatar.name 
               ? <div> <NewBuddy /> <Donke /> </div>
-              :  <div className="animal">
-                <Navbar /> <SelectDonke />
+              : this.props.inPlaypen
+                ? <div> <Navbar/> <Playpen /> </div>
+                : <div> <Navbar /> <SelectDonke />
+                  {this.props.avatar.invited
+                  ? <div> <Invitation /></div>
+                  : null}
               </div> }
         </div>
-        {/*<Invitation/>*/}
       </div>
     )
   }
@@ -59,7 +49,9 @@ export class App extends Component {
 const mapStateToProps = state => {
   return {
     loggedIn: state.loggedIn,
-    avatar: state.avatar
+    avatar: state.avatar,
+    workInterval: state.workInterval,
+    inPlaypen: state.playpenStatus
   }
 }
 
