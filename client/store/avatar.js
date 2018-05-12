@@ -70,7 +70,6 @@ export default function (state = defaultAvatar, action) {
     case DELETE_AVATAR: 
       return defaultAvatar;
     case UPDATE_AVATAR:
-      console.log('updating avatar')
       return Object.assign({}, state, action.avatar );
     case SET_INVITED:
       return Object.assign({}, state, {invited: action.bool});

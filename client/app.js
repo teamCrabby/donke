@@ -36,7 +36,7 @@ export class App extends Component {
               : this.props.inPlaypen
                 ? <div> <Navbar/> <Playpen /> </div>
                 : <div> <Navbar /> <SelectDonke />
-                  {this.props.avatar.invited
+                  {this.props.avatar.invited 
                   ? <div> <Invitation /></div>
                   : null}
               </div> }
