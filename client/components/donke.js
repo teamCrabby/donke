@@ -8,20 +8,6 @@ class Donke extends Component {
     super(props);
   }
 
-
-  //   render() {
-  //     return (
-  //       <div className="panel">
-  //         <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
-  //         {this.props.name !== ''
-  //           ? <p id="buddyName">Hello, I'm {this.props.name}!</p>
-  //           :
-  //           null
-  //         }
-  //       </div>
-  //     )
-  //   }
-  // }
   render() {
     return (
       <div className="panel">
