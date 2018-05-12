@@ -4,7 +4,8 @@ import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
 import * as firebase from 'firebase'
-import { setLoggedIn, fetchWorkInterval, fetchBreakInterval, setStart } from '../store';
+import { setLoggedIn, fetchWorkInterval, fetchBreakInterval, setStart, updateAvatar } from '../store';
+import { db } from '../app'
 
 
 class Navbar extends Component {
@@ -21,7 +22,21 @@ class Navbar extends Component {
     this.handleCloseForms = this.handleCloseForms.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
+    this.onUpdate = this.onUpdate.bind(this)
   }
+
+  componentDidMount() {
+    this.unsubscribe = db.collection('avatars').doc(`${this.props.avatar.id}`).onSnapshot(this.onUpdate)
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onUpdate(updatedAvatar) {
+    console.log('SNAPSHOT', updatedAvatar.data())
+    this.props.updateAvatarStore(updatedAvatar.data())
+  };
 
   handleCloseForms(event) {
     this.setState({
@@ -108,7 +123,7 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
   return {
-
+    avatar: state.avatar
   }
 }
 
@@ -123,9 +138,13 @@ const mapDispatchToProps = dispatch => {
     },
     setStartTimer(bool) {
       dispatch(setStart(bool))
+    },
+    updateAvatarStore(updatedAvatar) {
+      dispatch(updateAvatar(updatedAvatar));
     }
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
 
