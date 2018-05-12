@@ -43,23 +43,24 @@ export const createAvatarFirebase = (avatar) => {
     });
 }
 
-export const updateAvatarFirebase = (avatarId, avatarName) => {
-  db.collection('avatars').doc(avatarId).update({
-    name: avatarName
-  })
-  .then(res => {
-    return db.collection('avatars').doc(avatarId).get()
-    .then(res => {
-      let updatedAvatar = res.data()
-      updatedAvatar.id = res.id
-      return updatedAvatar
+export const updateAvatarFirebase = (avatarId, avatarName) => 
+  dispatch => 
+    db.collection('avatars').doc(avatarId).update({
+      name: avatarName
     })
-  })
-  .then(avatar => {
-    console.log('UPDATED AVATAR', avatar)
-    store.dispatch(updateAvatar(avatar))
-  })
-}
+    .then(res => {
+      return db.collection('avatars').doc(avatarId).get()
+      .then(res => {
+        let updatedAvatar = res.data()
+        updatedAvatar.id = res.id
+        return updatedAvatar
+      })
+    })
+    .then(avatar => {
+      dispatch(updateAvatar(avatar))
+    })
+    .catch(error => console.error(`Error updating avatar ${error}`))
+
 
 export const deleteAvatarFirebase = (avatarId) => {
   db.collection("avatars").doc(`${avatarId}`).delete()
@@ -80,8 +81,6 @@ export default function (state = defaultAvatar, action) {
      case DELETE_AVATAR: 
        return defaultAvatar;
      case UPDATE_AVATAR:
-     console.log('ACTION', action)
-     console.log('TYPE', action.type)
       return Object.assign({}, state, action.avatar)
     default:
       return state;
