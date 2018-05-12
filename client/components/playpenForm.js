@@ -69,7 +69,10 @@ class PlaypenForm extends Component {
             return})
         })
       })
-      .then((res) => console.log('Document successfully written, HOORAY'))
+      .then((res) => {
+        this.props.setPlaypen(true)
+        console.log('Document successfully written, HOORAY')
+      })
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({ onToggle: false, invitedUser: '', users: [] })
   }
@@ -124,7 +127,6 @@ class PlaypenForm extends Component {
           users: [this.state.invitedUser, ...this.state.users],
           avatars: [avatar, ...this.state.avatars]
         })
-        this.props.setPlaypen(true)
         // console.log('users array is...', this.state.users)
         // console.log('avatars array is ...', this.state.avatars)
       }) 
