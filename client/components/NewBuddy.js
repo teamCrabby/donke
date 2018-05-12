@@ -26,7 +26,7 @@ export class NewBuddy extends Component {
       userId: auth.currentUser.uid,
       health: 10,
       playpenId: null,
-      invited: true
+      invited: false
     })
   }
 
