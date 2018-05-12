@@ -91,7 +91,6 @@ select {
   margin: auto auto 2px auto;
   flex-direction: column;
   justify-content: center;
-  /* z-index: 1; */
 }
 
 .navbar-wrapper button {
@@ -125,7 +124,7 @@ select {
 
 
 /********************** DONKE BUTTON *********************/
-#donkeBtn {
+.donkeBtn {
   position: absolute;
   left: 20px;
   top: 100px;
@@ -142,9 +141,10 @@ select {
   border-radius: 10px;
   font-family: 'Pangolin';
   transition-duration: 0.4s;
+  z-index: 9;
 }
 
-#donkeBtn:hover{
+.donkeBtn:hover{
   background-color: #87CEEB;
   color: white;
 }
@@ -409,6 +409,22 @@ select {
   margin: 5px auto auto auto;
 }
 
+/********************** INVITATION *********************/
+
+#invitation {
+  border: 1px solid gray;
+}
+
+#invitation p {
+  padding: 0 1em;
+}
+
+#invitation-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 1em;
+}
 /********************** PLAYPEN *********************/
 
 .playpen-container {

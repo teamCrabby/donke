@@ -4,12 +4,6 @@ import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
 import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart } from '../store';
 
-
-//need to init cloud function so can add user to database immediately after auth
-//
-//make keys un-secret
-
-
 //create timer variables so can assign them in order to clear them
 let timerFunc;
 let healthFunc;
@@ -130,20 +124,17 @@ export class SelectDonke extends Component {
   }
 
   render() {
-    // console.log('THIS IS THE WORKINTERVAL', this.props.workInterval)
+    console.log("in playpen? ", this.props.inPlaypen)
     return (
       this.props.workInterval > 0
         //if the user has submitted their work/break intervals render the below
-        ? this.props.inPlaypen
-          //render playpen if they are in a playpen
-          ? <Playpen/>
-          : this.props.status !== 'break'
+        ? this.props.status !== 'break'
             //render the below if they are not on a break
             ? <div> 
               {this.props.health > 0
                 //render "Take a break" button if they have health or "Try again" button if they don't
-                ? <button id="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button>
-                : <button id="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>}
+                ? <button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button>
+                : <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>}
                 <Donke />
                 {this.props.health === 10 
                   ? this.props.status === 'needBreak' 
@@ -206,7 +197,7 @@ export class SelectDonke extends Component {
                 {this.props.health === 0 ? <div><Halo /><Cloud /><Lightning/></div> : null}
               </div>
             : this.state.breakTimeOver
-              ? <div> <button id="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
+              ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
               : <div><SleepingDonke/></div>
         //if the user has not submitted time specifications, just render happy donke
         : <div><Donke /></div>
@@ -222,7 +213,6 @@ const mapStateToProps = state => {
     health: state.health,
     idleTime: state.idleTime,
     status: state.status,
-    inPlaypen: state.playpenStatus,
     avatar: state.avatar
   }
 }

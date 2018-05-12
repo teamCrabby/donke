@@ -38,19 +38,33 @@ export class App extends Component {
     console.log('SNAPSHOT', snapshot.data())
   };
 
+//want their invitation to show up regardless of what stage they are in
+//want it to pop up on top of everything else
+//once they accept in a playpen, want the intervals to clear, and they set a new work/break interval for the playpen that applies to everyone
+//want it to show their current health but be on the same timer now
+//
+
   render() {
+    console.log("invited??", this.props.avatar.invited)
     return (
       <div>
         <div className="navbar">
           {!this.props.loggedIn 
-            ? <div><Login /> <Donke /></div>
+            ? <div> <Login /> <Donke /></div>
             : !this.props.avatar.name 
               ? <div> <NewBuddy /> <Donke /> </div>
-              :  <div className="animal">
-                <Navbar /> <SelectDonke />
+              : this.props.inPlaypen
+                ? <div> <Navbar/> <Playpen /> </div>
+                : <div> <Navbar /> <SelectDonke />
+                  {this.props.avatar.invited
+                  ? <div> <Invitation /></div>
+                  : null}
               </div> }
         </div>
+<<<<<<< HEAD
         <Invitation/>
+=======
+>>>>>>> invitation-form
       </div>
     )
   }
@@ -59,7 +73,9 @@ export class App extends Component {
 const mapStateToProps = state => {
   return {
     loggedIn: state.loggedIn,
-    avatar: state.avatar
+    avatar: state.avatar,
+    workInterval: state.workInterval,
+    inPlaypen: state.playpenStatus
   }
 }
 
