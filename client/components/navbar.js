@@ -46,7 +46,7 @@ class Navbar extends Component {
       playPenFormClicked: !this.state.playPenFormClicked
     })
   }
-  
+
   handleLogOut(event) {
     this.props.setStoreLoggedIn(false)
     firebase.auth().signOut()
@@ -76,7 +76,7 @@ class Navbar extends Component {
       <div className="navbar-container">
         <div className="navbar-options">
 
-          <img className="Img" src="../img/tool.svg" onClick={this.handleCloseForms} />
+          <img className="Img" id="gearIcon" src="../img/close.svg" onClick={this.handleCloseForms} />
           <img className="Img" src="../img/hourglass-2.svg" onClick={this.handleWorkBreakForm} />
           <img className="Img" src="../img/diamond.svg" onClick={this.handlePlayPenForm} />
           <img className="Img" src="../img/locked-1.svg" onClick={this.handleLogOut} />
@@ -121,7 +121,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    setStartTimer(bool){
+    setStartTimer(bool) {
       dispatch(setStart(bool))
     }
   }
