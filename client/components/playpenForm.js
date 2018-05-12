@@ -55,9 +55,15 @@ class PlaypenForm extends Component {
       })
       .then(pen => {
         // console.log('PLAYPEN RETURNED', pen)
+        let bool = true
         return this.state.avatars.map(avatar => {
+          if (this.props.user === avatar.userId) {
+            bool = false
+          } else {
+            bool = true
+          }
           db.collection('avatars').doc(avatar.id).update({
-            invited: true,
+            invited: bool,
             playpenId: pen.id
           }).then((res) => {
             return})
@@ -201,7 +207,8 @@ class PlaypenForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    avatar : state.avatar
+    avatar : state.avatar,
+    user: state.user
   }
 }
 
