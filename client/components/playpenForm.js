@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
-import { intervalForm } from '.';
+import { setPlaypenStatus } from '../store'
 
 class PlaypenForm extends Component {
   constructor(props) {
@@ -124,6 +124,7 @@ class PlaypenForm extends Component {
           users: [this.state.invitedUser, ...this.state.users],
           avatars: [avatar, ...this.state.avatars]
         })
+        this.props.setPlaypen(true)
         // console.log('users array is...', this.state.users)
         // console.log('avatars array is ...', this.state.avatars)
       }) 
@@ -208,8 +209,16 @@ class PlaypenForm extends Component {
 const mapStateToProps = state => {
   return {
     avatar : state.avatar,
-    user: state.user
+    user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(PlaypenForm)
+const mapDispatchToProps = dispatch => {
+  return {
+      setPlaypen(bool) {
+          dispatch(setPlaypenStatus(bool))
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaypenForm)

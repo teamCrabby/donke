@@ -68,7 +68,7 @@ handleCreateUser(event) {
           <div className="login">
             <div className="login-container">
               <div>
-                <label>Login</label>
+                {!this.state.signUp ? <label>Login</label> : <label>Sign Up</label>}
               </div>
               <div className="email-password">
                 <div className="email">
