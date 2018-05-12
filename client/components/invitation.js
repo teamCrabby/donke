@@ -17,10 +17,8 @@ export class Invitation extends Component {
     }
 
     componentDidMount(){
-        console.log('playpenId is...', this.props.avatar.playpenId)
         db.collection("playPen").doc(`${this.props.avatar.playpenId}`).get()
         .then((res) => {
-            console.log("res is..", res.data())
             let playpen = res.data()
             this.setState({ playpenName: playpen.name })
         })

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//const firebase = require ("firebase")
 import store, { setPlaypenStatus } from '../store';
+import { db } from '../app';
+import * as firebase from 'firebase';
+
+
 
 // var currentuser = firebase.auth().currentUser;
 
@@ -11,33 +14,89 @@ import store, { setPlaypenStatus } from '../store';
 export class Playpen extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
-    this.leavePlaypen = this.leavePlaypen.bind(this)
-  }
-  componentDidUpdate() {
-
+    this.state = { playpen: {} };
+    this.leavePlaypen = this.leavePlaypen.bind(this);
   }
 
-  leavePlaypen(){
-    this.props.setPlaypen(false)
-    //add logic to update firebase
+  componentDidMount() {
+    console.log('playpen id is...', this.props.avatar.playpenId);
+    db
+      .collection('playPen')
+      .doc(`${this.props.avatar.playpenId}`)
+      .get()
+      .then(res => {
+        let playpen = res.data();
+        console.log('playpen is..', playpen);
+        console.log('avatars in did mount is..', playpen.avatars);
+        this.setState({ playpen });
+      })
+      .catch(error =>
+        console.log(`Unable to get playpen ${error.message}`)
+      );
   }
 
-  //render donkes -- avatars.forEach... render donkes according to health
+  leavePlaypen() {
+    //reset the users playpen id to null to re-render their individual view
+    db
+      .collection('avatars')
+      .doc(`${this.props.avatar.id}`)
+      .update({ playpenId: null })
+      .catch(error =>
+        console.log(`Unable to reset playpen id ${error.message}`)
+      );
+
+    //if the owner leaves the playpen, set all the avatars playpen ids to null and then destroy the playpen
+  //  if (this.state.playpen.owner === this.props.avatar.userId) {
+  //    this.state.playpen.avatars.forEach(avatar => {
+  //      db
+  //        .collection('avatars')
+  //        .doc(`${avatar.id}`)
+  //        .update({ playpenId: null })
+  //        .then(() => {
+  //          db
+  //            .collection('playPen')
+  //            .doc(`${this.state.playpen.id}`)
+  //            .delete()
+  //            .then(() => console.log('playpen deleted!'));
+  //        })
+  //        .catch(error =>
+  //          console.log(
+  //            `Unable to reset playpen id ${error.message}`
+  //          )
+  //        );
+  //    });
+    //}
+  }
+
   render() {
+    const avatarsArr = this.state.playpen.avatars
     return (
       <div>
-        <button className='donkeBtn' onClick={this.leavePlaypen}>Leave Playpen</button>
-        <p>In a playpen!</p>
-        <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
+      {avatarsArr
+      ? <div>
+          <button className="donkeBtn" onClick={this.leavePlaypen}>
+              Leave Playpen
+          </button>
+            <div className='playpenComponent'>
+            {avatarsArr.map(avatar => {
+              return (
+                <div key={avatar.id}>
+                  <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
+                  <p>{avatar.name}</p>
+                </div>
+              )
+            })}
+            </div>
+      </div>  
+      : null}   
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    health: state.health
+    avatar: state.avatar    
   }
 }
 

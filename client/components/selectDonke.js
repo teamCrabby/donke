@@ -124,7 +124,6 @@ export class SelectDonke extends Component {
   }
 
   render() {
-    console.log("in playpen? ", this.props.inPlaypen)
     return (
       this.props.workInterval > 0
         //if the user has submitted their work/break intervals render the below
