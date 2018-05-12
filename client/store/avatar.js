@@ -8,6 +8,8 @@ const CREATE_AVATAR = 'CREATE_AVATAR'
 
 const DELETE_AVATAR = 'DELETE_AVATAR'
 
+const SET_INVITED = 'SET_INVITED'
+
 /**
  * INITIAL STATE
  */
@@ -27,6 +29,8 @@ const defaultAvatar = {
 const createAvatar = (avatar) => ({ type: CREATE_AVATAR, avatar })
 
 const deleteAvatar = () => ({ type: DELETE_AVATAR })
+
+export const setInvited = (bool) => ({ type: SET_INVITED, bool })
 
 /**
  * FIRESTORE + LOCAL STORE UPDATERS
@@ -58,8 +62,10 @@ export default function (state = defaultAvatar, action) {
   switch (action.type) {
     case CREATE_AVATAR:
       return action.avatar;
-     case DELETE_AVATAR: 
-   	  return defaultAvatar;
+    case DELETE_AVATAR: 
+      return defaultAvatar;
+    case SET_INVITED:
+      return Object.assign({}, state, {invited: action.bool});
     default:
       return state;
   }

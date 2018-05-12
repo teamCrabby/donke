@@ -5,6 +5,9 @@ import store, { setPlaypenStatus } from '../store';
 
 // var currentuser = firebase.auth().currentUser;
 
+//delete playpen once everyone leaves
+//keep track of who has accepted or not?
+
 export class Playpen extends Component {
   constructor(props) {
     super(props);
@@ -17,14 +20,16 @@ export class Playpen extends Component {
 
   leavePlaypen(){
     this.props.setPlaypen(false)
+    //add logic to update firebase
   }
 
   //render donkes -- avatars.forEach... render donkes according to health
   render() {
     return (
       <div>
-        <button onClick={this.leavePlaypen}>X</button>
-        <h1>HELLO DONKE</h1>
+        <button className='donkeBtn' onClick={this.leavePlaypen}>Leave Playpen</button>
+        <p>In a playpen!</p>
+        <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
       </div>
     );
   }
