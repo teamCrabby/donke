@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
+import { intervalForm } from '.';
 
-export default class PlaypenForm extends Component {
+class PlaypenForm extends Component {
   constructor(props) {
     super(props)
 
@@ -12,7 +14,7 @@ export default class PlaypenForm extends Component {
       invitedUser: '',
       users: [],
       owner: '',
-      avatars: []
+      avatars: [this.props.avatar]
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,7 +25,12 @@ export default class PlaypenForm extends Component {
   componentDidMount() {
     let user = firebase.auth().currentUser
     if (user !== null) {
-      this.setState({ owner: { name: user.displayName, email: user.email, uid: user.uid } })
+      db.collection('users').doc(user.uid).get()
+      .then(res => {
+        let userinFS = res.data()
+        console.log('USER FROM FIRESTORE', userinFS)
+        this.setState({ owner: { name: userinFS.handle, email: userinFS.email, uid: user.uid } })
+      })
     }
   }
 
@@ -31,17 +38,29 @@ export default class PlaypenForm extends Component {
     let avatars = this.state.avatars
     db.collection('playPen').add({
       name: this.state.playPenName,
-      users: this.state.users,
+      users: [...this.state.users, this.state.owner.name],
       owner: this.state.owner.name,
       avatars: this.state.avatars
     })
       .then((res) => {
         console.log('CREATED PLAYPEN RES', res)
-        db.collection('playPen').doc(res.id).get()
+        return db.collection('playPen').doc(res.id).get()
         .then((res) => {
-          console.log('GOT PLAYPEN', res.data())
-          // let playpen = res.data()
-          // avatars.map(avatar)
+          let playpen
+          playpen = res.data()
+          playpen.id = res.id
+          console.log('GOT PLAYPEN', playpen)
+          return playpen
+        })
+      })
+      .then(pen => {
+        console.log('PLAYPEN RETURNED', pen)
+        return this.state.avatars.map(avatar => {
+          db.collection('avatars').doc(avatar.id).update({
+            invited: true,
+            playpenId: pen.id
+          }).then((res) => {
+            return})
         })
       })
       .then((res) => console.log('Document successfully written, HOORAY'))
@@ -52,7 +71,7 @@ export default class PlaypenForm extends Component {
   handleAddABuddy(event) {
     event.preventDefault()
     if (this.state.users.indexOf(this.state.invitedUser) === -1) {
-      db.collection('users').where('displayName','==',this.state.invitedUser)
+      return db.collection('users').where('handle','==',this.state.invitedUser)
         .get()
         .then(function(querySnapshot) {
           // console.log('query snap', querySnapshot)
@@ -71,7 +90,7 @@ export default class PlaypenForm extends Component {
       })
       .then((user) => {
         console.log('USER', user)
-        return db.collection('avatar').where('userId', '==', user.id)
+        return db.collection('avatars').where('userId', '==', user.id)
         .get()
         .then(function(querySnapshot) {
           let foundAvatar;
@@ -92,7 +111,6 @@ export default class PlaypenForm extends Component {
       .then(avatar => {
         //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
         // db.collection('avatar').doc(avatar.id).update({
-
         // })
         console.log('AVATAR', avatar)
         this.setState({
@@ -116,7 +134,7 @@ export default class PlaypenForm extends Component {
     let updatedUsers = this.state.users.filter((user, idx) => {
       return idx !== index
     })
-    this.setState({ users: updatedUsers })
+    this.setState({ users: updatedUsers, avatars: this.state.avatars.slice(1) })
   }
 
   render() {
@@ -154,7 +172,7 @@ export default class PlaypenForm extends Component {
                           this.state.users.map((user, idx) => {
                             return (
                               <div className="playPen-invitedUser" key={idx}>
-                                <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
+                                <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`${user}`}</div>
                               </div>
                             )
                           })
@@ -179,3 +197,11 @@ export default class PlaypenForm extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    avatar : state.avatar
+  }
+}
+
+export default connect(mapStateToProps)(PlaypenForm)
