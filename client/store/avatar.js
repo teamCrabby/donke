@@ -7,11 +7,7 @@ import store from './index.js'
 const CREATE_AVATAR = 'CREATE_AVATAR'
 const DELETE_AVATAR = 'DELETE_AVATAR'
 const UPDATE_AVATAR = 'UPDATE_AVATAR'
-
-
 const SET_INVITED = 'SET_INVITED'
-
-const UPDATE_AVATAR = 'UPDATE_AVATAR'
 
 /**
  * INITIAL STATE
@@ -30,27 +26,25 @@ const defaultAvatar = {
 /**
  * ACTION CREATORS
  */
-const createAvatar = (avatar) => ({ type: CREATE_AVATAR, avatar })
-const updateAvatar = (avatar) => ({ type: UPDATE_AVATAR, avatar})
-const deleteAvatar = () => ({ type: DELETE_AVATAR })
-
+export const createAvatar = (avatar) => ({ type: CREATE_AVATAR, avatar })
+export const updateAvatar = (avatar) => ({ type: UPDATE_AVATAR, avatar})
+export const deleteAvatar = () => ({ type: DELETE_AVATAR })
 export const setInvited = (bool) => ({ type: SET_INVITED, bool })
-
-export const updateAvatar = (avatar) => ({ type: UPDATE_AVATAR, avatar })
 
 /**
  * FIRESTORE + LOCAL STORE UPDATERS
  */
-export const createAvatarFirebase = (avatar) => {
-  db.collection("avatars").add(avatar)
-    .then(res =>  {
-    	avatar.id=res.id;
-      store.dispatch(createAvatar(avatar));
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
-}
+export const createAvatarFirebase = (avatar) => 
+  dispatch =>
+    db.collection("avatars").add(avatar)
+      .then(res =>  {
+        avatar.id=res.id;
+        dispatch(createAvatar(avatar));
+      })
+      .catch(function(error) {
+          console.error("Error writing document: ", error);
+      });
+
 
 export const updateAvatarFirebase = (avatarId, avatarName) => 
   dispatch => 
