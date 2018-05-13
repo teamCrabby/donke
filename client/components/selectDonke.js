@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen, Toys } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart } from '../store';
+import store, { fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart, updateAvatarFirebase } from '../store';
 
 //create timer variables so can assign them in order to clear them
 let timerFunc;
@@ -59,8 +59,10 @@ export class SelectDonke extends Component {
     healthFunc = setInterval(() => {
       this.setState({ needBreakMessage: false })
       //decrement the health by 1 every 5 minutes
-      if (this.props.health > 0) {
-        this.props.setStoreHealth(this.props.health - 1)
+      if (this.props.avatar.health > 0) {
+        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health-1})
+        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+        this.props.setStoreHealth(updatedAvatar)
       }
     }, 8000)
   }
@@ -69,8 +71,9 @@ export class SelectDonke extends Component {
     //I THINK WE NEED A SETTIMEOUT HERE
     healthFunc = setInterval(() => {
       //increment the health once their break is complete (and if they take a longer break....?)
-      if (this.props.health < 10) {
-        this.props.setStoreHealth(this.props.health + 1)
+      if (this.props.avatar.health < 10) {
+        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health+1})
+        this.props.setStoreHealth(updatedAvatar)
       }
       //the line below lets the render know to show the "Work time" button
       this.setState({ breakTimeOver: true })
@@ -81,7 +84,9 @@ export class SelectDonke extends Component {
       if (Math.abs(this.state.breakCounter - this.props.idleTime) > 5 && this.state.breakCounter < this.props.breakInterval) {
         alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
         //this line docks you a point if you come back early. 
-        this.props.setStoreHealth(this.props.health - 1)
+        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health-1})
+        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+        this.props.setStoreHealth(updatedAvatar)
         this.handleClickWork()
       }
     }, 1000)
@@ -120,7 +125,9 @@ export class SelectDonke extends Component {
     //this is if the donke died... sad. need to reset everything.
     deleteAvatarFirebase(this.props.avatar.id)
     // this.props.getWorkInterval(0, 0)
-    setTimeout(() => this.props.setStoreHealth(10), 3000)
+    // let updatedAvatar = Object.assign({}, this.props.avatar, {health: 10})
+    // console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+    // setTimeout(() => this.props.setStoreHealth(updatedAvatar), 3000)
   }
 
   render() {
@@ -221,8 +228,8 @@ const mapDispatchToProps = dispatch => {
     setStoreStatus(status) {
       dispatch(fetchStatus(status))
     },
-    setStoreHealth(health) {
-      dispatch(fetchHealth(health))
+    setStoreHealth(updatedAvatar) {
+      dispatch(updateAvatarFirebase(updatedAvatar))
     },
     getWorkInterval(workTime, breakTime) {
       dispatch(fetchWorkInterval(workTime))

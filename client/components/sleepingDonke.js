@@ -28,7 +28,7 @@ export class SleepingDonke extends Component {
 
 const mapStateToProps = state => {
     return {
-        health: state.health
+        avatar: state.avatar
     }
 }
 
