@@ -8,6 +8,8 @@ const CREATE_AVATAR = 'CREATE_AVATAR'
 
 const DELETE_AVATAR = 'DELETE_AVATAR'
 
+const UPDATE_AVATAR = 'UPDATE_AVATAR_HEALTH'
+
 /**
  * INITIAL STATE
  */
@@ -26,7 +28,9 @@ const defaultAvatar = {
  */
 const createAvatar = (avatar) => ({ type: CREATE_AVATAR, avatar })
 
-const deleteAvatar = () => ({ type: DELETE_AVATAR })
+const deleteAvatar = () => ({ type: DELETE_AVATAR });
+ 
+const updateAvatar = (updatedAvatar) => ({ type: UPDATE_AVATAR, updatedAvatar})
 
 /**
  * FIRESTORE + LOCAL STORE UPDATERS
@@ -51,6 +55,22 @@ export const deleteAvatarFirebase = (avatarId) => {
 	    console.error("Error removing document: ", error);
 	});
 }
+
+export const updateAvatarFirebase = (updatedAvatar) => {
+  db.collection("avatars").doc(`${updatedAvatar.id}`).update({
+    name: updatedAvatar.name,
+    userId: updatedAvatar.userId,
+    health: updatedAvatar.health,
+    playpenId: updatedAvatar.playpenId,
+    invited: updatedAvatar.invited
+  })
+  .then(() => {
+    store.dispatch(updateAvatar(updatedAvatar))
+  })
+  .catch(function(error) {
+    console.error("Error writing document: ", error);
+  })
+}
 /**
  * REDUCER
  */
@@ -60,6 +80,8 @@ export default function (state = defaultAvatar, action) {
       return action.avatar;
      case DELETE_AVATAR: 
    	  return defaultAvatar;
+    case UPDATE_AVATAR:
+      return action.updatedAvatar
     default:
       return state;
   }
