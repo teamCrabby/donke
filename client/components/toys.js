@@ -10,8 +10,6 @@ export class Toys extends Component {
   }
   componentDidMount() {
     dragToys()
-    // if (this.props.health === 9 && this.props.status === 'needBreak') {
-    // }
   }
 
   render() {
@@ -34,7 +32,6 @@ export class Toys extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health,
     status: state.status
   }
 }

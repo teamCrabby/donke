@@ -137,18 +137,18 @@ export class SelectDonke extends Component {
         ? this.props.status !== 'break'
           //render the below if they are not on a break
           ? <div>
-            {this.props.health > 0
+            {this.props.avatar.health > 0
               //render "Take a break" button if they have health or "Try again" button if they don't
               ? <button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button>
               : <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>}
             <Donke />
-            {this.props.health === 10
+            {this.props.avatar.health === 10
               ? this.props.status === 'needBreak'
                 //this ternery checks if the user needs a break or is coming back from a break and renders accordingly
                 ? <div> <Sun /> <Grass /> <Toys /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div>
                 : <div> <Sun /> <Grass /> <PartyHat /> </div>
               : null}
-            {this.props.health === 9
+            {this.props.avatar.health === 9
               ? this.props.status === 'needBreak'
                 ? this.state.needBreakMessage
                   //this ternery renders 'time for a break' speech bubble if the work time runs out while they are on this health level
@@ -156,51 +156,51 @@ export class SelectDonke extends Component {
                   : <div> <Sun /> <Grass /> <PartyHat /><SpeechBubble text={"No break?"} /></div>
                 : <div> <Sun /> </div>
               : null}
-            {this.props.health === 8
+            {this.props.avatar.health === 8
               ? this.state.needBreakMessage
                 ? <div> <Sun /> <Cloud /> <SpeechBubble text={"Time for a break!"} /></div>
                 : <div> <Sun /> <Cloud /> </div>
               : null}
-            {this.props.health === 7
+            {this.props.avatar.health === 7
               ? this.state.needBreakMessage
                 ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                 : <div> <Cloud /> </div>
               : null}
-            {this.props.health === 6
+            {this.props.avatar.health === 6
               ? this.state.needBreakMessage
                 ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                 : <div> <Cloud /> </div>
               : null}
-            {this.props.health === 5
+            {this.props.avatar.health === 5
               ? this.state.needBreakMessage
                 ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                 : <div> <Cloud /> </div>
               : null}
-            {this.props.health === 4
+            {this.props.avatar.health === 4
               ? this.state.needBreakMessage
                 ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                 : <div> <Cloud /> </div>
               : null}
-            {this.props.health === 3
+            {this.props.avatar.health === 3
               ? this.props.status === 'needBreak'
                 ? this.state.needBreakMessage
                   ? <div> <Cloud /> <Lightning /> <SpeechBubble text={"Time for a break!"} /></div>
                   : <div> <Cloud /> <Lightning /> <SpeechBubble text={"I'm so tired. Can we take a break now?"} /></div>
                 : <div> <Cloud /> <Lightning /></div>
               : null}
-            {this.props.health === 2
+            {this.props.avatar.health === 2
               ? this.state.needBreakMessage
                 ? <div> <Cloud /> <Lightning /> <SpeechBubble text={"Time for a break!"} /> </div>
                 : <div> <Cloud /> <Lightning /> </div>
               : null}
-            {this.props.health === 1
+            {this.props.avatar.health === 1
               ? this.props.status === 'needBreak'
                 ? this.state.needBreakMessage
                   ? <div> <Cloud /> <Lightning /><SpeechBubble text={"Time for a break!"} /></div>
                   : <div> <Cloud /> <Lightning /><SpeechBubble text={"I don't feel so well..."} /></div>
                 : <div> <Cloud /> <Lightning /></div>
               : null}
-            {this.props.health === 0 ? <div><Halo /><Cloud /><Lightning /></div> : null}
+            {this.props.avatar.health === 0 ? <div><Halo /><Cloud /><Lightning /></div> : null}
           </div>
           : this.state.breakTimeOver
             ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
@@ -216,7 +216,6 @@ const mapStateToProps = state => {
   return {
     workInterval: state.workInterval,
     breakInterval: state.breakInterval,
-    health: state.health,
     idleTime: state.idleTime,
     status: state.status,
     avatar: state.avatar
