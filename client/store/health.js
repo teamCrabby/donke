@@ -1,3 +1,6 @@
+import {db, auth} from '../app'
+import store from './index.js'
+
 /**
  * ACTION TYPES
  */
@@ -22,6 +25,28 @@ export const fetchHealth = (health) =>
   dispatch =>
     dispatch(setHealth(health))
 
+
+
+// export const createAvatarFirebase = (avatar) => {
+//   db.collection("avatars").add(avatar)
+//     .then(res =>  {
+//     	avatar.id=res.id;
+//       store.dispatch(createAvatar(avatar));
+//     })
+//     .catch(function(error) {
+//         console.error("Error writing document: ", error);
+//     });
+// }
+
+// export const deleteAvatarFirebase = (avatarId) => {
+//   db.collection("avatars").doc(`${avatarId}`).delete()
+// 	.then(function() {
+// 	    console.log("Document successfully deleted!");
+// 	    store.dispatch(deleteAvatar())
+// 	}).catch(function(error) {
+// 	    console.error("Error removing document: ", error);
+// 	});
+// }
 /**
  * REDUCER
  */

@@ -51,7 +51,8 @@ const mapStateToProps = state => {
     loggedIn: state.loggedIn,
     avatar: state.avatar,
     workInterval: state.workInterval,
-    inPlaypen: state.playpenStatus
+    inPlaypen: state.playpenStatus,
+    user: state.user
   }
 }
 
