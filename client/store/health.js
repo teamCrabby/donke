@@ -1,3 +1,6 @@
+import {db, auth} from '../app'
+import store from './index.js'
+
 /**
  * ACTION TYPES
  */
