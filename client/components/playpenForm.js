@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
-import { intervalForm } from '.';
+import { setPlaypenStatus } from '../store'
 
 class PlaypenForm extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class PlaypenForm extends Component {
       .then(res => {
         let userinFS = res.data()
         // console.log('USER FROM FIRESTORE', userinFS)
-        this.setState({ owner: { name: userinFS.handle, email: userinFS.email, uid: user.uid } })
+        this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
       })
     }
   }
@@ -55,15 +55,24 @@ class PlaypenForm extends Component {
       })
       .then(pen => {
         // console.log('PLAYPEN RETURNED', pen)
+        let bool = true
         return this.state.avatars.map(avatar => {
+          if (this.props.user === avatar.userId) {
+            bool = false
+          } else {
+            bool = true
+          }
           db.collection('avatars').doc(avatar.id).update({
-            invited: true,
+            invited: bool,
             playpenId: pen.id
           }).then((res) => {
             return})
         })
       })
-      .then((res) => console.log('Document successfully written, HOORAY'))
+      .then((res) => {
+        this.props.setPlaypen(true)
+        console.log('Document successfully written, HOORAY')
+      })
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({ onToggle: false, invitedUser: '', users: [] })
   }
@@ -201,8 +210,17 @@ class PlaypenForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    avatar : state.avatar
+    avatar : state.avatar,
+    user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(PlaypenForm)
+const mapDispatchToProps = dispatch => {
+  return {
+      setPlaypen(bool) {
+          dispatch(setPlaypenStatus(bool))
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaypenForm)
