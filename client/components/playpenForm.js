@@ -35,7 +35,9 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
+    console.log('in handle submit')
     let avatars = this.state.avatars
+    console.log('avatars are..', avatars)
     db.collection('playPen').add({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
@@ -43,18 +45,18 @@ class PlaypenForm extends Component {
       avatars: this.state.avatars
     })
       .then((res) => {
-        // console.log('CREATED PLAYPEN RES', res)
+        console.log('CREATED PLAYPEN RES', res)
         return db.collection('playPen').doc(res.id).get()
         .then((res) => {
           let playpen
           playpen = res.data()
           playpen.id = res.id
-          // console.log('GOT PLAYPEN', playpen)
+          console.log('GOT PLAYPEN', playpen)
           return playpen
         })
       })
       .then(pen => {
-        // console.log('PLAYPEN RETURNED', pen)
+        console.log('PLAYPEN RETURNED', pen)
         let bool = true
         return this.state.avatars.map(avatar => {
           if (this.props.user === avatar.userId) {
@@ -83,12 +85,12 @@ class PlaypenForm extends Component {
       return db.collection('users').where('handle','==',this.state.invitedUser)
         .get()
         .then(function(querySnapshot) {
-          // console.log('query snap', querySnapshot)
+          console.log('query snap', querySnapshot)
           let foundUser;
           querySnapshot.forEach(function(doc) {
-            // console.log(doc.id, '==>', doc.data())
+            console.log(doc.id, '==>', doc.data())
             if (doc) {
-              // console.log('FOUND USER:', foundUser)
+              console.log('FOUND USER:', foundUser)
               foundUser = doc.data()
               foundUser.id = doc.id
             } else {
@@ -98,13 +100,13 @@ class PlaypenForm extends Component {
           return foundUser;
       })
       .then((user) => {
-        // console.log('USER', user)
+        console.log('USER', user)
         return db.collection('avatars').where('userId', '==', user.id)
         .get()
         .then(function(querySnapshot) {
           let foundAvatar;
           querySnapshot.forEach(function(doc) {
-            // console.log(doc.id, '==>', doc.data())
+            console.log(doc.id, '==>', doc.data())
             if (doc) {
               foundAvatar = doc.data()
               foundAvatar.id = doc.id
@@ -113,7 +115,7 @@ class PlaypenForm extends Component {
               alert(`Sorry, that avatar does not exist.`)
             }
           })
-          // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+          console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
           return foundAvatar;
         })
       })                 
