@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NewBuddy } from './index';
 import { connect } from 'react-redux'
 import {db, auth} from '../app'
-import store, { setLoggedIn, fetchUser } from '../store'
+import store, { setLoggedIn, fetchUser, setAvatar } from '../store'
 
 export class Login extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ export class Login extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
     this.handleCreateUser = this.handleCreateUser.bind(this)
+    this.checkForAvatar = this.checkForAvatar.bind(this)
   }
 
   handleChange(event) {
@@ -28,9 +29,15 @@ export class Login extends Component {
     event.preventDefault()
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(res => {
-        res.uid.length ? this.props.setStoreLoggedIn(true, res.uid) : null
+      .then(user => {
+        if(user.uid.length) {
+          this.props.setStoreLoggedIn(false, user.uid) 
+        }
       })
+      .then((res) => {
+        console.log('checking for avatar')
+        this.checkForAvatar()
+      })   
       .catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -41,16 +48,15 @@ export class Login extends Component {
       });
   }
 
-handleCreateUser(event) {
+  handleCreateUser(event) {
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
         db.collection('users').doc(user.uid).set({ handle: this.state.displayName, email: this.state.email })
         if(user.uid.length) {
-          this.setState({ loggedInLocal: true })
-          this.props.setUserId(user.uid)
+          this.props.setStoreLoggedIn(true, user.uid)
         } 
-      })    
+      }) 
       .catch(function (error) {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -61,6 +67,34 @@ handleCreateUser(event) {
       });
   }
 
+  checkForAvatar() {
+    console.log('got inside check for avatar')
+    event.preventDefault
+    db.collection('avatars').where('userId', '==',this.props.user).get()
+    .then(function(querySnapshot) {
+      console.log('query snap', querySnapshot)
+      let foundAvatar;
+      querySnapshot.forEach(function(doc) {
+        console.log(doc.id, '==>', doc.data())
+        if (doc) {
+          console.log('FOUND AVATAR:', doc.data())
+          foundAvatar = doc.data()
+          foundAvatar.id = doc.id
+        } else {
+          return false
+        }
+      })
+      return foundAvatar
+    })
+    .then(res => {
+      if (res) {
+        this.props.setAvatarInReduxStore(res)
+      } else {
+        console.log('NO ASSOCIATED AVATAR')
+      }
+        this.props.setStoreLoggedIn(true, this.props.user) 
+    })
+  }
 
   render() {
     return (
@@ -136,7 +170,8 @@ handleCreateUser(event) {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    user: state.user
   }
 }
 
@@ -146,8 +181,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(setLoggedIn(loggedInBool))
       dispatch(fetchUser(uid))
     },
-    setUserID(id){
-      dispatch(fetchUser(uid))
+    setAvatarInReduxStore(avatar) {
+      dispatch(setAvatar(avatar))
     }
   }
 }
