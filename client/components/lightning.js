@@ -9,12 +9,12 @@ export class Lightning extends Component {
     }
     componentDidMount() {
         if (this.props.status === 'needBreak') {
-            if (this.props.health === 3) {
+            if (this.props.avatar.health === 3) {
                 lightningEnter("#lightning1")
                 playAudio('thunder');
             }
-            if (this.props.health === 2) lightningEnter('#lightning2');
-            if (this.props.health === 1) lightningEnter('#lightning3');
+            if (this.props.avatar.health === 2) lightningEnter('#lightning2');
+            if (this.props.avatar.health === 1) lightningEnter('#lightning3');
         }
     }
 
@@ -22,9 +22,9 @@ export class Lightning extends Component {
 
         return (
             <div>
-                {this.props.health < 4 ? <img id="lightning1" src="../img/lightning.svg" width="220" height="220" /> : null}
-                {this.props.health < 3 ? <img id="lightning2" src="../img/lightning.svg" width="220" height="220" /> : null}
-                {this.props.health < 2 ? <img id="lightning3" src="../img/lightning.svg" width="220" height="220" /> : null}
+                {this.props.avatar.health < 4 ? <img id="lightning1" src="../img/lightning.svg" width="220" height="220" /> : null}
+                {this.props.avatar.health < 3 ? <img id="lightning2" src="../img/lightning.svg" width="220" height="220" /> : null}
+                {this.props.avatar.health < 2 ? <img id="lightning3" src="../img/lightning.svg" width="220" height="220" /> : null}
             </div>
         );
     }
@@ -32,7 +32,7 @@ export class Lightning extends Component {
 
 const mapStateToProps = state => {
     return {
-        health: state.health,
+        avatar: state.avatar,
         status: state.status
     }
 }

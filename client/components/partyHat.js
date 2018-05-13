@@ -9,7 +9,7 @@ export class PartyHat extends Component {
   }
   componentDidMount() {
     dragHat()
-    if (this.props.health === 9 && this.props.status === 'needBreak') {
+    if (this.props.avatar.health === 9 && this.props.status === 'needBreak') {
       hatLeave()
     }
   }
@@ -26,7 +26,7 @@ export class PartyHat extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health,
+    avatar: state.avatar,
     status: state.status
   }
 }

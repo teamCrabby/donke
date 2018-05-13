@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchHealth, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart } from '../store';
+import store, { fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart, updateAvatarFirebase } from '../store';
 
 //create timer variables so can assign them in order to clear them
 let timerFunc;
@@ -59,8 +59,10 @@ export class SelectDonke extends Component {
     healthFunc = setInterval(() => {
       this.setState({needBreakMessage: false})
       //decrement the health by 1 every 5 minutes
-      if (this.props.health > 0) {
-        this.props.setStoreHealth(this.props.health - 1)
+      if (this.props.avatar.health > 0) {
+        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health-1})
+        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+        this.props.setStoreHealth(updatedAvatar)
       }
     }, 8000)
   }
@@ -69,8 +71,9 @@ export class SelectDonke extends Component {
     //I THINK WE NEED A SETTIMEOUT HERE
     healthFunc = setInterval(() => {
       //increment the health once their break is complete (and if they take a longer break....?)
-      if (this.props.health < 10) {
-        this.props.setStoreHealth(this.props.health + 1)
+      if (this.props.avatar.health < 10) {
+        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health+1})
+        this.props.setStoreHealth(updatedAvatar)
       }
       //the line below lets the render know to show the "Work time" button
       this.setState({breakTimeOver: true})
@@ -81,7 +84,9 @@ export class SelectDonke extends Component {
       if(Math.abs(this.state.breakCounter - this.props.idleTime) > 5 && this.state.breakCounter < this.props.breakInterval){
         alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
         //this line docks you a point if you come back early. 
-        this.props.setStoreHealth(this.props.health - 1)
+        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health-1})
+        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+        this.props.setStoreHealth(updatedAvatar)
         this.handleClickWork()
       }
     }, 1000)
@@ -120,7 +125,9 @@ export class SelectDonke extends Component {
     //this is if the donke died... sad. need to reset everything.
     deleteAvatarFirebase(this.props.avatar.id)
     // this.props.getWorkInterval(0, 0)
-    setTimeout(() => this.props.setStoreHealth(10), 3000)
+    // let updatedAvatar = Object.assign({}, this.props.avatar, {health: 10})
+    // console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+    // setTimeout(() => this.props.setStoreHealth(updatedAvatar), 3000)
   }
 
   render() {
@@ -130,18 +137,18 @@ export class SelectDonke extends Component {
         ? this.props.status !== 'break'
             //render the below if they are not on a break
             ? <div> 
-              {this.props.health > 0
+              {this.props.avatar.health > 0
                 //render "Take a break" button if they have health or "Try again" button if they don't
                 ? <button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button>
                 : <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>}
                 <Donke />
-                {this.props.health === 10 
+                {this.props.avatar.health === 10 
                   ? this.props.status === 'needBreak' 
                   //this ternery checks if the user needs a break or is coming back from a break and renders accordingly
                     ? <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div> 
                     : <div> <Sun /> <Grass /> <PartyHat /> </div>
                   : null}
-                {this.props.health === 9 
+                {this.props.avatar.health === 9 
                   ? this.props.status === 'needBreak'
                     ? this.state.needBreakMessage
                       //this ternery renders 'time for a break' speech bubble if the work time runs out while they are on this health level
@@ -149,51 +156,51 @@ export class SelectDonke extends Component {
                       : <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"No break?"} /></div> 
                     : <div> <Sun /> </div>
                   : null}
-                {this.props.health === 8 
+                {this.props.avatar.health === 8 
                   ? this.state.needBreakMessage
                     ? <div> <Sun /> <Cloud /> <SpeechBubble text={"Time for a break!"} /></div> 
                     : <div> <Sun /> <Cloud /> </div>
                   : null}
-                {this.props.health === 7
+                {this.props.avatar.health === 7
                   ? this.state.needBreakMessage
                     ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                     : <div> <Cloud /> </div>
                   : null}
-                {this.props.health === 6
+                {this.props.avatar.health === 6
                   ? this.state.needBreakMessage
                     ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                     : <div> <Cloud /> </div>
                   : null}
-                {this.props.health === 5
+                {this.props.avatar.health === 5
                   ? this.state.needBreakMessage
                     ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                     : <div> <Cloud /> </div>
                   : null}
-                {this.props.health === 4
+                {this.props.avatar.health === 4
                   ? this.state.needBreakMessage
                     ? <div> <Cloud /> <SpeechBubble text={"Time for a break!"} /> </div>
                     : <div> <Cloud /> </div>
                   : null}
-                {this.props.health === 3 
+                {this.props.avatar.health === 3 
                   ? this.props.status === 'needBreak'
                     ? this.state.needBreakMessage
                       ? <div> <Cloud /> <Lightning /> <SpeechBubble text={"Time for a break!"} /></div>
                       : <div> <Cloud /> <Lightning /> <SpeechBubble text={"I'm so tired. Can we take a break now?"} /></div>
                     : <div> <Cloud /> <Lightning /></div>
                   : null}
-                {this.props.health === 2 
+                {this.props.avatar.health === 2 
                   ? this.state.needBreakMessage
                     ? <div> <Cloud /> <Lightning /> <SpeechBubble text={"Time for a break!"}/> </div> 
                     : <div> <Cloud /> <Lightning /> </div>
                   : null}
-                {this.props.health === 1 
+                {this.props.avatar.health === 1 
                   ? this.props.status === 'needBreak'
                     ? this.state.needBreakMessage
                       ? <div> <Cloud /> <Lightning /><SpeechBubble text={"Time for a break!"} /></div>
                       : <div> <Cloud /> <Lightning/><SpeechBubble text={"I don't feel so well..."} /></div> 
                     : <div> <Cloud /> <Lightning /></div>
                   : null}
-                {this.props.health === 0 ? <div><Halo /><Cloud /><Lightning/></div> : null}
+                {this.props.avatar.health === 0 ? <div><Halo /><Cloud /><Lightning/></div> : null}
               </div>
             : this.state.breakTimeOver
               ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
@@ -221,8 +228,8 @@ const mapDispatchToProps = dispatch => {
     setStoreStatus(status) {
       dispatch(fetchStatus(status))
     },
-    setStoreHealth(health) {
-      dispatch(fetchHealth(health))
+    setStoreHealth(updatedAvatar) {
+      dispatch(updateAvatarFirebase(updatedAvatar))
     },
     getWorkInterval(workTime, breakTime) {
       dispatch(fetchWorkInterval(workTime))

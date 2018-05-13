@@ -11,17 +11,17 @@ class Donke extends Component {
   render() {
     return (
       <div className="panel">
-        <img id="donke" src={`../img/donke${this.props.health}.svg`} onClick={() => playAudio('happy')} />
+        <img id="donke" src={`../img/donke${this.props.avatar.health || this.props.avatar.health === 0 ? this.props.avatar.health : 10}.svg`} onClick={() => playAudio('happy')} />
         <div className="renderBuddyName">
-          {this.props.name !== '' && this.props.health >= 9 && this.props.loggedIn
+          {this.props.name !== '' && this.props.avatar.health >= 9 && this.props.loggedIn
             ?
-            <p id="buddyName">Hello, I'm {this.props.name}!</p>
+            <p id="buddyName">Hello, I'm {this.props.avatar.name}!</p>
             :
             null
           }
-          {this.props.health === 0
+          {this.props.avatar.health === 0
             ?
-            <p id="buddyName">Oh NO! You've killed {this.props.name}!</p>
+            <p id="buddyName">Oh NO! You've killed {this.props.avatar.name}!</p>
             :
             null
           }
@@ -36,9 +36,8 @@ class Donke extends Component {
 
 const mapStateToProps = state => {
   return {
-    name: state.avatar.name,
-    health: state.health,
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    avatar: state.avatar
   }
 }
 

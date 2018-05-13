@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NewBuddy } from './index';
 import { connect } from 'react-redux'
 import {db, auth} from '../app'
-import store, { setLoggedIn, fetchUser, setAvatar } from '../store'
+import store, { setLoggedIn, fetchUser, setAvatar, deleteAvatarFirebase } from '../store'
 
 export class Login extends Component {
   constructor(props) {
@@ -87,8 +87,10 @@ export class Login extends Component {
       return foundAvatar
     })
     .then(res => {
-      if (res) {
+      if (res && res.health > 0) {
         this.props.setAvatarInReduxStore(res)
+      } else if (res && res.health === 0){
+        deleteAvatarFirebase(res.id)
       } else {
         console.log('NO ASSOCIATED AVATAR')
       }

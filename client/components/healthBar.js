@@ -15,7 +15,7 @@ class HealthBar extends Component {
     return (
       <div className="healthBar">
         <div>
-          <img id="healthBar" src={`../img/healthTab${this.props.health}.svg`} width="100" height="50" />
+          <img id="healthBar" src={`../img/healthTab${this.props.avatar.health || this.props.avatar.health === 0 ? this.props.avatar.health : 10}.svg`} width="100" height="50" />
         </div>
         <div id="heart">
           <Heart />
@@ -27,7 +27,7 @@ class HealthBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health
+    avatar: state.avatar
   }
 }
 
