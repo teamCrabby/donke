@@ -13,11 +13,11 @@ class Heart extends Component {
   render() {
     return (
       <div>
-        {this.props.health >= 1
+        {this.props.avatar.health === 0
           ?
-          <img id="heart" src="../img/heart.svg" width="30" height="30" />
-          :
           <img id="brokenheart" src="../img/brokenheart.svg" width="30" height="30" />
+          :
+          <img id="heart" src="../img/heart.svg" width="30" height="30" />
         }
       </div>
     );
@@ -28,7 +28,7 @@ class Heart extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health,
+    avatar: state.avatar
 
   }
 }
