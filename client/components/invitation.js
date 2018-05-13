@@ -37,7 +37,7 @@ export class Invitation extends Component {
     render(){
         return (
             <div className='navbarForm navbar-container navbar-wrapper' id='invitation'>
-                <p>{this.props.avatar.name} has invited you to join them in {this.state.playpenName}! Would you like to join this playpen?</p>
+                <p>You've been invited to the playpen {this.state.playpenName}! Would you like to join this playpen?</p>
                 <div id="invitation-btns">
                     <button onClick={this.handleClickYes}>Yes</button>
                     <button onClick={this.handleClickNo}>No</button> 
