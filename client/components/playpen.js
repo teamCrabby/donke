@@ -18,21 +18,23 @@ export class Playpen extends Component {
     this.leavePlaypen = this.leavePlaypen.bind(this);
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
     console.log('playpen id is...', this.props.avatar.playpenId);
-    db
-      .collection('playPen')
-      .doc(`${this.props.avatar.playpenId}`)
-      .get()
-      .then(res => {
-        let playpen = res.data();
-        console.log('playpen is..', playpen);
-        console.log('avatars in did mount is..', playpen.avatars);
-        this.setState({ playpen });
-      })
-      .catch(error =>
-        console.log(`Unable to get playpen ${error.message}`)
-      );
+    if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
+      db
+        .collection('playPen')
+        .doc(`${this.props.avatar.playpenId}`)
+        .get()
+        .then(res => {
+          let playpen = res.data();
+          console.log('playpen is..', playpen);
+          console.log('avatars in did mount is..', playpen.avatars);
+          this.setState({ playpen });
+        })
+        .catch(error =>
+          console.log(`Unable to get playpen ${error.message}`)
+        )
+    }
   }
 
   leavePlaypen() {
@@ -73,8 +75,9 @@ export class Playpen extends Component {
     const avatarsArr = this.state.playpen.avatars
     return (
       <div>
-      {avatarsArr
+      {avatarsArr && avatarsArr.length
       ? <div>
+          <p>Welcome to: {this.state.playpen.name}</p>
           <button className="donkeBtn" onClick={this.leavePlaypen}>
               Leave Playpen
           </button>

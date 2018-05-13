@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
+import { setPlaypenStatus } from '../store'
 
 class PlaypenForm extends Component {
   constructor(props) {
@@ -68,7 +69,10 @@ class PlaypenForm extends Component {
             return})
         })
       })
-      .then((res) => console.log('Document successfully written, HOORAY'))
+      .then((res) => {
+        this.props.setPlaypen(true)
+        console.log('Document successfully written, HOORAY')
+      })
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({ onToggle: false, invitedUser: '', users: [] })
   }
@@ -207,8 +211,16 @@ class PlaypenForm extends Component {
 const mapStateToProps = state => {
   return {
     avatar : state.avatar,
-    user: state.user
+    user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(PlaypenForm)
+const mapDispatchToProps = dispatch => {
+  return {
+      setPlaypen(bool) {
+          dispatch(setPlaypenStatus(bool))
+      }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaypenForm)
