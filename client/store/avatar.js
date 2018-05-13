@@ -75,21 +75,6 @@ export const deleteAvatarFirebase = (avatarId) => {
 	});
 }
 
-// export const updateAvatarFirebase = (updatedAvatar) => {
-//   db.collection("avatars").doc(`${updatedAvatar.id}`).update({
-//     name: updatedAvatar.name,
-//     userId: updatedAvatar.userId,
-//     health: updatedAvatar.health,
-//     playpenId: updatedAvatar.playpenId,
-//     invited: updatedAvatar.invited
-//   })
-//   .then(() => {
-//     store.dispatch(updateAvatar(updatedAvatar))
-//   })
-//   .catch(function(error) {
-//     console.error("Error writing document: ", error);
-//   })
-// }
 /**
  * REDUCER
  */
