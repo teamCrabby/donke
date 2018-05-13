@@ -10,7 +10,7 @@ export class Grass extends Component {
   }
 
   componentDidMount() {
-    if (this.props.health === 9 && this.props.status === 'needBreak') {
+    if (this.props.avatar.health === 9 && this.props.status === 'needBreak') {
       grassLeave()
     }
   }
@@ -27,7 +27,7 @@ export class Grass extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health,
+    avatar: state.avatar,
     status: state.status
   }
 }

@@ -4,7 +4,6 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import workInterval from './workInterval';
 import breakInterval from './breakInterval';
-import health from './health';
 import idleTime from './idletime';
 import status from './status';
 import loggedIn from './loggedIn';
@@ -13,7 +12,7 @@ import avatar from './avatar';
 import startTimer from './startTimer'
 import user from './user'
 
-const reducer = combineReducers({ workInterval, breakInterval, health, idleTime, status, loggedIn, playpenStatus, avatar, startTimer, user })
+const reducer = combineReducers({ workInterval, breakInterval, idleTime, status, loggedIn, playpenStatus, avatar, startTimer, user })
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -24,7 +23,6 @@ const store = createStore(reducer, middleware)
 export default store
 export * from './workInterval'
 export * from './breakInterval'
-export * from './health'
 export * from './status'
 export * from './idletime'
 export * from './loggedIn'

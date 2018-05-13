@@ -23,7 +23,6 @@ export class SpeechBubble extends Component {
 
 const mapStateToProps = state => {
   return {
-    health: state.health,
     status: state.status
   }
 }

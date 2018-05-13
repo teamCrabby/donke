@@ -46,13 +46,11 @@ export const createAvatarFirebase = (avatar) =>
       .catch(function(error) {
       });
 
-export const updateAvatarFirebase = (avatarId, avatarName) => 
+export const updateAvatarFirebase = (changedAvatar) => 
   dispatch => 
-    db.collection('avatars').doc(avatarId).update({
-      name: avatarName
-    })
+    db.collection('avatars').doc(`${changedAvatar.id}`).update(changedAvatar)
     .then(res => {
-      return db.collection('avatars').doc(avatarId).get()
+      return db.collection('avatars').doc(`${changedAvatar.id}`).get()
       .then(res => {
         let updatedAvatar = res.data()
         updatedAvatar.id = res.id
@@ -66,6 +64,7 @@ export const updateAvatarFirebase = (avatarId, avatarName) =>
 
 
 export const deleteAvatarFirebase = (avatarId) => {
+  console.log('GOT INSIDE DELETE AVATAR FIREBASE')
   db.collection("avatars").doc(`${avatarId}`).delete()
 	.then(function() {
 	    console.log("Document successfully deleted!");
