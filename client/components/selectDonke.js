@@ -60,7 +60,7 @@ export class SelectDonke extends Component {
       this.setState({ needBreakMessage: false })
       //decrement the health by 1 every 5 minutes
       if (this.props.avatar.health > 0) {
-        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health-1})
+        let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
         console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
         this.props.setStoreHealth(updatedAvatar)
       }
@@ -72,7 +72,7 @@ export class SelectDonke extends Component {
     healthFunc = setInterval(() => {
       //increment the health once their break is complete (and if they take a longer break....?)
       if (this.props.avatar.health < 10) {
-        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health+1})
+        let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health + 1 })
         this.props.setStoreHealth(updatedAvatar)
       }
       //the line below lets the render know to show the "Work time" button
@@ -84,7 +84,7 @@ export class SelectDonke extends Component {
       if (Math.abs(this.state.breakCounter - this.props.idleTime) > 5 && this.state.breakCounter < this.props.breakInterval) {
         alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
         //this line docks you a point if you come back early. 
-        let updatedAvatar = Object.assign({}, this.props.avatar, {health: this.props.avatar.health-1})
+        let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
         console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
         this.props.setStoreHealth(updatedAvatar)
         this.handleClickWork()
