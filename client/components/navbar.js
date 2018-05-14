@@ -47,47 +47,53 @@ class Navbar extends Component {
   }
 
   handleWorkBreakForm(event) {
-    this.setState({
-      playPenFormClicked: false,
-      logOutClicked: false,
-      workBreakClicked: !this.state.workBreakClicked
-    })
+    if (this.props.status !== 'break') {
+      this.setState({
+        playPenFormClicked: false,
+        logOutClicked: false,
+        workBreakClicked: !this.state.workBreakClicked
+      })
+    }
   }
 
   handlePlayPenForm(event) {
-    this.setState({
-      logOutClicked: false,
-      workBreakClicked: false,
-      playPenFormClicked: !this.state.playPenFormClicked
-    })
+    if (this.props.status !== 'break') {
+      this.setState({
+        logOutClicked: false,
+        workBreakClicked: false,
+        playPenFormClicked: !this.state.playPenFormClicked
+      })
+    }
   }
 
   handleLogOut(event) {
-    this.props.setStoreLoggedIn(false)
-    this.props.updateAvatarStore({
-      name: '',
-      userId: '',
-      health: '',
-      playpenId: '',
-      invited: '',
-      id: ''
-    })
-    firebase.auth().signOut()
-      .then(function () {
-        console.log(`Sign-out successful.`)
-        //alert(`Bye!`)
+    if (this.props.status !== 'break') {
+      this.props.setStoreLoggedIn(false)
+      this.props.updateAvatarStore({
+        name: '',
+        userId: '',
+        health: '',
+        playpenId: '',
+        invited: '',
+        id: ''
       })
-      .catch(function (error) {
-        if (error) {
-          alert(`Uh oh! Unable to log out. ${error.message} Try again`)
-        }
+      firebase.auth().signOut()
+        .then(function () {
+          console.log(`Sign-out successful.`)
+          //alert(`Bye!`)
+        })
+        .catch(function (error) {
+          if (error) {
+            alert(`Uh oh! Unable to log out. ${error.message} Try again`)
+          }
+        })
+  
+      this.setState({
+        workBreakClicked: false,
+        playPenFormClicked: false,
+        logOutClicked: !this.state.logOutClicked
       })
-
-    this.setState({
-      workBreakClicked: false,
-      playPenFormClicked: false,
-      logOutClicked: !this.state.logOutClicked
-    })
+    }
   }
 
   handleChange(event) {
@@ -127,7 +133,8 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
   return {
-    avatar: state.avatar
+    avatar: state.avatar,
+    status: state.status
   }
 }
 
