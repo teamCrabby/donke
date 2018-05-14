@@ -8,6 +8,8 @@ import * as firebase from 'firebase';
 
 // var currentuser = firebase.auth().currentUser;
 
+
+
 //delete playpen once everyone leaves
 //keep track of who has accepted or not?
 
@@ -18,7 +20,7 @@ export class Playpen extends Component {
     this.leavePlaypen = this.leavePlaypen.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
     console.log('playpen id is...', this.props.avatar.playpenId);
     //if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
       db
@@ -83,12 +85,12 @@ export class Playpen extends Component {
           </button>
             <div className='playpenComponent'>
             {avatarsArr.map(avatar => {
-              return (
-                <div key={avatar.id}>
-                  <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
-                  <p>{avatar.name}</p>
-                </div>
-              )
+                return (
+                  <div key={avatar.id}>
+                    <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
+                    <p>{avatar.name}</p>
+                  </div>
+                )
             })}
             </div>
       </div>  

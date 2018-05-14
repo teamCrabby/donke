@@ -33,7 +33,7 @@ export class App extends Component {
             ? <div> <Login /> <Donke /></div>
             : !this.props.avatar.name 
               ? <div> <NewBuddy /> <Donke /> </div>
-              : this.props.inPlaypen && this.props.avatar.playpenId.length
+              : this.props.inPlaypen && this.props.avatar.playpenId
                 ? <div> <Navbar/> <Playpen /> </div>
                 : <div> <Navbar /> <SelectDonke />
                   {this.props.avatar.invited 
