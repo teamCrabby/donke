@@ -16,7 +16,6 @@ class PlaypenForm extends Component {
       owner: '',
       avatars: [this.props.avatar]
     }
-
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleAddABuddy = this.handleAddABuddy.bind(this)
@@ -24,7 +23,6 @@ class PlaypenForm extends Component {
   }
 
   componentDidMount() {
-    console.log('THIS IS THE DISABLED PROPS', this.props.disabled)
     let user = firebase.auth().currentUser
     if (user !== null) {
       db.collection('users').doc(user.uid).get()
@@ -37,7 +35,10 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
-    let avatars = this.state.avatars
+    console.log('this is the name of the new playpen:', this.state.playPenName)
+    console.log('this is the arra of users:', this.state.users)
+    console.log('this is the owner:', this.state.owner)
+    console.log('this is the avatar array:', this.state.avatars)
     db.collection('playPen').add({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
@@ -45,7 +46,7 @@ class PlaypenForm extends Component {
       avatars: this.state.avatars
     })
       .then((res) => {
-        // console.log('RES OF CREATING PLAYPEN', res)
+        // console.log('CREATED PLAYPEN RES', res)
         return db.collection('playPen').doc(res.id).get()
           .then((res) => {
             let playpen
@@ -56,11 +57,9 @@ class PlaypenForm extends Component {
           })
       })
       .then(pen => {
-        console.log('PLAYPEN RETURNED', pen)
+        // console.log('PLAYPEN RETURNED', pen)
         let bool = true
-        console.log('THIS.STATE.AVATARS INSIDE HANDLESUBMIT', this.state.avatars)
         return this.state.avatars.map(avatar => {
-          //this is to make sure the owner doesn't get an invitation to their own playpen
           if (this.props.user === avatar.userId) {
             bool = false
           } else {
@@ -75,10 +74,8 @@ class PlaypenForm extends Component {
         })
       })
       .then((res) => {
-        console.log('WHATEVER IS RETURNED FROM MAPPING OVER AVATARS AND UPDATING THEM', res)
         this.props.setPlaypen(true)
         console.log('Document successfully written, HOORAY')
-        console.log("OWNER'S PLAYPEN STATUS AFTER UPDATING ALL THE AVATARS", this.props.playpenStatus)
       })
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({ onToggle: false, invitedUser: '', users: [] })
@@ -111,11 +108,11 @@ class PlaypenForm extends Component {
             .then(function (querySnapshot) {
               let foundAvatar;
               querySnapshot.forEach(function (doc) {
-                // console.log(doc.id, '==>', doc.data())
+                console.log(doc.id, '==>', doc.data())
                 if (doc) {
                   foundAvatar = doc.data()
                   foundAvatar.id = doc.id
-                  // console.log('FOUND AVATAR:', foundAvatar)
+                  console.log('FOUND AVATAR:', foundAvatar)
                 } else {
                   alert(`Sorry, that avatar does not exist.`)
                 }
@@ -128,7 +125,7 @@ class PlaypenForm extends Component {
           //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
           // db.collection('avatar').doc(avatar.id).update({
           // })
-          // console.log('AVATAR', avatar)
+          console.log('AVATAR', avatar)
           this.setState({
             invitedUser: '',
             users: [this.state.invitedUser, ...this.state.users],
@@ -144,7 +141,6 @@ class PlaypenForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
-    console.log('the users on the local state', this.state.users)
   }
 
   handleRemoveUser(event, index) {
@@ -206,11 +202,7 @@ const mapStateToProps = state => {
   return {
     avatar: state.avatar,
     user: state.user,
-<<<<<<< HEAD
-    playpenStatus: state.playpenStatus
-=======
     status: state.status
->>>>>>> master
   }
 }
 

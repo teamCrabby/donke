@@ -49,7 +49,7 @@ export class Playpen extends Component {
         )
   }
 
-  componentDidUnmount(){
+  componentWillUnmount(){
     //This ensures that we have unsubscribed the listeners for all of the playpen avatars that don't belong to the user
     this.state.subscriptions.map((subscription) => {
       subscription[1]()
