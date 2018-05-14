@@ -31,8 +31,8 @@ app.on('ready', function () {
     mainWindow = null;
   });
 
-  // const sendIdleUpdate = msg => mainWindow.webContents.send('idle-update', msg)
-  // idler.on('update', sendIdleUpdate)
+  const sendIdleUpdate = msg => mainWindow.webContents.send('idle-update', msg)
+  idler.on('update', sendIdleUpdate)
 })
 
 app.on('window-all-closed', function () {
