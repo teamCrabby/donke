@@ -14,7 +14,7 @@ class PlaypenForm extends Component {
       invitedUser: '',
       users: [],
       owner: '',
-      avatars: [this.props.avatar]
+      avatars: []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -39,7 +39,7 @@ class PlaypenForm extends Component {
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
       owner: this.state.owner.name,
-      avatars: this.state.avatars
+      avatars: [...this.state.avatars, this.props.avatar]
     })
       .then((res) => {
         // console.log('CREATED PLAYPEN RES', res)
@@ -143,11 +143,16 @@ class PlaypenForm extends Component {
     let updatedUsers = this.state.users.filter((user, idx) => {
       return idx !== index
     })
-    this.setState({ users: updatedUsers, avatars: this.state.avatars.slice(1) })
+    let updatedAvatars = this.state.avatars.filter((avatar, idx) => {
+      return idx !== index
+    })
+    this.setState({ users: updatedUsers, avatars: updatedAvatars })
   }
 
   render() {
     let {status} = this.props
+    console.log('USERS', this.state.users)
+    console.log('AVATARS', this.state.avatars)
     return (          
         (this.state.onToggle === true && status !== 'break')
           ?
