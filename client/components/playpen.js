@@ -140,16 +140,22 @@ export class Playpen extends Component {
               Leave Playpen
           </button>
             <div className='playpenComponent'>
-            {this.state.avatarsInPlaypen.map(avatar => {
-                return (
-                  <div key={avatar.id}>
-                    <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
-                    <p>{avatar.name}</p>
-                  </div>
-                )
+            {this.state.avatarsInPlaypen.map(avatarFriend => {
+                if (avatarFriend.userId !== this.props.avatar.userId) {
+                  return (
+                    <div key={avatarFriend.id}>
+                      <img src={`../img/donke${avatarFriend.health}.svg`} onClick={() => playAudio('happy')} />
+                      <p>{avatarFriend.name}</p>
+                    </div>
+                  )
+                }
               })
             }
+            <div>
+              <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
+              <p>{this.props.avatar.name}</p>
             </div>
+          </div>
       </div>  
       : null}   
       </div>
