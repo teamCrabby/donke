@@ -74,7 +74,7 @@ export class Playpen extends Component {
     let avatar = avatarSnapshot.data()
     if (avatar.playpenId !== this.state.playpen.id) {
       let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((avatar) => avatar.playpenId === this.state.playpen.id)
-      this.setState({ avatarsInPlaypen: newPlaypenPopulation})
+      this.setState({ avatarsInPlaypen: newPlaypenPopulation}, () => {console.log("new playpen state is...", this.state.avatarsInPlaypen)})
       // this.setState({ subscriptions: 
       //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       // })
