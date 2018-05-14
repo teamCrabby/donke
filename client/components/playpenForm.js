@@ -35,7 +35,6 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
-    let avatars = this.state.avatars
     db.collection('playPen').add({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
@@ -54,9 +53,10 @@ class PlaypenForm extends Component {
           })
       })
       .then(pen => {
-        // console.log('PLAYPEN RETURNED', pen)
+        console.log('PLAYPEN RETURNED', pen)
+        console.log('THE AVATARS TO BE UPDATED', this.state.avatars)
         let bool = true
-        return this.state.avatars.map(avatar => {
+        return pen.avatars.map(avatar => {
           if (this.props.user === avatar.userId) {
             bool = false
           } else {
@@ -86,17 +86,15 @@ class PlaypenForm extends Component {
         .then(function (querySnapshot) {
           console.log('query snap', querySnapshot)
           let foundUser;
-          querySnapshot.forEach(function (doc) {
-            console.log(doc.id, '==>', doc.data())
-            if (doc) {
-              console.log('FOUND USER:', foundUser)
-              foundUser = doc.data()
-              foundUser.id = doc.id
-            } else {
-              alert(`Sorry, that user does not exist.`)
-            }
-          })
-          return foundUser;
+          if (querySnapshot.docs.length) {
+            querySnapshot.forEach(function (doc) {
+                foundUser = doc.data()
+                foundUser.id = doc.id
+              })
+          } else {
+            alert(`Unable to find your buddy`)
+          }
+            return foundUser
         })
         .then((user) => {
           // console.log('USER', user)
@@ -104,25 +102,25 @@ class PlaypenForm extends Component {
             .get()
             .then(function (querySnapshot) {
               let foundAvatar;
-              querySnapshot.forEach(function (doc) {
-                // console.log(doc.id, '==>', doc.data())
-                if (doc) {
-                  foundAvatar = doc.data()
-                  foundAvatar.id = doc.id
-                  // console.log('FOUND AVATAR:', foundAvatar)
-                } else {
+              if (querySnapshot.docs.length) {
+                querySnapshot.forEach(function (doc) {
+                  // console.log(doc.id, '==>', doc.data())
+                    foundAvatar = doc.data()
+                    foundAvatar.id = doc.id
+                    console.log('FOUND AVATAR:', foundAvatar)
+                  })
+              } else {
                   alert(`Sorry, that avatar does not exist.`)
                 }
-              })
-              // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
-              return foundAvatar;
+                // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+                return foundAvatar;
             })
         })
         .then(avatar => {
           //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
           // db.collection('avatar').doc(avatar.id).update({
           // })
-          // console.log('AVATAR', avatar)
+          console.log('AVATAR', avatar)
           this.setState({
             invitedUser: '',
             users: [this.state.invitedUser, ...this.state.users],
@@ -130,6 +128,9 @@ class PlaypenForm extends Component {
           })
           // console.log('users array is...', this.state.users)
           // console.log('avatars array is ...', this.state.avatars)
+        })
+        .catch(error => {
+          console.error(`Sorry, cannot find your friend ${error.message}`)
         })
     } else {
       alert(`User ${this.state.invitedUser} already added`)
@@ -177,7 +178,7 @@ class PlaypenForm extends Component {
                             this.state.users.map((user, idx) => {
                               return (
                                 <div className="playPen-invitedUser" key={idx}>
-                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
+                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`x ${user}`}</div>
                                 </div>
                               )
                             })
