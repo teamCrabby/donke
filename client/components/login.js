@@ -125,7 +125,7 @@ export class Login extends Component {
                 <button onClick={this.handleSignIn}>Sign In</button>
               </div>
               <div>
-                <div><label>New to Donke?</label></div>
+                <div ><label id="newDonkeUser">New to Donke?</label></div>
                 <button id="nav1" onClick={() => this.setState({ signUp: true })}>Create Account</button>
               </div>
             </div>
