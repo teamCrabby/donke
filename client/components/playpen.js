@@ -135,14 +135,14 @@ export class Playpen extends Component {
           </button>
             <div className='playpenComponent'>
             {this.state.avatarsInPlaypen.map(avatar => {
-                this.fetchAvatar(avatar)
                 return (
                   <div key={avatar.id}>
                     <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
                     <p>{avatar.name}</p>
                   </div>
                 )
-            })}
+              })
+            }
             </div>
       </div>  
       : null}   

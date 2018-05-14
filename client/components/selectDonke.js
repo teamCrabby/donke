@@ -26,7 +26,15 @@ export class SelectDonke extends Component {
     this.needBreak = this.needBreak.bind(this)
   }
 
-  componentDidUpdate() {
+
+  componentDidUpdate(prevProps) {
+    //this is for when the user resets their interval while they are working -- need to clear existing intervals and restart
+    if (prevProps.breakInterval !== this.props.breakInterval || prevProps.workInterval !== this.props.workInterval) {
+      clearInterval(breakCountFunc);
+      clearInterval(healthFunc);
+      clearTimeout(timerFunc);
+      this.setState({ start: true })
+    }
     if (this.props.workInterval > 0 && this.state.start) {
       this.workTimer()
     }
@@ -53,6 +61,7 @@ export class SelectDonke extends Component {
       //start need break timer
       this.needBreak()
     }, workInterval)
+    console.log('in workTimer timerfunc is', timerFunc)
   }
 
   needBreak() {
@@ -65,6 +74,8 @@ export class SelectDonke extends Component {
         this.props.setStoreHealth(updatedAvatar)
       }
     }, 8000)
+    console.log('in needBreak healthFunc is', healthFunc)
+
   }
 
   breakTimer() {
@@ -81,7 +92,7 @@ export class SelectDonke extends Component {
     //check that the user is ACTUALLY idle for their whole break
     breakCountFunc = setInterval(() => {
       this.setState({ breakCounter: this.state.breakCounter += 1 })
-      if (Math.abs(this.state.breakCounter - this.props.idleTime) > 5 && this.state.breakCounter < this.props.breakInterval) {
+      if (Math.abs(this.state.breakCounter - this.props.idleTime) > 3 && this.state.breakCounter < this.props.breakInterval) {
         alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
         //this line docks you a point if you come back early. 
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
@@ -90,6 +101,8 @@ export class SelectDonke extends Component {
         this.handleClickWork()
       }
     }, 1000)
+    console.log('in breakTimer healthFunc is', healthFunc)
+    console.log('in breakTimer breakCountFunc is', breakCountFunc)
   }
 
 
