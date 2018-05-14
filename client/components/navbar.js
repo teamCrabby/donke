@@ -69,6 +69,14 @@ class Navbar extends Component {
   handleLogOut(event) {
     if (this.props.status !== 'break') {
       this.props.setStoreLoggedIn(false)
+      this.props.updateAvatarStore({
+        name: '',
+        userId: '',
+        health: '',
+        playpenId: '',
+        invited: '',
+        id: ''
+      })
       firebase.auth().signOut()
         .then(function () {
           console.log(`Sign-out successful.`)
