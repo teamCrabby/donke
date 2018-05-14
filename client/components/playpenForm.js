@@ -16,6 +16,7 @@ class PlaypenForm extends Component {
       owner: '',
       avatars: [this.props.avatar]
     }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleAddABuddy = this.handleAddABuddy.bind(this)
@@ -23,12 +24,13 @@ class PlaypenForm extends Component {
   }
 
   componentDidMount() {
+    console.log('THIS IS THE DISABLED PROPS', this.props.disabled)
     let user = firebase.auth().currentUser
     if (user !== null) {
       db.collection('users').doc(user.uid).get()
       .then(res => {
         let userinFS = res.data()
-        // console.log('USER FROM FIRESTORE', userinFS)
+        console.log('USER FROM FIRESTORE', userinFS)
         this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
       })
     }
@@ -43,20 +45,22 @@ class PlaypenForm extends Component {
       avatars: this.state.avatars
     })
       .then((res) => {
-        // console.log('CREATED PLAYPEN RES', res)
+        // console.log('RES OF CREATING PLAYPEN', res)
         return db.collection('playPen').doc(res.id).get()
         .then((res) => {
           let playpen
           playpen = res.data()
           playpen.id = res.id
-          // console.log('GOT PLAYPEN', playpen)
+          console.log('GOT PLAYPEN', playpen)
           return playpen
         })
       })
       .then(pen => {
-        // console.log('PLAYPEN RETURNED', pen)
+        console.log('PLAYPEN RETURNED', pen)
         let bool = true
+        console.log('THIS.STATE.AVATARS INSIDE HANDLESUBMIT', this.state.avatars)
         return this.state.avatars.map(avatar => {
+          //this is to make sure the owner doesn't get an invitation to their own playpen
           if (this.props.user === avatar.userId) {
             bool = false
           } else {
@@ -65,13 +69,19 @@ class PlaypenForm extends Component {
           db.collection('avatars').doc(avatar.id).update({
             invited: bool,
             playpenId: pen.id
-          }).then((res) => {
-            return})
+          })
+          .then((res) => {
+            console.log('this is the res from updating an avatar: ', res)
+            return
+          })
+          .catch((error) => console.log(`Unable to update avatars ${error.message}`))
         })
       })
       .then((res) => {
+        console.log('WHATEVER IS RETURNED FROM MAPPING OVER AVATARS AND UPDATING THEM', res)
         this.props.setPlaypen(true)
         console.log('Document successfully written, HOORAY')
+        console.log("OWNER'S PLAYPEN STATUS AFTER UPDATING ALL THE AVATARS", this.props.playpenStatus)
       })
       .catch((error) => console.log(`Unable to save playpen ${error.message}`))
     this.setState({ onToggle: false, invitedUser: '', users: [] })
@@ -88,9 +98,9 @@ class PlaypenForm extends Component {
           querySnapshot.forEach(function(doc) {
             // console.log(doc.id, '==>', doc.data())
             if (doc) {
-              // console.log('FOUND USER:', foundUser)
               foundUser = doc.data()
               foundUser.id = doc.id
+              console.log('FOUND USER:', foundUser)
             } else {
               alert(`Sorry, that user does not exist.`)
             }
@@ -127,8 +137,8 @@ class PlaypenForm extends Component {
           users: [this.state.invitedUser, ...this.state.users],
           avatars: [avatar, ...this.state.avatars]
         })
-        // console.log('users array is...', this.state.users)
-        // console.log('avatars array is ...', this.state.avatars)
+        console.log('users array is...', this.state.users)
+        console.log('avatars array is ...', this.state.avatars)
       }) 
     } else {
         alert(`User ${this.state.invitedUser} already added`)
@@ -137,6 +147,7 @@ class PlaypenForm extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
+    console.log('the users on the local state', this.state.users)
   }
 
   handleRemoveUser(event, index) {
@@ -163,14 +174,6 @@ class PlaypenForm extends Component {
 
                 <div className="navbar-container">
                   <label className="navbar-name">Play date with</label>
-                  {/* <select name="invitedUser" onChange={this.handleChange}>
-                {
-                  ['boddy', 'suzie', 'trashcan', 'poopsie', 'puberty'].map((name, idx) => {
-                    return (<option key={idx}>{name}</option>)
-                  })
-                }
-              </select> */}
-
                   <div className="navbar-name">
                     <div className="playpenFriends">
                       <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
@@ -212,6 +215,7 @@ const mapStateToProps = state => {
   return {
     avatar : state.avatar,
     user: state.user,
+    playpenStatus: state.playpenStatus
   }
 }
 

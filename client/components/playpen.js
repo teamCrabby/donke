@@ -18,22 +18,26 @@ export class Playpen extends Component {
     this.leavePlaypen = this.leavePlaypen.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('playpen id is...', this.props.avatar.playpenId);
+  componentWillReceiveProps(nextProps) { // maybe use componentDidUpdate if it gets prevProps as an argument
     if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
+      console.log('playpen id is...', this.props.avatar.playpenId);
+      console.log('next props', nextProps.avatar.playpenId)
+      debugger;
       db
         .collection('playPen')
         .doc(`${this.props.avatar.playpenId}`)
         .get()
         .then(res => {
           let playpen = res.data();
+          debugger;
           console.log('playpen is..', playpen);
           console.log('avatars in did mount is..', playpen.avatars);
           this.setState({ playpen });
         })
-        .catch(error =>
-          console.log(`Unable to get playpen ${error.message}`)
-        )
+        .catch(error => {
+          debugger;
+          console.log(`Unable to get playpen ${error.message}`, error.stack)
+        })
     }
   }
 
