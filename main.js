@@ -11,7 +11,7 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     frame: false,
     height: 700,
-    resizable: false,
+    resizable: true,
     //set resizable to false
     width: 900
     // width: 368
@@ -31,8 +31,8 @@ app.on('ready', function () {
     mainWindow = null;
   });
 
-  const sendIdleUpdate = msg => mainWindow.webContents.send('idle-update', msg)
-  idler.on('update', sendIdleUpdate)
+  // const sendIdleUpdate = msg => mainWindow.webContents.send('idle-update', msg)
+  // idler.on('update', sendIdleUpdate)
 })
 
 app.on('window-all-closed', function () {

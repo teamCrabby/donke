@@ -73,7 +73,22 @@ export class Playpen extends Component {
       this.setState({ subscriptions: 
         this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       })
-    }
+    } else if (!avatar.invited) {
+      let add = true;
+
+      this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
+        if (avatar.id === mappedAvatar.id) { 
+          add = false;
+          let newArr = this.state.avatarsInPlaypen.slice();
+          newArr[idx]= avatar;
+          this.setState({avatarsInPlaypen: newArr});       
+          return;
+        }
+      })
+
+      add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}) : null
+
+    } 
     // if (this.state.avatarsInPlaypen.indexOf(avatar) === -1){
     //   db
     //     .collection('avatars')
@@ -119,15 +134,15 @@ export class Playpen extends Component {
               Leave Playpen
           </button>
             <div className='playpenComponent'>
-            {avatarsArr.map(avatar => {
-                this.fetchAvatar(avatar)
+            {this.state.avatarsInPlaypen.map(avatar => {
                 return (
                   <div key={avatar.id}>
                     <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
                     <p>{avatar.name}</p>
                   </div>
                 )
-            })}
+              })
+            }
             </div>
       </div>  
       : null}   

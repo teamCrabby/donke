@@ -155,12 +155,11 @@ class PlaypenForm extends Component {
   }
 
   render() {
-    return (
-      <div className="navbarForm">
-        <div className="navbar-wrapper">
-          {
-            this.state.onToggle === true
-              ?
+    let {status} = this.props
+    return (          
+        (this.state.onToggle === true && status !== 'break')
+          ?
+          <div className="navbar-container">
               <div className="navbar-wrapper">
                 <div>
                   <label className="navbar-name">Playpen Name</label>
@@ -168,7 +167,6 @@ class PlaypenForm extends Component {
                 <div className="navbar-name">
                   <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
                 </div>
-
                 <div className="navbar-container">
                   <label className="navbar-name">Play date with</label>
                   <div className="navbar-name">
@@ -198,12 +196,8 @@ class PlaypenForm extends Component {
                   </div>
                 </div>
               </div>
-
-              : null
-          }
-        </div>
-      </div>
-
+          </div>
+          : null
     )
   }
 }
@@ -212,7 +206,11 @@ const mapStateToProps = state => {
   return {
     avatar: state.avatar,
     user: state.user,
+<<<<<<< HEAD
     playpenStatus: state.playpenStatus
+=======
+    status: state.status
+>>>>>>> master
   }
 }
 
