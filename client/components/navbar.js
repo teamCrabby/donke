@@ -90,7 +90,6 @@ class Navbar extends Component {
     return (
       <div className="navbar-container">
         <div className="navbar-options">
-
           <img className="Img" id="gearIcon" src="../img/close.svg" onClick={this.handleCloseForms} />
           <img className="Img" src="../img/hourglass-2.svg" onClick={this.handleWorkBreakForm} />
           <img className="Img" src="../img/diamond.svg" onClick={this.handlePlayPenForm} />
@@ -108,10 +107,7 @@ class Navbar extends Component {
         {
           this.state.playPenFormClicked === true
             ?
-            <div className="navbar-container">
-              <PlaypenForm />
-              <PlaypenForm disabled={this.state.playPenFormClicked} />
-            </div>
+            <PlaypenForm disabled={this.state.playPenFormClicked} />
             :
             null
         }
