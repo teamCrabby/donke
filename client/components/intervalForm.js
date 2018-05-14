@@ -27,11 +27,11 @@ class IntervalForm extends Component {
   }
 
   render() {
+    let {status} = this.props
     return (
-      <div className='navbarForm'>
-        {
-          this.state.onToggle === true
-            ?
+      (this.state.onToggle === true &&  status !== 'break')
+      ?
+          <div className='navbarForm'>
             <div className="navbar-wrapper">
               <div className="navbar-container-form">
                 <div className="navbar-name">Set Work Interval</div>
@@ -61,19 +61,18 @@ class IntervalForm extends Component {
                   </select>
                 </div>
               </div>
-              <button id="timeButton" onClick={this.handleSubmit}>SET TIME</button>
+              <div className="navbar-container-form"><button id="timeButton" onClick={this.handleSubmit}>SET TIME</button></div>
             </div>
-            : null
-        }
-
-      </div>
+          </div>
+      : null
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    workInterval: state.workInterval
+    status: state.status
+
   }
 }
 

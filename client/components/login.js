@@ -125,7 +125,8 @@ export class Login extends Component {
                   <button onClick={this.handleSignIn}>Sign In</button>
                 </div>
                 <div>
-                  <button id="nav1" onClick={() => this.setState({signUp: true})}>Sign Up</button>
+                  <div><label>New to Donke?</label></div>
+                  <button id="nav1" onClick={() => this.setState({signUp: true})}>Create Account</button>
                 </div>
               </div>
             </div>
@@ -162,7 +163,7 @@ export class Login extends Component {
                 </div>
               </div>
               <div>
-                <button id="nav2" onClick={() => this.setState({signUp: false})}>Log In</button>
+                <button id="nav2" onClick={() => this.setState({signUp: false})}>I have an account</button>
               </div>
             </div>
           </div>
