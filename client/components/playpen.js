@@ -20,6 +20,7 @@ export class Playpen extends Component {
       subscriptions: []
     };
     this.leavePlaypen = this.leavePlaypen.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,7 @@ export class Playpen extends Component {
         .get()
         .then(res => {
           let playpen = res.data();
+          playpen.id = res.id;
           console.log('playpen is..', playpen);
           console.log('avatars in did mount is..', playpen.avatars);
           this.setState({ playpen });
@@ -69,12 +71,13 @@ export class Playpen extends Component {
   }
 
   onUpdate(avatarSnapshot) {
-    console.log('snapshot is...', avatarSnapshot.data())
     let avatar = avatarSnapshot.data()
     if (avatar.playpenId !== this.state.playpen.id) {
-      this.setState({ subscriptions: 
-        this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
-      })
+      let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((avatar) => avatar.playpenId === this.state.playpen.id)
+      this.setState({ avatarsInPlaypen: newPlaypenPopulation})
+      // this.setState({ subscriptions: 
+      //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
+      // })
     } else if (!avatar.invited) {
       let add = true;
       this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
@@ -86,7 +89,7 @@ export class Playpen extends Component {
           return;
         }
       })
-      add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}) : null
+      add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]},() => console.log('playpen state...', this.state.avatarsInPlaypen)) : null
     } 
     // if (this.state.avatarsInPlaypen.indexOf(avatar) === -1){
     //   db

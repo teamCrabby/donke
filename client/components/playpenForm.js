@@ -35,10 +35,6 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
-    console.log('this is the name of the new playpen:', this.state.playPenName)
-    console.log('this is the arra of users:', this.state.users)
-    console.log('this is the owner:', this.state.owner)
-    console.log('this is the avatar array:', this.state.avatars)
     db.collection('playPen').add({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
