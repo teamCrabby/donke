@@ -71,14 +71,13 @@ export class Playpen extends Component {
   }
 
   onUpdate(avatarSnapshot) {
-    console.log('snapshot is...', avatarSnapshot.data())
     let avatar = avatarSnapshot.data()
     if (avatar.playpenId !== this.state.playpen.id) {
-      console.log('got inside first if statement')
-      //need to fix unsubscribe
-      this.setState({ subscriptions: 
-        this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
-      })
+      let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((avatar) => avatar.playpenId === this.state.playpen.id)
+      this.setState({ avatarsInPlaypen: newPlaypenPopulation})
+      // this.setState({ subscriptions: 
+      //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
+      // })
     } else if (!avatar.invited) {
       console.log('not invited')
       let add = true;
