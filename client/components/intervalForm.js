@@ -29,7 +29,7 @@ class IntervalForm extends Component {
   render() {
     let {status} = this.props
     return (
-      (this.state.onToggle === true &&  status !== 'break')
+      (this.state.onToggle === true && status !== 'break')
       ?
           <div className='navbarForm'>
             <div className="navbar-wrapper">

@@ -13,8 +13,8 @@ app.on('ready', function () {
     height: 700,
     resizable: true,
     //set resizable to false
-    width: 900
-    // width: 368
+    // width: 900
+    width: 368
     //need to uncomment back in width
   })
   //one approach
@@ -31,8 +31,8 @@ app.on('ready', function () {
     mainWindow = null;
   });
 
-  // const sendIdleUpdate = msg => mainWindow.webContents.send('idle-update', msg)
-  // idler.on('update', sendIdleUpdate)
+  const sendIdleUpdate = msg => mainWindow.webContents.send('idle-update', msg)
+  idler.on('update', sendIdleUpdate)
 })
 
 app.on('window-all-closed', function () {
