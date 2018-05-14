@@ -20,7 +20,7 @@ export class Playpen extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('playpen id is...', this.props.avatar.playpenId);
-    if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
+    //if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
       db
         .collection('playPen')
         .doc(`${this.props.avatar.playpenId}`)
@@ -34,7 +34,7 @@ export class Playpen extends Component {
         .catch(error =>
           console.log(`Unable to get playpen ${error.message}`)
         )
-    }
+    //}
   }
 
   leavePlaypen() {
