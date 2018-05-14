@@ -18,11 +18,10 @@ export class Playpen extends Component {
     this.leavePlaypen = this.leavePlaypen.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) { // maybe use componentDidUpdate if it gets prevProps as an argument
-    if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
-      console.log('playpen id is...', this.props.avatar.playpenId);
-      console.log('next props', nextProps.avatar.playpenId)
-      debugger;
+
+  componentWillReceiveProps(nextProps) {
+    console.log('playpen id is...', this.props.avatar.playpenId);
+    //if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
       db
         .collection('playPen')
         .doc(`${this.props.avatar.playpenId}`)
@@ -34,11 +33,9 @@ export class Playpen extends Component {
           console.log('avatars in did mount is..', playpen.avatars);
           this.setState({ playpen });
         })
-        .catch(error => {
-          debugger;
-          console.log(`Unable to get playpen ${error.message}`, error.stack)
-        })
-    }
+        .catch(error =>
+          console.log(`Unable to get playpen ${error.message}`)
+        )
   }
 
   leavePlaypen() {

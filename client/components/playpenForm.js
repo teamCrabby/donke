@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
 import { setPlaypenStatus } from '../store'
@@ -28,11 +28,19 @@ class PlaypenForm extends Component {
     let user = firebase.auth().currentUser
     if (user !== null) {
       db.collection('users').doc(user.uid).get()
+<<<<<<< HEAD
       .then(res => {
         let userinFS = res.data()
         console.log('USER FROM FIRESTORE', userinFS)
         this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
       })
+=======
+        .then(res => {
+          let userinFS = res.data()
+          // console.log('USER FROM FIRESTORE', userinFS)
+          this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
+        })
+>>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
     }
   }
 
@@ -47,6 +55,7 @@ class PlaypenForm extends Component {
       .then((res) => {
         // console.log('RES OF CREATING PLAYPEN', res)
         return db.collection('playPen').doc(res.id).get()
+<<<<<<< HEAD
         .then((res) => {
           let playpen
           playpen = res.data()
@@ -54,6 +63,15 @@ class PlaypenForm extends Component {
           console.log('GOT PLAYPEN', playpen)
           return playpen
         })
+=======
+          .then((res) => {
+            let playpen
+            playpen = res.data()
+            playpen.id = res.id
+            // console.log('GOT PLAYPEN', playpen)
+            return playpen
+          })
+>>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
       })
       .then(pen => {
         console.log('PLAYPEN RETURNED', pen)
@@ -69,12 +87,18 @@ class PlaypenForm extends Component {
           db.collection('avatars').doc(avatar.id).update({
             invited: bool,
             playpenId: pen.id
+<<<<<<< HEAD
           })
           .then((res) => {
             console.log('this is the res from updating an avatar: ', res)
             return
           })
           .catch((error) => console.log(`Unable to update avatars ${error.message}`))
+=======
+          }).then((res) => {
+            return
+          })
+>>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
         })
       })
       .then((res) => {
@@ -90,14 +114,18 @@ class PlaypenForm extends Component {
   handleAddABuddy(event) {
     event.preventDefault()
     if (this.state.users.indexOf(this.state.invitedUser) === -1) {
-      return db.collection('users').where('handle','==',this.state.invitedUser)
+      return db.collection('users').where('handle', '==', this.state.invitedUser)
         .get()
-        .then(function(querySnapshot) {
-          // console.log('query snap', querySnapshot)
+        .then(function (querySnapshot) {
+          console.log('query snap', querySnapshot)
           let foundUser;
-          querySnapshot.forEach(function(doc) {
-            // console.log(doc.id, '==>', doc.data())
+          querySnapshot.forEach(function (doc) {
+            console.log(doc.id, '==>', doc.data())
             if (doc) {
+<<<<<<< HEAD
+=======
+              console.log('FOUND USER:', foundUser)
+>>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
               foundUser = doc.data()
               foundUser.id = doc.id
               console.log('FOUND USER:', foundUser)
@@ -106,43 +134,43 @@ class PlaypenForm extends Component {
             }
           })
           return foundUser;
-      })
-      .then((user) => {
-        // console.log('USER', user)
-        return db.collection('avatars').where('userId', '==', user.id)
-        .get()
-        .then(function(querySnapshot) {
-          let foundAvatar;
-          querySnapshot.forEach(function(doc) {
-            // console.log(doc.id, '==>', doc.data())
-            if (doc) {
-              foundAvatar = doc.data()
-              foundAvatar.id = doc.id
-              console.log('FOUND AVATAR:', foundAvatar)
-            } else {
-              alert(`Sorry, that avatar does not exist.`)
-            }
+        })
+        .then((user) => {
+          // console.log('USER', user)
+          return db.collection('avatars').where('userId', '==', user.id)
+            .get()
+            .then(function (querySnapshot) {
+              let foundAvatar;
+              querySnapshot.forEach(function (doc) {
+                // console.log(doc.id, '==>', doc.data())
+                if (doc) {
+                  foundAvatar = doc.data()
+                  foundAvatar.id = doc.id
+                  // console.log('FOUND AVATAR:', foundAvatar)
+                } else {
+                  alert(`Sorry, that avatar does not exist.`)
+                }
+              })
+              // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+              return foundAvatar;
+            })
+        })
+        .then(avatar => {
+          //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
+          // db.collection('avatar').doc(avatar.id).update({
+          // })
+          // console.log('AVATAR', avatar)
+          this.setState({
+            invitedUser: '',
+            users: [this.state.invitedUser, ...this.state.users],
+            avatars: [avatar, ...this.state.avatars]
           })
-          // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
-          return foundAvatar;
+          // console.log('users array is...', this.state.users)
+          // console.log('avatars array is ...', this.state.avatars)
         })
-      })                 
-      .then(avatar => {
-        //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
-        // db.collection('avatar').doc(avatar.id).update({
-        // })
-        // console.log('AVATAR', avatar)
-        this.setState({
-          invitedUser: '',
-          users: [this.state.invitedUser, ...this.state.users],
-          avatars: [avatar, ...this.state.avatars]
-        })
-        console.log('users array is...', this.state.users)
-        console.log('avatars array is ...', this.state.avatars)
-      }) 
     } else {
-        alert(`User ${this.state.invitedUser} already added`)
-   }
+      alert(`User ${this.state.invitedUser} already added`)
+    }
   }
 
   handleChange(event) {
@@ -213,7 +241,7 @@ class PlaypenForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    avatar : state.avatar,
+    avatar: state.avatar,
     user: state.user,
     playpenStatus: state.playpenStatus
   }
@@ -221,9 +249,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      setPlaypen(bool) {
-          dispatch(setPlaypenStatus(bool))
-      }
+    setPlaypen(bool) {
+      dispatch(setPlaypenStatus(bool))
+    }
   }
 }
 
