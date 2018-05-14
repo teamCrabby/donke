@@ -8,34 +8,52 @@ import * as firebase from 'firebase';
 
 // var currentuser = firebase.auth().currentUser;
 
+
+
 //delete playpen once everyone leaves
 //keep track of who has accepted or not?
 
 export class Playpen extends Component {
   constructor(props) {
     super(props);
-    this.state = { playpen: {} };
+    this.state = { 
+      playpen: {},
+      avatarsInPlaypen: [this.props.avatar],
+      subscriptions: []
+    };
     this.leavePlaypen = this.leavePlaypen.bind(this);
   }
 
-
-  componentWillReceiveProps(nextProps) {
+  componentDidMount() {
     console.log('playpen id is...', this.props.avatar.playpenId);
-    //if (this.props.avatar.playpenId !== nextProps.avatar.playpenId){
       db
         .collection('playPen')
         .doc(`${this.props.avatar.playpenId}`)
         .get()
         .then(res => {
           let playpen = res.data();
-          debugger;
           console.log('playpen is..', playpen);
           console.log('avatars in did mount is..', playpen.avatars);
           this.setState({ playpen });
         })
+        .then(() => {
+          this.state.playpen.avatars.map((avatar) => {
+            if (avatar.id !== this.props.avatar.id){
+              let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
+              this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
+            }
+          })
+        })
         .catch(error =>
           console.log(`Unable to get playpen ${error.message}`)
         )
+  }
+
+  componentDidUnmount(){
+    //This ensures that we have unsubscribed the listeners for all of the playpen avatars that don't belong to the user
+    this.state.subscriptions.map((subscription) => {
+      subscription[1]()
+    })
   }
 
   leavePlaypen() {
@@ -48,6 +66,25 @@ export class Playpen extends Component {
       .catch(error =>
         console.log(`Unable to reset playpen id ${error.message}`)
       );
+  }
+
+  onUpdate(avatar) {
+    if (avatar.playpenId !== this.state.playpen.id) {
+      this.setState({ subscriptions: 
+        this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
+      })
+    }
+    // if (this.state.avatarsInPlaypen.indexOf(avatar) === -1){
+    //   db
+    //     .collection('avatars')
+    //     .doc(avatar.id)
+    //     .get()
+    //     .then((avatar) => {
+    //       if (avatar.playpenId && !avatar.invited)
+    //       this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]} )
+    //     })
+    // }
+  }
 
     //if the owner leaves the playpen, set all the avatars playpen ids to null and then destroy the playpen
   //  if (this.state.playpen.owner === this.props.avatar.userId) {
@@ -70,7 +107,6 @@ export class Playpen extends Component {
   //        );
   //    });
     //}
-  }
 
   render() {
     const avatarsArr = this.state.playpen.avatars
@@ -84,12 +120,13 @@ export class Playpen extends Component {
           </button>
             <div className='playpenComponent'>
             {avatarsArr.map(avatar => {
-              return (
-                <div key={avatar.id}>
-                  <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
-                  <p>{avatar.name}</p>
-                </div>
-              )
+                this.fetchAvatar(avatar)
+                return (
+                  <div key={avatar.id}>
+                    <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
+                    <p>{avatar.name}</p>
+                  </div>
+                )
             })}
             </div>
       </div>  

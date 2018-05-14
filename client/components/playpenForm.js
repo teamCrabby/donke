@@ -28,19 +28,11 @@ class PlaypenForm extends Component {
     let user = firebase.auth().currentUser
     if (user !== null) {
       db.collection('users').doc(user.uid).get()
-<<<<<<< HEAD
-      .then(res => {
-        let userinFS = res.data()
-        console.log('USER FROM FIRESTORE', userinFS)
-        this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
-      })
-=======
         .then(res => {
           let userinFS = res.data()
           // console.log('USER FROM FIRESTORE', userinFS)
           this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
         })
->>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
     }
   }
 
@@ -55,15 +47,6 @@ class PlaypenForm extends Component {
       .then((res) => {
         // console.log('RES OF CREATING PLAYPEN', res)
         return db.collection('playPen').doc(res.id).get()
-<<<<<<< HEAD
-        .then((res) => {
-          let playpen
-          playpen = res.data()
-          playpen.id = res.id
-          console.log('GOT PLAYPEN', playpen)
-          return playpen
-        })
-=======
           .then((res) => {
             let playpen
             playpen = res.data()
@@ -71,7 +54,6 @@ class PlaypenForm extends Component {
             // console.log('GOT PLAYPEN', playpen)
             return playpen
           })
->>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
       })
       .then(pen => {
         console.log('PLAYPEN RETURNED', pen)
@@ -87,18 +69,9 @@ class PlaypenForm extends Component {
           db.collection('avatars').doc(avatar.id).update({
             invited: bool,
             playpenId: pen.id
-<<<<<<< HEAD
-          })
-          .then((res) => {
-            console.log('this is the res from updating an avatar: ', res)
-            return
-          })
-          .catch((error) => console.log(`Unable to update avatars ${error.message}`))
-=======
           }).then((res) => {
             return
           })
->>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
         })
       })
       .then((res) => {
@@ -122,10 +95,6 @@ class PlaypenForm extends Component {
           querySnapshot.forEach(function (doc) {
             console.log(doc.id, '==>', doc.data())
             if (doc) {
-<<<<<<< HEAD
-=======
-              console.log('FOUND USER:', foundUser)
->>>>>>> 01f475c916db3d389913ab921a83f1e2a6ca30e0
               foundUser = doc.data()
               foundUser.id = doc.id
               console.log('FOUND USER:', foundUser)

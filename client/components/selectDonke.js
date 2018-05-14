@@ -26,6 +26,7 @@ export class SelectDonke extends Component {
     this.needBreak = this.needBreak.bind(this)
   }
 
+  
   componentDidUpdate() {
     if (this.props.workInterval > 0 && this.state.start) {
       this.workTimer()
