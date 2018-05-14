@@ -71,10 +71,13 @@ export class Playpen extends Component {
   }
 
   onUpdate(avatarSnapshot) {
+    console.log('snapshot of updated avatar', avatarSnapshot.data())
     let avatar = avatarSnapshot.data()
     if (avatar.playpenId !== this.state.playpen.id) {
-      let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((avatar) => avatar.playpenId === this.state.playpen.id)
-      this.setState({ avatarsInPlaypen: newPlaypenPopulation})
+      let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((selectedAvatar) => selectedAvatar.userId !== avatar.userId)
+      console.log('this.state.avatarsinplaypen', this.state.avatarsInPlaypen)
+      console.log('newPlaypenPopulation', newPlaypenPopulation)
+      this.setState({ avatarsInPlaypen: newPlaypenPopulation}, () => console.log('avatars after someone leaves', this.state.avatarsInPlaypen))
       // this.setState({ subscriptions: 
       //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       // })
