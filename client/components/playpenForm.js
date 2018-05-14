@@ -153,8 +153,6 @@ class PlaypenForm extends Component {
 
   render() {
     let {status} = this.props
-    console.log('USERS', this.state.users)
-    console.log('AVATARS', this.state.avatars)
     return (          
         (this.state.onToggle === true && status !== 'break')
           ?
