@@ -8,8 +8,6 @@ import * as firebase from 'firebase';
 
 // var currentuser = firebase.auth().currentUser;
 
-
-
 //delete playpen once everyone leaves
 //keep track of who has accepted or not?
 
@@ -37,12 +35,14 @@ export class Playpen extends Component {
           this.setState({ playpen });
         })
         .then(() => {
+          console.log("about to map snapshots...")
           this.state.playpen.avatars.map((avatar) => {
             if (avatar.id !== this.props.avatar.id){
               let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
               this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
             }
           })
+          console.log("subscriptions on state are...", this.state.subscriptions)
         })
         .catch(error =>
           console.log(`Unable to get playpen ${error.message}`)
@@ -69,13 +69,13 @@ export class Playpen extends Component {
   }
 
   onUpdate(avatar) {
+    console.log('snapshot is...', avatar.data())
     if (avatar.playpenId !== this.state.playpen.id) {
       this.setState({ subscriptions: 
         this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       })
     } else if (!avatar.invited) {
       let add = true;
-
       this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
         if (avatar.id === mappedAvatar.id) { 
           add = false;
@@ -85,9 +85,7 @@ export class Playpen extends Component {
           return;
         }
       })
-
       add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}) : null
-
     } 
     // if (this.state.avatarsInPlaypen.indexOf(avatar) === -1){
     //   db
