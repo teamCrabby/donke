@@ -26,8 +26,15 @@ export class SelectDonke extends Component {
     this.needBreak = this.needBreak.bind(this)
   }
 
-  
-  componentDidUpdate() {
+
+  componentDidUpdate(prevProps) {
+    //this is for when the user resets their interval while they are working -- need to clear existing intervals and restart
+    if (prevProps.breakInterval !== this.props.breakInterval || prevProps.workInterval !== this.props.workInterval) {
+      clearInterval(breakCountFunc);
+      clearInterval(healthFunc);
+      clearTimeout(timerFunc);
+      this.setState({ start: true })
+    }
     if (this.props.workInterval > 0 && this.state.start) {
       this.workTimer()
     }
@@ -54,6 +61,7 @@ export class SelectDonke extends Component {
       //start need break timer
       this.needBreak()
     }, workInterval)
+    console.log('in workTimer timerfunc is', timerFunc)
   }
 
   needBreak() {
@@ -66,6 +74,8 @@ export class SelectDonke extends Component {
         this.props.setStoreHealth(updatedAvatar)
       }
     }, 8000)
+    console.log('in needBreak healthFunc is', healthFunc)
+
   }
 
   breakTimer() {
@@ -91,6 +101,8 @@ export class SelectDonke extends Component {
         this.handleClickWork()
       }
     }, 1000)
+    console.log('in breakTimer healthFunc is', healthFunc)
+    console.log('in breakTimer breakCountFunc is', breakCountFunc)
   }
 
 
