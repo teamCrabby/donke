@@ -40,7 +40,7 @@ class PlaypenForm extends Component {
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
       owner: this.state.owner.name,
-      avatars: [this.state.avatars, this.props.avatar]
+      avatars: [...this.state.avatars, this.props.avatar]
     })
       .then((res) => {
         // console.log('CREATED PLAYPEN RES', res)
