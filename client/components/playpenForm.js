@@ -53,9 +53,10 @@ class PlaypenForm extends Component {
           })
       })
       .then(pen => {
-        // console.log('PLAYPEN RETURNED', pen)
+        console.log('PLAYPEN RETURNED', pen)
+        console.log('THE AVATARS TO BE UPDATED', this.state.avatars)
         let bool = true
-        return this.state.avatars.map(avatar => {
+        return pen.avatars.map(avatar => {
           if (this.props.user === avatar.userId) {
             bool = false
           } else {
