@@ -110,7 +110,7 @@ class PlaypenForm extends Component {
                     console.log('FOUND AVATAR:', foundAvatar)
                   })
               } else {
-                  alert(`Sorry, that avatar does not exist.`)
+                  alert(`Sorry, that user does not have an avatar.`)
                 }
                 // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
                 return foundAvatar;
