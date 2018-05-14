@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import store, { setPlaypenStatus } from '../store';
 import { db } from '../app';
 import * as firebase from 'firebase';
-
-
+import { PartyHat, Grass, Toys } from './index';
+import { bouncingDonke } from '../library/animations';
 
 // var currentuser = firebase.auth().currentUser;
 
@@ -18,6 +18,7 @@ export class Playpen extends Component {
     super(props);
     this.state = { playpen: {} };
     this.leavePlaypen = this.leavePlaypen.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +38,10 @@ export class Playpen extends Component {
           console.log(`Unable to get playpen ${error.message}`)
         )
     //}
+  }
+
+  handleClick() {
+    bouncingDonke(`#donke10`)
   }
 
   leavePlaypen() {
@@ -75,6 +80,7 @@ export class Playpen extends Component {
 
   render() {
     const avatarsArr = this.state.playpen.avatars
+    console.log('AVATARS ARR', avatarsArr)
     return (
       <div>
       {avatarsArr && avatarsArr.length
@@ -84,15 +90,24 @@ export class Playpen extends Component {
               Leave Playpen
           </button>
             <div className='playpenComponent'>
-            {avatarsArr.map(avatar => {
+            {/* {avatarsArr.map(avatar => {
                 return (
                   <div key={avatar.id}>
-                    <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
+                    <img id={`#donke`} src={`../img/donke${avatar.health}.svg`} onClick={this.handleClick} />
                     <p>{avatar.name}</p>
                   </div>
                 )
-            })}
+            })} */}
+                  <div key={avatar.id}>
+                    <img id={`#donke9`} src={`../img/donke${9}.svg`} onClick={this.handleClick} />
+                    <p>{avatar.name}</p>
+                    <img id={`#donke10`} src={`../img/donke${10}.svg`} onClick={this.handleClick} />
+                    <p>{avatar.name}</p>
+                  </div>
             </div>
+            {/* <Grass />
+            <Toys />
+            <PartyHat /> */}
       </div>  
       : null}   
       </div>
