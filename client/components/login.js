@@ -46,6 +46,7 @@ export class Login extends Component {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
       });
+    this.setState({password: ''})
   }
 
   handleCreateUser(event) {
@@ -65,6 +66,7 @@ export class Login extends Component {
           alert(`Uh oh! ${errorMessage} Please try again`)
         }
       });
+    this.setState({password: ''})
   }
 
   checkForAvatar() {
@@ -117,7 +119,7 @@ export class Login extends Component {
                 <div className="password-label">
                   <label>Password</label>
                 </div>
-                <input name="password" type="string" onChange={this.handleChange} value={this.state.password} />
+                <input type="password" name="password" onChange={this.handleChange} value={this.state.password} />
               </div>
             </div>
             <div className="login-button">
@@ -125,8 +127,8 @@ export class Login extends Component {
                 <button onClick={this.handleSignIn}>Sign In</button>
               </div>
               <div>
-                <div id="newDonkeUser"><label>New to Donke?</label></div>
-                <button id="nav1" onClick={() => this.setState({ signUp: true })}>Create Account</button>
+                <div ><label id="newDonkeUser">New to Donke?</label></div>
+                <button id="nav1" onClick={() => this.setState({ signUp: true, password: '' })}>Create Account</button>
               </div>
             </div>
           </div>
@@ -154,7 +156,7 @@ export class Login extends Component {
                 <div className="password-label">
                   <label>Password</label>
                 </div>
-                <input name="password" type="string" onChange={this.handleChange} value={this.state.password} />
+                <input name="password" type="password" onChange={this.handleChange} value={this.state.password} />
               </div>
             </div>
             <div className="login-button">
@@ -163,7 +165,7 @@ export class Login extends Component {
               </div>
             </div>
             <div>
-              <button id="nav2" onClick={() => this.setState({ signUp: false })}>I have an account</button>
+              <button id="nav2" onClick={() => this.setState({ signUp: false, password: '' })}>I have an account</button>
             </div>
           </div>
         </div>
