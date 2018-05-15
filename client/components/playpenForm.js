@@ -14,7 +14,9 @@ class PlaypenForm extends Component {
       invitedUser: '',
       users: [],
       owner: '',
-      avatars: []
+      avatars: [],
+      workInterval: 0,
+      breakInterval: 0,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -35,11 +37,15 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
+    console.log('this.state.workInterval', this.state.workInterval)
+    console.log('this.state.breakInterval', this.state.breakInterval)
     db.collection('playPen').add({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
       owner: this.state.owner.name,
-      avatars: [...this.state.avatars, this.props.avatar]
+      avatars: [...this.state.avatars, this.props.avatar],
+      workInterval: this.state.workInterval,
+      breakInterval: this.state.breakInterval
     })
       .then((res) => {
         // console.log('CREATED PLAYPEN RES', res)
@@ -48,7 +54,7 @@ class PlaypenForm extends Component {
             let playpen
             playpen = res.data()
             playpen.id = res.id
-            // console.log('GOT PLAYPEN', playpen)
+            console.log('GOT PLAYPEN', playpen)
             return playpen
           })
       })
@@ -86,17 +92,15 @@ class PlaypenForm extends Component {
         .then(function (querySnapshot) {
           console.log('query snap', querySnapshot)
           let foundUser;
-          querySnapshot.forEach(function (doc) {
-            console.log(doc.id, '==>', doc.data())
-            if (doc) {
-              foundUser = doc.data()
-              foundUser.id = doc.id
-              console.log('FOUND USER:', foundUser)
-            } else {
-              alert(`Sorry, that user does not exist.`)
-            }
-          })
-          return foundUser;
+          if (querySnapshot.docs.length) {
+            querySnapshot.forEach(function (doc) {
+                foundUser = doc.data()
+                foundUser.id = doc.id
+              })
+          } else {
+            alert(`Unable to find your buddy`)
+          }
+            return foundUser
         })
         .then((user) => {
           // console.log('USER', user)
@@ -104,18 +108,18 @@ class PlaypenForm extends Component {
             .get()
             .then(function (querySnapshot) {
               let foundAvatar;
-              querySnapshot.forEach(function (doc) {
-                console.log(doc.id, '==>', doc.data())
-                if (doc) {
-                  foundAvatar = doc.data()
-                  foundAvatar.id = doc.id
-                  console.log('FOUND AVATAR:', foundAvatar)
-                } else {
-                  alert(`Sorry, that avatar does not exist.`)
+              if (querySnapshot.docs.length) {
+                querySnapshot.forEach(function (doc) {
+                  // console.log(doc.id, '==>', doc.data())
+                    foundAvatar = doc.data()
+                    foundAvatar.id = doc.id
+                    console.log('FOUND AVATAR:', foundAvatar)
+                  })
+              } else {
+                  alert(`Sorry, that user does not have an avatar.`)
                 }
-              })
-              // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
-              return foundAvatar;
+                // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+                return foundAvatar;
             })
         })
         .then(avatar => {
@@ -130,6 +134,9 @@ class PlaypenForm extends Component {
           })
           // console.log('users array is...', this.state.users)
           // console.log('avatars array is ...', this.state.avatars)
+        })
+        .catch(error => {
+          console.error(`Sorry, cannot find your friend ${error.message}`)
         })
     } else {
       alert(`User ${this.state.invitedUser} already added`)
@@ -151,6 +158,7 @@ class PlaypenForm extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     let { status } = this.props
     console.log('USERS', this.state.users)
     console.log('AVATARS', this.state.avatars)
@@ -183,6 +191,74 @@ class PlaypenForm extends Component {
                         })
                         : null
                     }
+=======
+    let {status} = this.props
+    return (          
+        (this.state.onToggle === true && status !== 'break')
+          ?
+          <div className="navbar-container">
+              <div className="navbar-wrapper">
+                <div>
+                  <label className="navbar-name">Playpen Name</label>
+                </div>
+                <div className="navbar-name">
+                  <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+                </div>
+                <div className="navbar-container">
+                  <label className="navbar-name">Play date with</label>
+                  <div className="navbar-name">
+                    <div className="playpenFriends">
+                      <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+                      <div className="friends">
+                        {
+                          this.state.users.length
+                            ?
+                            this.state.users.map((user, idx) => {
+                              return (
+                                <div className="playPen-invitedUser" key={idx}>
+                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`x ${user}`}</div>
+                                </div>
+                              )
+                            })
+                            : null
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
+                  </div>
+                  <div className="navbar-container-form">
+                <div className="navbar-name">Set Work Interval</div>
+                <div className="navbar-select">
+                  <select name="workInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <div className="navbar-container-form">
+                <div className="navbar-name">Set Break Interval</div>
+                <div className="navbar-select">
+                  <select name="breakInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 5, 10, 20, 30].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+                  <div>
+                    <button onClick={this.handleSubmit}>SUBMIT</button>
+>>>>>>> master
                   </div>
                 </div>
               </div>
