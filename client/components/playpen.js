@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Toys } from './index';
 import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart, updateAvatarFirebase } from '../store';
+import { playAudio } from '../library/audio';
 import { db } from '../app';
 import * as firebase from 'firebase';
-
 
 //delete playpen once everyone leaves
 
@@ -27,7 +28,7 @@ export class Playpen extends Component {
     this.onUpdate = this.onUpdate.bind(this);
     this.handleClickWork = this.handleClickWork.bind(this)
     this.handleClickBreak = this.handleClickBreak.bind(this)
-    this.handleClickTryAgain = this.handleClickTryAgain.bind(this)
+    // this.handleClickTryAgain = this.handleClickTryAgain.bind(this)
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
@@ -43,8 +44,10 @@ export class Playpen extends Component {
           let playpen = res.data();
           playpen.id = res.id;
           console.log('playpen is..', playpen);
-          console.log('avatars in did mount is..', playpen.avatars);
           this.setState({ playpen });
+          console.log('playpen.workInterval', playpen.workInterval)
+          console.log('playpen.breakInterval', playpen.breakInterval)
+          this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
         })
         .then(() => {
           console.log("about to map snapshots...")
@@ -73,8 +76,14 @@ export class Playpen extends Component {
     this.props.setStoreStatus('working')
   }
 
+  changeFullScreen() {
+    let win = window.require('electron').remote.getCurrentWindow()
+    win.isFullScreen() === false ? win.setFullScreen(true) : win.setFullScreen(false)
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.workInterval > 0 && this.state.start) {
+      console.log('CALLING THIS.WORKTIMER')
       this.workTimer()
     }
   }
@@ -141,9 +150,11 @@ export class Playpen extends Component {
     //}
 
   workTimer() {
+    console.log('GOT INSIDE WORKTIMER')
     this.setState({ start: false })
     const workInterval = this.props.workInterval * 1000
     //start the work timer for the specified interval
+    console.log('THIS IS THE WORK INTERVAL INSIDE WORKTIMER', workInterval)
     timerFunc = setTimeout(() => {
       //send the 'need a break' message when the timer runs out
       this.setState({ needBreakMessage: true })
@@ -170,6 +181,7 @@ export class Playpen extends Component {
   }
 
   breakTimer() {
+    console.log('GOT INSIDE BREAKTIMER')
     //I THINK WE NEED A SETTIMEOUT HERE
     healthFunc = setInterval(() => {
       //increment the health once their break is complete (and if they take a longer break....?)
@@ -223,7 +235,7 @@ export class Playpen extends Component {
     const avatarsArr = this.state.playpen.avatars
     return (
       <div>
-      {avatarsArr && avatarsArr.length
+      {avatarsArr && avatarsArr.length && this.props.workInterval > 0
       ? this.props.status !== 'break'
           //render the below if they are not on a break
           ? 
@@ -232,6 +244,12 @@ export class Playpen extends Component {
           <button className="donkeBtn" onClick={this.leavePlaypen}>
               Leave Playpen
           </button>
+          {this.props.avatar.health > 0
+            //render "Take a break" button if they have health or "Try again" button if they don't
+            ? <button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button>
+            : null
+            // <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>
+            }
             <div className='playpenComponent'>
             {this.state.avatarsInPlaypen.map(avatarFriend => {
                 if (avatarFriend.userId !== this.props.avatar.userId) {
