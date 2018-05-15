@@ -30,7 +30,7 @@ class PlaypenForm extends Component {
       db.collection('users').doc(user.uid).get()
         .then(res => {
           let userinFS = res.data()
-          // console.log('USER FROM FIRESTORE', userinFS)
+          console.log('USER FROM FIRESTORE IS WHAT I WANT TO SEE:', userinFS.handle)
           this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
         })
     }
@@ -94,13 +94,13 @@ class PlaypenForm extends Component {
           let foundUser;
           if (querySnapshot.docs.length) {
             querySnapshot.forEach(function (doc) {
-                foundUser = doc.data()
-                foundUser.id = doc.id
-              })
+              foundUser = doc.data()
+              foundUser.id = doc.id
+            })
           } else {
             alert(`Unable to find your buddy`)
           }
-            return foundUser
+          return foundUser
         })
         .then((user) => {
           // console.log('USER', user)
@@ -111,15 +111,15 @@ class PlaypenForm extends Component {
               if (querySnapshot.docs.length) {
                 querySnapshot.forEach(function (doc) {
                   // console.log(doc.id, '==>', doc.data())
-                    foundAvatar = doc.data()
-                    foundAvatar.id = doc.id
-                    console.log('FOUND AVATAR:', foundAvatar)
-                  })
+                  foundAvatar = doc.data()
+                  foundAvatar.id = doc.id
+                  console.log('FOUND AVATAR:', foundAvatar)
+                })
               } else {
-                  alert(`Sorry, that user does not have an avatar.`)
-                }
-                // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
-                return foundAvatar;
+                alert(`Sorry, that user does not have an avatar.`)
+              }
+              // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+              return foundAvatar;
             })
         })
         .then(avatar => {
@@ -158,43 +158,43 @@ class PlaypenForm extends Component {
   }
 
   render() {
-    let {status} = this.props
-    return (          
-        (this.state.onToggle === true && status !== 'break')
-          ?
-          <div className="navbar-container">
-              <div className="navbar-wrapper">
-                <div>
-                  <label className="navbar-name">Playpen Name</label>
-                </div>
-                <div className="navbar-name">
-                  <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
-                </div>
-                <div className="navbar-container">
-                  <label className="navbar-name">Play date with</label>
-                  <div className="navbar-name">
-                    <div className="playpenFriends">
-                      <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
-                      <div className="friends">
-                        {
-                          this.state.users.length
-                            ?
-                            this.state.users.map((user, idx) => {
-                              return (
-                                <div className="playPen-invitedUser" key={idx}>
-                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`x ${user}`}</div>
-                                </div>
-                              )
-                            })
-                            : null
-                        }
-                      </div>
-                    </div>
+    let { status } = this.props
+    return (
+      (this.state.onToggle === true && status !== 'break')
+        ?
+        <div className="navbar-container">
+          <div className="navbar-wrapper">
+            <div>
+              <label className="navbar-name">Playpen Name</label>
+            </div>
+            <div className="navbar-name">
+              <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+            </div>
+            <div className="navbar-container">
+              <label className="navbar-name">Play date with</label>
+              <div className="navbar-name">
+                <div className="playpenFriends">
+                  <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+                  <div className="friends">
+                    {
+                      this.state.users.length
+                        ?
+                        this.state.users.map((user, idx) => {
+                          return (
+                            <div className="playPen-invitedUser" key={idx}>
+                              <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`x ${user}`}</div>
+                            </div>
+                          )
+                        })
+                        : null
+                    }
                   </div>
-                  <div>
-                    <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
-                  </div>
-                  <div className="navbar-container-form">
+                </div>
+              </div>
+              <div>
+                <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
+              </div>
+              <div className="navbar-container-form">
                 <div className="navbar-name">Set Work Interval</div>
                 <div className="navbar-select">
                   <select name="workInterval" onChange={this.handleChange}>
@@ -222,13 +222,13 @@ class PlaypenForm extends Component {
                   </select>
                 </div>
               </div>
-                  <div>
-                    <button onClick={this.handleSubmit}>SUBMIT</button>
-                  </div>
-                </div>
+              <div>
+                <button onClick={this.handleSubmit}>SUBMIT</button>
               </div>
+            </div>
           </div>
-          : null
+        </div>
+        : null
     )
   }
 }
