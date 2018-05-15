@@ -86,17 +86,15 @@ class PlaypenForm extends Component {
         .then(function (querySnapshot) {
           console.log('query snap', querySnapshot)
           let foundUser;
-          querySnapshot.forEach(function (doc) {
-            console.log(doc.id, '==>', doc.data())
-            if (doc) {
-              foundUser = doc.data()
-              foundUser.id = doc.id
-              console.log('FOUND USER:', foundUser)
-            } else {
-              alert(`Sorry, that user does not exist.`)
-            }
-          })
-          return foundUser;
+          if (querySnapshot.docs.length) {
+            querySnapshot.forEach(function (doc) {
+                foundUser = doc.data()
+                foundUser.id = doc.id
+              })
+          } else {
+            alert(`Unable to find your buddy`)
+          }
+            return foundUser
         })
         .then((user) => {
           // console.log('USER', user)
@@ -104,18 +102,18 @@ class PlaypenForm extends Component {
             .get()
             .then(function (querySnapshot) {
               let foundAvatar;
-              querySnapshot.forEach(function (doc) {
-                console.log(doc.id, '==>', doc.data())
-                if (doc) {
-                  foundAvatar = doc.data()
-                  foundAvatar.id = doc.id
-                  console.log('FOUND AVATAR:', foundAvatar)
-                } else {
-                  alert(`Sorry, that avatar does not exist.`)
+              if (querySnapshot.docs.length) {
+                querySnapshot.forEach(function (doc) {
+                  // console.log(doc.id, '==>', doc.data())
+                    foundAvatar = doc.data()
+                    foundAvatar.id = doc.id
+                    console.log('FOUND AVATAR:', foundAvatar)
+                  })
+              } else {
+                  alert(`Sorry, that user does not have an avatar.`)
                 }
-              })
-              // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
-              return foundAvatar;
+                // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
+                return foundAvatar;
             })
         })
         .then(avatar => {
@@ -130,6 +128,9 @@ class PlaypenForm extends Component {
           })
           // console.log('users array is...', this.state.users)
           // console.log('avatars array is ...', this.state.avatars)
+        })
+        .catch(error => {
+          console.error(`Sorry, cannot find your friend ${error.message}`)
         })
     } else {
       alert(`User ${this.state.invitedUser} already added`)
@@ -152,8 +153,6 @@ class PlaypenForm extends Component {
 
   render() {
     let {status} = this.props
-    console.log('USERS', this.state.users)
-    console.log('AVATARS', this.state.avatars)
     return (          
         (this.state.onToggle === true && status !== 'break')
           ?
@@ -177,7 +176,7 @@ class PlaypenForm extends Component {
                             this.state.users.map((user, idx) => {
                               return (
                                 <div className="playPen-invitedUser" key={idx}>
-                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
+                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{`x ${user}`}</div>
                                 </div>
                               )
                             })
