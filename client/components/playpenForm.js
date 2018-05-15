@@ -14,7 +14,9 @@ class PlaypenForm extends Component {
       invitedUser: '',
       users: [],
       owner: '',
-      avatars: []
+      avatars: [],
+      workInterval: 0,
+      breakInterval: 0,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -35,11 +37,15 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
+    console.log('this.state.workInterval', this.state.workInterval)
+    console.log('this.state.breakInterval', this.state.breakInterval)
     db.collection('playPen').add({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
       owner: this.state.owner.name,
-      avatars: [...this.state.avatars, this.props.avatar]
+      avatars: [...this.state.avatars, this.props.avatar],
+      workInterval: this.state.workInterval,
+      breakInterval: this.state.breakInterval
     })
       .then((res) => {
         // console.log('CREATED PLAYPEN RES', res)
@@ -48,7 +54,7 @@ class PlaypenForm extends Component {
             let playpen
             playpen = res.data()
             playpen.id = res.id
-            // console.log('GOT PLAYPEN', playpen)
+            console.log('GOT PLAYPEN', playpen)
             return playpen
           })
       })
@@ -188,6 +194,34 @@ class PlaypenForm extends Component {
                   <div>
                     <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
                   </div>
+                  <div className="navbar-container-form">
+                <div className="navbar-name">Set Work Interval</div>
+                <div className="navbar-select">
+                  <select name="workInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
+              <div className="navbar-container-form">
+                <div className="navbar-name">Set Break Interval</div>
+                <div className="navbar-select">
+                  <select name="breakInterval" onChange={this.handleChange}>
+                    {
+                      [0, 1, 5, 10, 20, 30].map((interval, idx) => {
+                        return (
+                          <option key={idx}>{interval}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
+              </div>
                   <div>
                     <button onClick={this.handleSubmit}>SUBMIT</button>
                   </div>
