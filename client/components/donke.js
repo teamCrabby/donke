@@ -9,6 +9,7 @@ class Donke extends Component {
   }
 
   render() {
+    console.log('GIVE ME A HANDLE ON THIS!', this.props.invitedUser)
     return (
       <div className="panel">
         <img id="donke" src={`../img/donke${this.props.avatar.health || this.props.avatar.health === 0 ? this.props.avatar.health : 10}.svg`} onClick={() => playAudio('happy')} />
@@ -37,7 +38,8 @@ class Donke extends Component {
 const mapStateToProps = state => {
   return {
     loggedIn: state.loggedIn,
-    avatar: state.avatar
+    avatar: state.avatar,
+    invitedUser: state.invitedUser
   }
 }
 

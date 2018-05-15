@@ -151,51 +151,51 @@ class PlaypenForm extends Component {
   }
 
   render() {
-    let {status} = this.props
+    let { status } = this.props
     console.log('USERS', this.state.users)
     console.log('AVATARS', this.state.avatars)
-    return (          
-        (this.state.onToggle === true && status !== 'break')
-          ?
-          <div className="navbar-container">
-              <div className="navbar-wrapper">
-                <div>
-                  <label className="navbar-name">Playpen Name</label>
-                </div>
-                <div className="navbar-name">
-                  <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
-                </div>
-                <div className="navbar-container">
-                  <label className="navbar-name">Play date with</label>
-                  <div className="navbar-name">
-                    <div className="playpenFriends">
-                      <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
-                      <div className="friends">
-                        {
-                          this.state.users.length
-                            ?
-                            this.state.users.map((user, idx) => {
-                              return (
-                                <div className="playPen-invitedUser" key={idx}>
-                                  <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
-                                </div>
-                              )
-                            })
-                            : null
-                        }
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
-                  </div>
-                  <div>
-                    <button onClick={this.handleSubmit}>SUBMIT</button>
+    return (
+      (this.state.onToggle === true && status !== 'break')
+        ?
+        <div className="navbar-container">
+          <div className="navbar-wrapper">
+            <div>
+              <label className="navbar-name">Playpen Name</label>
+            </div>
+            <div className="navbar-name">
+              <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+            </div>
+            <div className="navbar-container">
+              <label className="navbar-name">Play date with</label>
+              <div className="navbar-name">
+                <div className="playpenFriends">
+                  <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
+                  <div className="friends">
+                    {
+                      this.state.users.length
+                        ?
+                        this.state.users.map((user, idx) => {
+                          return (
+                            <div className="playPen-invitedUser" key={idx}>
+                              <div onClick={(e) => this.handleRemoveUser(e, idx)}>{` ${user}`}</div>
+                            </div>
+                          )
+                        })
+                        : null
+                    }
                   </div>
                 </div>
               </div>
+              <div>
+                <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
+              </div>
+              <div>
+                <button onClick={this.handleSubmit}>SUBMIT</button>
+              </div>
+            </div>
           </div>
-          : null
+        </div>
+        : null
     )
   }
 }
@@ -204,7 +204,8 @@ const mapStateToProps = state => {
   return {
     avatar: state.avatar,
     user: state.user,
-    status: state.status
+    status: state.status,
+    invitedUser: state.invitedUser
   }
 }
 
