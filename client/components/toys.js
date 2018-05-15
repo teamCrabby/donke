@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import { dragHat, hatLeave } from '../library/animations'
 import { dragToys } from '../library/animations'
 import { connect } from 'react-redux'
 

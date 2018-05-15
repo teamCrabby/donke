@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import store, { setPlaypenStatus } from '../store';
 import { db } from '../app';
 import * as firebase from 'firebase';
+import { dragDonke } from '../library/animations';
+
 
 
 
@@ -24,7 +26,7 @@ export class Playpen extends Component {
   }
 
   componentDidMount() {
-    console.log('playpen id is...', this.props.avatar.playpenId);
+      dragDonke();
       db
         .collection('playPen')
         .doc(`${this.props.avatar.playpenId}`)
@@ -32,19 +34,15 @@ export class Playpen extends Component {
         .then(res => {
           let playpen = res.data();
           playpen.id = res.id;
-          console.log('playpen is..', playpen);
-          console.log('avatars in did mount is..', playpen.avatars);
           this.setState({ playpen });
         })
         .then(() => {
-          console.log("about to map snapshots...")
           this.state.playpen.avatars.map((avatar) => {
             if (avatar.id !== this.props.avatar.id){
               let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
               this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
             }
           })
-          console.log("subscriptions on state are...", this.state.subscriptions)
         })
         .catch(error =>
           console.log(`Unable to get playpen ${error.message}`)
@@ -75,14 +73,11 @@ export class Playpen extends Component {
     let avatar = avatarSnapshot.data()
     if (avatar.playpenId !== this.state.playpen.id) {
       let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((selectedAvatar) => selectedAvatar.userId !== avatar.userId)
-      console.log('this.state.avatarsinplaypen', this.state.avatarsInPlaypen)
-      console.log('newPlaypenPopulation', newPlaypenPopulation)
       this.setState({ avatarsInPlaypen: newPlaypenPopulation}, () => console.log('avatars after someone leaves', this.state.avatarsInPlaypen))
       // this.setState({ subscriptions: 
       //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       // })
     } else if (!avatar.invited) {
-      console.log('not invited')
       let add = true;
       this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
         if (avatar.id === mappedAvatar.id) { 
@@ -140,10 +135,10 @@ export class Playpen extends Component {
               Leave Playpen
           </button>
             <div className='playpenComponent'>
-            {this.state.avatarsInPlaypen.map(avatar => {
+            {this.state.avatarsInPlaypen.map(((avatar, idx) => {
                 return (
                   <div key={avatar.id}>
-                    <img src={`../img/donke${avatar.health}.svg`} onClick={() => playAudio('happy')} />
+                    <img src={`../img/donke${avatar.health}.svg`} id={`donke${idx}`} onClick={() => playAudio('happy')} />
                     <p>{avatar.name}</p>
                   </div>
                 )

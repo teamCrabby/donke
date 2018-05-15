@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
-	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
-	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
-	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
-	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
-]>
-<svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="72px" height="36px" viewBox="0 0 72 36" enable-background="new 0 0 72 36" xml:space="preserve">
-<rect x="1.75" y="9.458" fill="#6D6D64" stroke="#515250" stroke-width="0.6442" stroke-miterlimit="10" width="65.195" height="16.205"/>
-<rect x="67.165" y="12.364" fill="#6D6D64" stroke="#515250" stroke-width="0.6442" stroke-miterlimit="10" width="2.919" height="11.054"/>
-<g>
-	<path fill="#F4F2F2" d="M49.232,17.104c-1.716,0.126-2.793,1.582-2.406,3.254c0.387,1.674,2.083,2.922,3.801,2.801
-		c1.716-0.133,2.802-1.584,2.406-3.259C52.648,18.232,50.943,16.98,49.232,17.104z"/>
-	<path fill="#F4F2F2" d="M48.503,11.518c-1.738,0.009-2.937,1.371-2.665,3.048c0.269,1.669,1.891,3.021,3.63,3.019
-		c1.742-0.01,2.933-1.375,2.663-3.055C51.854,12.847,50.231,11.499,48.503,11.518z"/>
-	<path fill="#F4F2F2" d="M21.595,15.49c-0.929,0.011-1.54,0.954-1.349,2.124l0,0c0.181,1.182,1.086,2.117,2.016,2.106l26.362-0.166
-		c0.923-0.001,1.531-0.962,1.34-2.126l0,0c-0.179-1.169-1.095-2.111-2.021-2.102L21.595,15.49z"/>
-	<path fill="#F4F2F2" d="M20.805,17.688c-1.718,0.124-2.804,1.581-2.408,3.257c0.393,1.667,2.09,2.924,3.803,2.794
-		c1.718-0.128,2.799-1.589,2.406-3.254C24.219,18.812,22.522,17.558,20.805,17.688z"/>
-	<path fill="#F4F2F2" d="M20.075,12.094c-1.747,0.014-2.929,1.388-2.663,3.057c0.263,1.676,1.89,3.028,3.631,3.019
-		c1.743-0.018,2.928-1.386,2.656-3.063C23.431,13.433,21.808,12.079,20.075,12.094z"/>
-</g>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="72px" height="36px" viewBox="0 0 72 36" enable-background="new 0 0 72 36" xml:space="preserve">
+<rect x="1.75" y="9.458" fill="#DDD985" stroke="#515250" stroke-width="0.6442" stroke-miterlimit="10" width="65.195" height="16.205"/>
+<rect x="67.165" y="12.364" fill="#D1CF92" stroke="#515250" stroke-width="0.9616" stroke-miterlimit="10" width="2.919" height="11.054"/>
+<path fill="#A91F23" d="M64,17.792c0,0.437-0.355,0.792-0.793,0.792H5.208c-0.437,0-0.792-0.355-0.792-0.792l0,0
+	C4.417,17.355,4.771,17,5.208,17h57.999C63.645,17,64,17.355,64,17.792L64,17.792z"/>
 </svg>

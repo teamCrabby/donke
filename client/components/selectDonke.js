@@ -61,7 +61,6 @@ export class SelectDonke extends Component {
       //start need break timer
       this.needBreak()
     }, workInterval)
-    console.log('in workTimer timerfunc is', timerFunc)
   }
 
   needBreak() {
