@@ -5,7 +5,6 @@ import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchSt
 import { playAudio } from '../library/audio';
 import { db } from '../app';
 import * as firebase from 'firebase';
-import { Grass, PartyHat, Toys } from './index';
 
 
 // var currentuser = firebase.auth().currentUser;
