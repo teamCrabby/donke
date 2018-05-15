@@ -234,51 +234,57 @@ export class Playpen extends Component {
     this.workTimer()
   }
 
+  
   render() {
     const avatarsArr = this.state.playpen.avatars
     return (
-      <div>
-      {avatarsArr && avatarsArr.length && this.props.workInterval > 0
+      <div className="pen-container">
+      {
+      avatarsArr && avatarsArr.length && 
+      this.props.workInterval > 0
       ? this.props.status !== 'break'
           //render the below if they are not on a break
           ? 
           <div>
-          <p>Welcome to: {this.state.playpen.name}</p>
-          <div><img src="../img/banner.svg" /></div>
-          <button className="donkeBtn" onClick={this.leavePlaypen}>
-              Leave Playpen
-          </button>
-          {this.props.avatar.health > 0
-            //render "Take a break" button if they have health or "Try again" button if they don't
-            ? <button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button>
-            : null
-            // <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>
-            }
+            <div className="pen-welcome">
+              <div id="pen-name">Playpen {this.state.playpen.name}</div>
+            </div>
             <div className='playpenComponent'>
-            {this.state.avatarsInPlaypen.map(avatarFriend => {
-                if (avatarFriend.userId !== this.props.avatar.userId) {
-                  return (
-                    <div key={avatarFriend.id}>
-                      <img src={`../img/donke${avatarFriend.health}.svg`} onClick={() => playAudio('happy')} />
-                      <p>{avatarFriend.name}</p>
-                    </div>
-                  )
-                }
-              })
-            }
-            <div>
-              <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
-              <div>
-                <div className="avatar-name"><p>{this.props.avatar.name}</p></div>
+              <div className="pen-friends">
+              {this.state.avatarsInPlaypen.map(avatarFriend => {
+                  if (avatarFriend.userId !== this.props.avatar.userId) {
+                    return (
+                      <div className="playpen-friends" key={avatarFriend.id}>
+                        <div>
+                          <img src={`../img/donke${avatarFriend.health}.svg`} onClick={() => playAudio('happy')} />
+                        </div>
+                        <div><p>{avatarFriend.name}</p></div>
+                      </div>
+                    )
+                  }
+                })
+              }
               </div>
+            <div className="playpen-friends">
+              <div>
+                <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
+              </div>
+              <div className="avatar-name"><p>{this.props.avatar.name}</p></div>
             </div>
           </div>
-          <button className="donkeBtn" onClick={this.leavePlaypen}>
+          <Grass />
+          <PartyHat />
+          <Toys />
+          <button className="donkeBtn-leave" onClick={this.leavePlaypen}>
               Leave Playpen
           </button>
-        <Grass />
-        {/* <PartyHat />
-        <Toys /> */}
+          {
+          //render "Take a break" button if they have health or "Try again" button if they don't
+          this.props.avatar.health > 0
+          ? 
+          <div><button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button></div>
+          : null
+          }
       </div>  
         : this.state.breakTimeOver
           ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
