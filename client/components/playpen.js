@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import store, { setPlaypenStatus } from '../store';
 import { db } from '../app';
 import * as firebase from 'firebase';
-
+import { Grass, PartyHat, Toys } from './index';
 
 
 // var currentuser = firebase.auth().currentUser;
@@ -134,11 +134,13 @@ export class Playpen extends Component {
     return (
       <div>
       {avatarsArr && avatarsArr.length
-      ? <div>
-          <p>Welcome to: {this.state.playpen.name}</p>
-          <button className="donkeBtn" onClick={this.leavePlaypen}>
-              Leave Playpen
-          </button>
+      ? <div className="pen-container">
+          <div className="welcome">
+            <div className="pen-welcome">
+            <div><img src="../img/banner.svg" /></div>
+          </div>
+          {/* <div className="pen-name"><h2>{this.state.playpen.name}</h2></div> */}
+          </div>
             <div className='playpenComponent'>
             {this.state.avatarsInPlaypen.map(avatarFriend => {
                 if (avatarFriend.userId !== this.props.avatar.userId) {
@@ -153,9 +155,17 @@ export class Playpen extends Component {
             }
             <div>
               <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
-              <p>{this.props.avatar.name}</p>
+              <div>
+                <div className="avatar-name"><p>{this.props.avatar.name}</p></div>
+              </div>
             </div>
           </div>
+          <button className="donkeBtn" onClick={this.leavePlaypen}>
+              Leave Playpen
+          </button>
+        <Grass />
+        {/* <PartyHat />
+        <Toys /> */}
       </div>  
       : null}   
       </div>
