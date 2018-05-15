@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen, Toys } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart, updateAvatarFirebase } from '../store';
+import store, { fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, 
+  //setStart, 
+  updateAvatarFirebase } from '../store';
 
 //create timer variables so can assign them in order to clear them
 let timerFunc;
@@ -44,7 +46,7 @@ export class SelectDonke extends Component {
     clearInterval(healthFunc);
     clearTimeout(timerFunc);
     this.props.getWorkInterval(0, 0)
-    this.props.setStartTimer(true)
+    //this.props.setStartTimer(true)
     this.props.setStoreStatus('working')
   }
 
@@ -61,7 +63,6 @@ export class SelectDonke extends Component {
       //start need break timer
       this.needBreak()
     }, workInterval)
-    console.log('in workTimer timerfunc is', timerFunc)
   }
 
   needBreak() {
@@ -144,6 +145,8 @@ export class SelectDonke extends Component {
   }
 
   render() {
+    console.log('in selectDonke!!')
+    console.log("work interval is...", this.props.workInterval)
     return (
       this.props.workInterval > 0
         //if the user has submitted their work/break intervals render the below
@@ -218,8 +221,10 @@ export class SelectDonke extends Component {
           : this.state.breakTimeOver
             ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
             : <div><SleepingDonke /></div>
-        //if the user has not submitted time specifications, just render happy donke
-        : <div><Donke /></div>
+        //if the user has not submitted time specifications, just render donke component. edge case - if they died in a playpen, render donke + "try again" button
+        : this.props.avatar.health > 0
+          ? <div><Donke /></div>
+          : <div><button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button><Donke /></div>
     )
   }
 }
@@ -247,9 +252,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    setStartTimer(bool) {
-      dispatch(setStart(bool))
-    }
+    // setStartTimer(bool) {
+    //   dispatch(setStart(bool))
+    // }
   }
 }
 

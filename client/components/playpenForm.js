@@ -123,6 +123,7 @@ class PlaypenForm extends Component {
             })
         })
         .then(avatar => {
+          console.log("")
           //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
           // db.collection('avatar').doc(avatar.id).update({
           // })
