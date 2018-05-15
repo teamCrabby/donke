@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Toys } from './index';
-import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart, updateAvatarFirebase } from '../store';
+import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, 
+  //setStart, 
+  updateAvatarFirebase } from '../store';
 import { playAudio } from '../library/audio';
 import { db } from '../app';
 import * as firebase from 'firebase';
+import { dragDonke } from '../library/animations';
+
 
 //delete playpen once everyone leaves
 
@@ -35,7 +39,7 @@ export class Playpen extends Component {
   }
 
   componentDidMount() {
-    console.log('playpen id is...', this.props.avatar.playpenId);
+      dragDonke();
       db
         .collection('playPen')
         .doc(`${this.props.avatar.playpenId}`)
@@ -43,21 +47,18 @@ export class Playpen extends Component {
         .then(res => {
           let playpen = res.data();
           playpen.id = res.id;
-          console.log('playpen is..', playpen);
           this.setState({ playpen });
-          console.log('playpen.workInterval', playpen.workInterval)
-          console.log('playpen.breakInterval', playpen.breakInterval)
           this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
         })
         .then(() => {
-          console.log("about to map snapshots...")
+          console.log("avatars in playpen is...", this.state.playpen.avatars)
           this.state.playpen.avatars.map((avatar) => {
+            //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
             if (avatar.id !== this.props.avatar.id){
               let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
               this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
             }
           })
-          console.log("subscriptions on state are...", this.state.subscriptions)
         })
         .catch(error =>
           console.log(`Unable to get playpen ${error.message}`)
@@ -72,7 +73,7 @@ export class Playpen extends Component {
     clearInterval(healthFunc);
     clearTimeout(timerFunc);
     this.props.getWorkInterval(0, 0)
-    this.props.setStartTimer(true)
+    //this.props.setStartTimer(true)
     this.props.setStoreStatus('working')
   }
 
@@ -83,7 +84,6 @@ export class Playpen extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.workInterval > 0 && this.state.start) {
-      console.log('CALLING THIS.WORKTIMER')
       this.workTimer()
     }
   }
@@ -103,18 +103,20 @@ export class Playpen extends Component {
   onUpdate(avatarSnapshot) {
     console.log('snapshot of updated avatar', avatarSnapshot.data())
     let avatar = avatarSnapshot.data()
+    avatar.id = avatarSnapshot.id
+    //if statement to filter out avatars who have left from the avatarsInPlaypen
     if (avatar.playpenId !== this.state.playpen.id) {
       let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((selectedAvatar) => selectedAvatar.userId !== avatar.userId)
-      console.log('this.state.avatarsinplaypen', this.state.avatarsInPlaypen)
-      console.log('newPlaypenPopulation', newPlaypenPopulation)
       this.setState({ avatarsInPlaypen: newPlaypenPopulation}, () => console.log('avatars after someone leaves', this.state.avatarsInPlaypen))
       // this.setState({ subscriptions: 
       //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       // })
-    } else if (!avatar.invited) {
-      console.log('not invited')
+    }
+    //only add the avatars if invited = false, because that means they have accepted
+    else if (!avatar.invited) {
       let add = true;
       this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
+        //if the avatar from snapshot is already in the playpen, update them in the playpen
         if (avatar.id === mappedAvatar.id) { 
           add = false;
           let newArr = this.state.avatarsInPlaypen.slice();
@@ -150,11 +152,9 @@ export class Playpen extends Component {
     //}
 
   workTimer() {
-    console.log('GOT INSIDE WORKTIMER')
     this.setState({ start: false })
     const workInterval = this.props.workInterval * 1000
     //start the work timer for the specified interval
-    console.log('THIS IS THE WORK INTERVAL INSIDE WORKTIMER', workInterval)
     timerFunc = setTimeout(() => {
       //send the 'need a break' message when the timer runs out
       this.setState({ needBreakMessage: true })
@@ -173,7 +173,6 @@ export class Playpen extends Component {
       //decrement the health by 1 every 5 minutes
       if (this.props.avatar.health > 0) {
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
-        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
         this.props.setStoreHealth(updatedAvatar)
       }
     }, 8000)
@@ -181,7 +180,6 @@ export class Playpen extends Component {
   }
 
   breakTimer() {
-    console.log('GOT INSIDE BREAKTIMER')
     //I THINK WE NEED A SETTIMEOUT HERE
     healthFunc = setInterval(() => {
       //increment the health once their break is complete (and if they take a longer break....?)
@@ -251,6 +249,7 @@ export class Playpen extends Component {
             // <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>
             }
             <div className='playpenComponent'>
+            {console.log("IN RENDER, PLAYPEN IS...", this.state.avatarsInPlaypen)}
             {this.state.avatarsInPlaypen.map(avatarFriend => {
                 if (avatarFriend.userId !== this.props.avatar.userId) {
                   return (
@@ -302,9 +301,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    setStartTimer(bool) {
-      dispatch(setStart(bool))
-    }
+    // setStartTimer(bool) {
+    //   dispatch(setStart(bool))
+    // }
   }
 }
 

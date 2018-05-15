@@ -4,7 +4,9 @@ import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
 import * as firebase from 'firebase'
-import { setLoggedIn, fetchWorkInterval, fetchBreakInterval, setStart, updateAvatar } from '../store';
+import { setLoggedIn, fetchWorkInterval, fetchBreakInterval, 
+  //setStart, 
+  updateAvatar } from '../store';
 import { db } from '../app'
 
 
@@ -147,9 +149,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    setStartTimer(bool) {
-      dispatch(setStart(bool))
-    },
+    // setStartTimer(bool) {
+    //   dispatch(setStart(bool))
+    // },
     updateAvatarStore(updatedAvatar) {
       dispatch(updateAvatar(updatedAvatar));
     }
