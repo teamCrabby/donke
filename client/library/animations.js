@@ -101,14 +101,12 @@ export const lightningEnter = (lightning) => {
     .from(lightning, 2, { x: 0, y: -60 })
 }
 
-<<<<<<< HEAD
 //playpen donkeys --  need to figure out how to make these guys draggable
 
 export const dragDonke = () => {
   Draggable.create('#donke')
 }
 
-=======
 export const bouncingDonke = (donkey) => {
     let count = 0,
     tween
@@ -123,4 +121,3 @@ tween = TweenMax.to(donkey, 4, {rotation:360, transformOrigin:"40px -100px", rep
 //   TweenLite.set(donkey, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
 // }				
 }
->>>>>>> 2e89407cecc80fafed0cb3de9593bff35ae6f982
