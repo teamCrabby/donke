@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store, { setPlaypenStatus } from '../store';
+import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, setStart, updateAvatarFirebase } from '../store';
 import { db } from '../app';
 import * as firebase from 'firebase';
 
 
-
-// var currentuser = firebase.auth().currentUser;
-
 //delete playpen once everyone leaves
-//keep track of who has accepted or not?
+
+let timerFunc;
+let healthFunc;
+let breakCountFunc;
 
 export class Playpen extends Component {
   constructor(props) {
@@ -17,10 +17,20 @@ export class Playpen extends Component {
     this.state = { 
       playpen: {},
       avatarsInPlaypen: [this.props.avatar],
-      subscriptions: []
+      subscriptions: [],
+      start: true,
+      breakCounter: 0,
+      breakTimeOver: false,
+      needBreakMessage: false
     };
     this.leavePlaypen = this.leavePlaypen.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
+    this.handleClickWork = this.handleClickWork.bind(this)
+    this.handleClickBreak = this.handleClickBreak.bind(this)
+    this.handleClickTryAgain = this.handleClickTryAgain.bind(this)
+    this.workTimer = this.workTimer.bind(this)
+    this.breakTimer = this.breakTimer.bind(this)
+    this.needBreak = this.needBreak.bind(this)
   }
 
   componentDidMount() {
@@ -56,6 +66,17 @@ export class Playpen extends Component {
     this.state.subscriptions.map((subscription) => {
       subscription[1]()
     })
+    clearInterval(healthFunc);
+    clearTimeout(timerFunc);
+    this.props.getWorkInterval(0, 0)
+    this.props.setStartTimer(true)
+    this.props.setStoreStatus('working')
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.workInterval > 0 && this.state.start) {
+      this.workTimer()
+    }
   }
 
   leavePlaypen() {
@@ -95,16 +116,6 @@ export class Playpen extends Component {
       })
       add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}, () => console.log('playpen state', this.state.avatarsInPlaypen)) : null
     } 
-    // if (this.state.avatarsInPlaypen.indexOf(avatar) === -1){
-    //   db
-    //     .collection('avatars')
-    //     .doc(avatar.id)
-    //     .get()
-    //     .then((avatar) => {
-    //       if (avatar.playpenId && !avatar.invited)
-    //       this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]} )
-    //     })
-    // }
   }
 
     //if the owner leaves the playpen, set all the avatars playpen ids to null and then destroy the playpen
@@ -129,12 +140,94 @@ export class Playpen extends Component {
   //    });
     //}
 
+  workTimer() {
+    this.setState({ start: false })
+    const workInterval = this.props.workInterval * 1000
+    //start the work timer for the specified interval
+    timerFunc = setTimeout(() => {
+      //send the 'need a break' message when the timer runs out
+      this.setState({ needBreakMessage: true })
+      //play donkey sound
+      playAudio();
+      this.props.setStoreStatus('needBreak')
+      //start need break timer
+      this.needBreak()
+    }, workInterval)
+    console.log('in workTimer timerfunc is', timerFunc)
+  }
+
+  needBreak() {
+    healthFunc = setInterval(() => {
+      this.setState({ needBreakMessage: false })
+      //decrement the health by 1 every 5 minutes
+      if (this.props.avatar.health > 0) {
+        let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
+        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+        this.props.setStoreHealth(updatedAvatar)
+      }
+    }, 8000)
+    console.log('in needBreak healthFunc is', healthFunc)
+  }
+
+  breakTimer() {
+    //I THINK WE NEED A SETTIMEOUT HERE
+    healthFunc = setInterval(() => {
+      //increment the health once their break is complete (and if they take a longer break....?)
+      if (this.props.avatar.health < 10) {
+        let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health + 1 })
+        this.props.setStoreHealth(updatedAvatar)
+      }
+      //the line below lets the render know to show the "Work time" button
+      this.setState({ breakTimeOver: true })
+    }, this.props.breakInterval * 1000);
+    //check that the user is ACTUALLY idle for their whole break
+    breakCountFunc = setInterval(() => {
+      this.setState({ breakCounter: this.state.breakCounter += 1 })
+      if (Math.abs(this.state.breakCounter - this.props.idleTime) > 3 && this.state.breakCounter < this.props.breakInterval) {
+        alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
+        //this line docks you a point if you come back early. 
+        let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
+        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
+        this.props.setStoreHealth(updatedAvatar)
+        this.handleClickWork()
+      }
+    }, 1000)
+    console.log('in breakTimer healthFunc is', healthFunc)
+    console.log('in breakTimer breakCountFunc is', breakCountFunc)
+  }
+
+  handleClickBreak() {
+    this.changeFullScreen()
+    clearTimeout(timerFunc)
+    clearInterval(healthFunc)
+    //this tells the render to show the sleeping donke
+    this.props.setStoreStatus('break')
+    this.breakTimer()
+  }
+
+  handleClickWork() {
+    this.changeFullScreen()
+    //clear all running timers
+    clearInterval(breakCountFunc)
+    clearInterval(healthFunc);
+    clearTimeout(timerFunc)
+    //reset break counter for next time
+    //set breakTimeOver to false so renders "Take a break" button
+    this.setState({ workTime: true, breakCounter: 0, breakTimeOver: false });
+    //set store status to inform renders/animations
+    this.props.setStoreStatus('working')
+    this.workTimer()
+  }
+
   render() {
     const avatarsArr = this.state.playpen.avatars
     return (
       <div>
       {avatarsArr && avatarsArr.length
-      ? <div>
+      ? this.props.status !== 'break'
+          //render the below if they are not on a break
+          ? 
+          <div>
           <p>Welcome to: {this.state.playpen.name}</p>
           <button className="donkeBtn" onClick={this.leavePlaypen}>
               Leave Playpen
@@ -157,6 +250,9 @@ export class Playpen extends Component {
             </div>
           </div>
       </div>  
+        : this.state.breakTimeOver
+          ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
+          : <div><SleepingDonke /></div>
       : null}   
       </div>
     )
@@ -165,6 +261,10 @@ export class Playpen extends Component {
 
 const mapStateToProps = state => {
   return {
+    workInterval: state.workInterval,
+    breakInterval: state.breakInterval,
+    idleTime: state.idleTime,
+    status: state.status,
     avatar: state.avatar    
   }
 }
@@ -174,6 +274,19 @@ const mapDispatchToProps = dispatch => {
     setPlaypen(bool) {
       dispatch(setPlaypenStatus(bool))
     },
+    setStoreStatus(status) {
+      dispatch(fetchStatus(status))
+    },
+    setStoreHealth(updatedAvatar) {
+      dispatch(updateAvatarFirebase(updatedAvatar))
+    },
+    getWorkInterval(workTime, breakTime) {
+      dispatch(fetchWorkInterval(workTime))
+      dispatch(fetchBreakInterval(breakTime))
+    },
+    setStartTimer(bool) {
+      dispatch(setStart(bool))
+    }
   }
 }
 
