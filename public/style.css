@@ -133,7 +133,7 @@ select {
 .donkeBtn, .donkeBtn-leave {
   position: absolute;
   left: 200px;
-  top: 500px;
+  top: 530px;
   background-color: rgb(200, 236, 250);
   border: 2px solid #87CEEB;
   color: rgb(110, 109, 109);
@@ -553,11 +553,10 @@ box-shadow:         0px 4px 15px 0px rgba(47, 65, 86, 0.9);
 .renderBuddyName p{
    position: absolute; 
    visibility: visible; 
-   left: 200px; 
-   top: 550px; 
+   left: 20px;  
    height: 100px; 
    width: 150px; 
-   font-size: 1.5em;
+   font-size: 1em;
    word-wrap: break-word;
    }
 

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Toys } from './index';
-import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, 
+import store, {
+  setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase,
   //setStart, 
-  updateAvatarFirebase } from '../store';
+  updateAvatarFirebase
+} from '../store';
 import { playAudio } from '../library/audio';
 import { db } from '../app';
 import * as firebase from 'firebase';
@@ -22,7 +24,7 @@ let breakCountFunc;
 export class Playpen extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       playpen: {},
       avatarsInPlaypen: [this.props.avatar],
       subscriptions: [],
@@ -42,33 +44,33 @@ export class Playpen extends Component {
   }
 
   componentDidMount() {
-      dragDonke();
-      db
-        .collection('playPen')
-        .doc(`${this.props.avatar.playpenId}`)
-        .get()
-        .then(res => {
-          let playpen = res.data();
-          playpen.id = res.id;
-          this.setState({ playpen });
-          this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
+    dragDonke();
+    db
+      .collection('playPen')
+      .doc(`${this.props.avatar.playpenId}`)
+      .get()
+      .then(res => {
+        let playpen = res.data();
+        playpen.id = res.id;
+        this.setState({ playpen });
+        this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
+      })
+      .then(() => {
+        console.log("avatars in playpen is...", this.state.playpen.avatars)
+        this.state.playpen.avatars.map((avatar) => {
+          //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
+          if (avatar.id !== this.props.avatar.id) {
+            let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
+            this.setState({ subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions] })
+          }
         })
-        .then(() => {
-          console.log("avatars in playpen is...", this.state.playpen.avatars)
-          this.state.playpen.avatars.map((avatar) => {
-            //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
-            if (avatar.id !== this.props.avatar.id){
-              let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
-              this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
-            }
-          })
-        })
-        .catch(error =>
-          console.log(`Unable to get playpen ${error.message}`)
-        )
+      })
+      .catch(error =>
+        console.log(`Unable to get playpen ${error.message}`)
+      )
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     //This ensures that we have unsubscribed the listeners for all of the playpen avatars that don't belong to the user
     this.state.subscriptions.map((subscription) => {
       subscription[1]()
@@ -110,7 +112,7 @@ export class Playpen extends Component {
     //if statement to filter out avatars who have left from the avatarsInPlaypen
     if (avatar.playpenId !== this.state.playpen.id) {
       let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((selectedAvatar) => selectedAvatar.userId !== avatar.userId)
-      this.setState({ avatarsInPlaypen: newPlaypenPopulation}, () => console.log('avatars after someone leaves', this.state.avatarsInPlaypen))
+      this.setState({ avatarsInPlaypen: newPlaypenPopulation }, () => console.log('avatars after someone leaves', this.state.avatarsInPlaypen))
       // this.setState({ subscriptions: 
       //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       // })
@@ -120,19 +122,19 @@ export class Playpen extends Component {
       let add = true;
       this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
         //if the avatar from snapshot is already in the playpen, update them in the playpen
-        if (avatar.id === mappedAvatar.id) { 
+        if (avatar.id === mappedAvatar.id) {
           add = false;
           let newArr = this.state.avatarsInPlaypen.slice();
-          newArr[idx]= avatar;
-          this.setState({avatarsInPlaypen: newArr});       
+          newArr[idx] = avatar;
+          this.setState({ avatarsInPlaypen: newArr });
           return;
         }
       })
-      add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}, () => console.log('playpen state', this.state.avatarsInPlaypen)) : null
-    } 
+      add ? this.setState({ avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen] }, () => console.log('playpen state', this.state.avatarsInPlaypen)) : null
+    }
   }
 
-    //if the owner leaves the playpen, set all the avatars playpen ids to null and then destroy the playpen
+  //if the owner leaves the playpen, set all the avatars playpen ids to null and then destroy the playpen
   //  if (this.state.playpen.owner === this.props.avatar.userId) {
   //    this.state.playpen.avatars.forEach(avatar => {
   //      db
@@ -152,7 +154,7 @@ export class Playpen extends Component {
   //          )
   //        );
   //    });
-    //}
+  //}
 
   workTimer() {
     this.setState({ start: false })
@@ -232,62 +234,65 @@ export class Playpen extends Component {
     this.workTimer()
   }
 
-  
+
   render() {
     const avatarsArr = this.state.playpen.avatars
     return (
       <div className="pen-container">
-      {
-      avatarsArr && avatarsArr.length && 
-      this.props.workInterval > 0
-      ? this.props.status !== 'break'
-          //render the below if they are not on a break
-          ? 
-          <div>
-            <div className="pen-welcome">
-              <div id="pen-name">Playpen {this.state.playpen.name}</div>
-            </div>
-            <div className='playpenComponent'>
-              <div className="pen-friends">
-              {this.state.avatarsInPlaypen.map(avatarFriend => {
-                  if (avatarFriend.userId !== this.props.avatar.userId) {
-                    return (
-                      <div className="playpen-friends" key={avatarFriend.id}>
-                        <div>
-                          <img src={`../img/donke${avatarFriend.health}.svg`} onClick={() => playAudio('happy')} />
-                        </div>
-                        <div><p>{avatarFriend.name}</p></div>
-                      </div>
-                    )
-                  }
-                })
-              }
-              </div>
-            <div className="playpen-friends">
+        <div>
+          <Toys />
+        </div>
+        {
+          avatarsArr && avatarsArr.length &&
+            this.props.workInterval > 0
+            ? this.props.status !== 'break'
+              //render the below if they are not on a break
+              ?
               <div>
-                <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
-              </div>
-              <div className="avatar-name"><p>{this.props.avatar.name}</p></div>
-            </div>
-          </div>
-          <Grass />
-          {/* <PartyHat />
+                <div className="pen-welcome">
+                  <div id="pen-name">Playpen {this.state.playpen.name}</div>
+                </div>
+                <div className='playpenComponent'>
+                  <div className="pen-friends">
+                    {this.state.avatarsInPlaypen.map(avatarFriend => {
+                      if (avatarFriend.userId !== this.props.avatar.userId) {
+                        return (
+                          <div className="playpen-friends" key={avatarFriend.id}>
+                            <div>
+                              <img src={`../img/donke${avatarFriend.health}.svg`} onClick={() => playAudio('happy')} />
+                            </div>
+                            <div><p>{avatarFriend.name}</p></div>
+                          </div>
+                        )
+                      }
+                    })
+                    }
+                  </div>
+                  <div className="playpen-friends">
+                    <div>
+                      <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
+                    </div>
+                    <div className="avatar-name"><p>{this.props.avatar.name}</p></div>
+                  </div>
+                </div>
+                <Grass />
+                {/* <PartyHat />
           <Toys /> */}
-          <button className="donkeBtn-leave" onClick={this.leavePlaypen}>
-              Leave Playpen
+                <button className="donkeBtn-leave" onClick={this.leavePlaypen}>
+                  Leave Playpen
           </button>
-          {
-          //render "Take a break" button if they have health or "Try again" button if they don't
-          this.props.avatar.health > 0
-          ? 
-          <div><button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button></div>
-          : null
-          }
-      </div>  
-        : this.state.breakTimeOver
-          ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
-          : <div><SleepingDonke /></div>
-      : null}   
+                {
+                  //render "Take a break" button if they have health or "Try again" button if they don't
+                  this.props.avatar.health > 0
+                    ?
+                    <div><button className="donkeBtn" onClick={this.handleClickBreak}>Take a Break!</button></div>
+                    : null
+                }
+              </div>
+              : this.state.breakTimeOver
+                ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work Time!</button> <SleepingDonke /> </div>
+                : <div><SleepingDonke /></div>
+            : null}
       </div>
     )
   }
@@ -299,7 +304,7 @@ const mapStateToProps = state => {
     breakInterval: state.breakInterval,
     idleTime: state.idleTime,
     status: state.status,
-    avatar: state.avatar    
+    avatar: state.avatar
   }
 }
 
