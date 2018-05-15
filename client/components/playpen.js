@@ -118,7 +118,6 @@ export class Playpen extends Component {
       this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
         //if the avatar from snapshot is already in the playpen, update them in the playpen
         if (avatar.id === mappedAvatar.id) { 
-          console.log()
           add = false;
           let newArr = this.state.avatarsInPlaypen.slice();
           newArr[idx]= avatar;
