@@ -146,7 +146,7 @@ class PlaypenForm extends Component {
 
   handleChange(event) {
     if(event.target.name !== 'playPenName' || (event.target.name === 'playPenName' && event.target.value.length <=15)) {
-      this.setState({ [event.target.name]: event.target.value })
+      this.setState({ [event.target.name]: (event.target.value).toLowerCase() })
     } else {
       alert (`Play pen name can be no longer than 15 characters.`)
     }
