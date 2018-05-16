@@ -208,16 +208,17 @@ class PlaypenForm extends Component {
         ?
         <div className="navbar-container">
           <div className="navbar-wrapper">
-            <div>
-              <label className="navbar-name">Playpen Name</label>
+            <div className="navbar-name"> 
+              <label>Playpen Name</label>
+              <div className="navbar-name">
+                <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+              </div>
             </div>
+            {/* <div className="navbar-container"> */}
             <div className="navbar-name">
-              <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
-            </div>
-            <div className="navbar-container">
               <label className="navbar-name">Play date with</label>
               <div className="navbar-name">
-                <div className="playpenFriends">
+                {/* <div className="playpenFriends"> */}
                   <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
                   <div className="friends">
                     {
@@ -232,33 +233,36 @@ class PlaypenForm extends Component {
                         })
                         : null
                     }
-                  </div>
+                  {/* </div> */}
                 </div>
               </div>
               <div>
                 <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
               </div>
+            </div>
+            <div className="navbar-wrapper">
               <div className="navbar-container-form">
                   <div className="name-holder">
                     <div className="navbar-name">Set Work Interval</div>
                   </div>
                   <div className="interval-select">
                     <input name="workInterval" type="text" onChange={this.handleChange} value={this.state.workInterval}/>
-                    <div className="navbar-name">Rec: 52 minutes</div>
+                    <div className="navbar-name">Rec: 52 min</div>
                   </div>
                 </div>
-                <div className="navbar-container-form">
-                  <div className="navbar-name">Set Break Interval</div>
-                    <div className="interval-select">
-                      <input name="breakInterval" type="text" onChange={this.handleChange} value={this.state.breakInterval}/>
-                      <div className="navbar-name">Rec: 17 minutes</div>
-                    </div>
-                </div>    
-              <div>
-                <button disabled={functional} onClick={this.handleSubmit}>SUBMIT</button>
-                { warning && <div className='alert'>{warning}</div> }
+              <div className="navbar-container-form">
+                <div className="navbar-name">Set Break Interval</div>
+                  <div className="interval-select">
+                    <input name="breakInterval" type="text" onChange={this.handleChange} value={this.state.breakInterval}/>
+                    <div className="navbar-name">Rec: 17 min</div>
+                  </div>
+              </div>    
+            <div>
+                <button id="submit-butt" disabled={functional} onClick={this.handleSubmit}>SUBMIT</button>
               </div>
             </div>
+              { warning && <div className='alert'>{warning}</div> }
+            {/* </div> */}
           </div>
         </div>
         : null
