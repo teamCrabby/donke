@@ -4,9 +4,7 @@ import { annoyed } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
 import * as firebase from 'firebase'
-import { setLoggedIn, fetchWorkInterval, fetchBreakInterval, 
-  //setStart, 
-  updateAvatar } from '../store';
+import { setLoggedIn, fetchWorkInterval, fetchBreakInterval, updateAvatar, updateAvatarFirebase } from '../store';
 import { db } from '../app'
 
 
@@ -71,6 +69,8 @@ class Navbar extends Component {
   handleLogOut(event) {
     if (this.props.status !== 'break') {
       this.props.setStoreLoggedIn(false)
+      this.props.avatar.playpenId = null
+      this.props.updateAvatarFirebaseStore(this.props.avatar)
       this.props.updateAvatarStore({
         name: '',
         userId: '',
@@ -78,11 +78,10 @@ class Navbar extends Component {
         playpenId: '',
         invited: '',
         id: ''
-      })
+      });
       firebase.auth().signOut()
         .then(function () {
           console.log(`Sign-out successful.`)
-          //alert(`Bye!`)
         })
         .catch(function (error) {
           if (error) {
@@ -149,11 +148,11 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    // setStartTimer(bool) {
-    //   dispatch(setStart(bool))
-    // },
     updateAvatarStore(updatedAvatar) {
-      dispatch(updateAvatar(updatedAvatar));
+      dispatch(updateAvatar(updatedAvatar))
+    },
+    updateAvatarFirebaseStore(updatedAvatar){
+      dispatch(updateAvatarFirebase(updatedAvatar))
     }
   }
 }
