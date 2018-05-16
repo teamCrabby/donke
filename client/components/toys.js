@@ -26,10 +26,19 @@ export class Toys extends Component {
           <img src="../img/play.svg" onClick={() => playFarm()} />
         </div>
         <div className="draggable-box">
-          <img className="draggable-item draggable-stash" id="stash" src="../img/stash.svg" width="30" height="30" />
+          <img className="draggable-item draggable-stash" id="stash" src="../img/stash.svg" width="40" height="40" />
         </div>
         <div className="draggable-box">
-          <img className="draggable-item draggable-glasses" id="glasses" src="../img/glasses.svg" width="30" height="30" />
+          <img className="draggable-item draggable-glasses" id="glasses" src="../img/glasses.svg" width="40" height="40" />
+        </div>
+        <div className="draggable-box">
+          <img className="draggable-item draggable-mask" id="mask" src="../img/mask.svg" width="60" height="60" />
+        </div>
+        <div className="draggable-box">
+          <img className="draggable-item draggable-guitar" id="guitar" src="../img/guitar.svg" width="100" height="100" />
+        </div>
+        <div className="draggable-box">
+          <img className="draggable-item draggable-hair" id="hair" src="../img/hair.svg" width="80" height="80" />
         </div>
       </div>
     );

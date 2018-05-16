@@ -53,7 +53,10 @@ export const dragToys = () => {
   Draggable.create('#musicbox')
   Draggable.create('#stash')
   Draggable.create('#glasses')
-    
+  Draggable.create('#mask')
+  Draggable.create('#hair')
+  Draggable.create('#guitar')
+
 }
 
 // export const musicBox = () => {
