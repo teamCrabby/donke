@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
-import store, { setPlaypenStatus, setInvited } from '../store'
+import store, { setPlaypenStatus, setInvited, getPlaypenFirebase } from '../store'
 
 
 export class Invitation extends Component {
@@ -26,6 +26,8 @@ export class Invitation extends Component {
     }
 
     handleClickYes(){
+        console.log("this.props.avatar.playpenId", this.props.avatar.playpenId)
+        this.props.getStorePlaypenFirebase(this.props.avatar.playpenId)
         this.props.setPlaypen(true)
         db.collection("avatars").doc(`${this.props.avatar.id}`).update({invited: false})
     }
@@ -60,6 +62,10 @@ const mapDispatchToProps = dispatch => {
         },
         setStoreInvited(bool) {
             dispatch(setInvited(bool))
+        },
+        getStorePlaypenFirebase(playpenId){
+            console.log('in getStorePlaypenFirebase', playpenId)
+            dispatch(getPlaypenFirebase(playpenId))
         }
     }
 }

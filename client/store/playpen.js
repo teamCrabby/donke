@@ -58,6 +58,7 @@ export const getPlaypenFirebase = (playpenId) =>
         db.collection("playPen").doc(playpenId)
         .get()
         .then(res => {
+            console.log('playpen from firebase is..', playpen)
             let playpen = res.data()
             playpen.id = playpenId
             dispatch(setPlaypen(playpen))
@@ -102,6 +103,7 @@ export const deletePlaypenFirebase = (playpenId) =>
 export default function (state = defaultPlaypen, action) {
     switch (action.type) {
         case SET_PLAYPEN:
+            console.log("in set playpen store")
             return action.playpen;
         case DELETE_PLAYPEN:
             return defaultPlaypen;

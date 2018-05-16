@@ -118,7 +118,7 @@ export class Playpen extends Component {
 
   workTimer() {
     this.setState({ start: false })
-    const workInterval = this.props.workInterval * 60000
+    const workInterval = this.props.workInterval * 1000
     //in seconds for testing
     //const workInterval = this.props.workInterval * 1000
     //start the work timer for the specified interval
@@ -155,13 +155,13 @@ export class Playpen extends Component {
       //the line below lets the render know to show the "Work time" button
       this.setState({ breakTimeOver: true })
     }, 
-    this.props.breakInterval * 60000);
+    this.props.breakInterval * 1000);
     //in seconds for testing
     //this.props.breakInterval * 1000);
     //check that the user is ACTUALLY idle for their whole break
     breakCountFunc = setInterval(() => {
       this.setState({ breakCounter: this.state.breakCounter += 1 })
-      if (Math.abs(this.state.breakCounter - this.props.idleTime) > 2.5 && this.state.breakCounter < this.props.breakInterval * 60000) {
+      if (Math.abs(this.state.breakCounter - this.props.idleTime) > 2.5 && this.state.breakCounter < this.props.breakInterval * 1000) {
         alert(`Looks like you came back early. Remember that ${this.props.avatar.name} can't stay healthy if you don't!`)
         //this line docks you a point if you come back early. 
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
@@ -209,7 +209,7 @@ export class Playpen extends Component {
               ?
               <div>
                 <div className="pen-welcome">
-                  <div id="pen-name">Playpen {this.state.playpen.name}</div>
+                  <div id="pen-name">Playpen {this.props.playpen.name}</div>
                 </div>
                 <div className='playpenComponent'>
                   <div className="pen-friends">
