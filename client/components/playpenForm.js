@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
 import { setPlaypenStatus } from '../store'
+import { blop } from '../library/audio'
 
 class PlaypenForm extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
+    blop()
     console.log('this.state.workInterval', this.state.workInterval)
     console.log('this.state.breakInterval', this.state.breakInterval)
     db.collection('playPen').add({
@@ -156,6 +158,7 @@ class PlaypenForm extends Component {
   }
 
   handleRemoveUser(event, index) {
+    blop()
     let updatedUsers = this.state.users.filter((user, idx) => {
       return idx !== index
     })

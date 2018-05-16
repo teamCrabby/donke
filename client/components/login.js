@@ -3,6 +3,7 @@ import { NewBuddy } from './index';
 import { connect } from 'react-redux'
 import { db, auth } from '../app'
 import store, { setLoggedIn, fetchUser, setAvatar, deleteAvatarFirebase } from '../store'
+import { blop } from '../library/audio'
 
 export class Login extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ export class Login extends Component {
 
 
   handleSignIn(event) {
+    blop()
     event.preventDefault()
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -54,6 +56,7 @@ export class Login extends Component {
   }
 
   handleCreateUser(event) {
+    blop()
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {
