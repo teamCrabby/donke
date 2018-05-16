@@ -87,6 +87,7 @@ class PlaypenForm extends Component {
   }
 
   handleAddABuddy(event) {
+    blop()
     event.preventDefault()
     if (this.state.users.indexOf(this.state.invitedUser) === -1) {
       return db.collection('users').where('handle', '==', this.state.invitedUser)

@@ -1,5 +1,6 @@
 import { TimelineMax, TweenMax } from 'gsap'
 import Draggable from 'gsap/Draggable'
+import {playMusic} from './audio'
 
 //initial creature entrance
 export const entrance = () => {
@@ -52,7 +53,13 @@ export const dragToys = () => {
   Draggable.create('#musicbox')
   Draggable.create('#stash')
   Draggable.create('#glasses')
+    
 }
+
+// export const musicBox = () => {
+//   let timeLine = new TimelineMax()
+//   timeLine.to('#musicbox', 1, { left: 100})
+// }
 
 export const hatLeave = () => {
   let timeLine = new TimelineMax();

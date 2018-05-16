@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { dragToys } from '../library/animations'
 import { connect } from 'react-redux'
-import { playMusic } from '../library/audio'
+import { playFarm } from '../library/audio'
 
 export class Toys extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ export class Toys extends Component {
   }
   componentDidMount() {
     dragToys()
+
   }
 
   render() {
@@ -21,7 +22,8 @@ export class Toys extends Component {
           <img className="draggable-item draggable-crown" id="crown" src="../img/crown.svg" width="50" height="50" />
         </div>
         <div className="draggable-box">
-          <img className="draggable-item draggable-musicbox" id="musicbox" src="../img/musicbox.svg" width="100" height="100" onClick={() => playMusic()}/>
+          <img className="draggable-item draggable-musicbox" id="musicbox" src="../img/musicbox.svg" width="100" height="100" />
+          <img src="../img/play.svg" onClick={() => playFarm()} />
         </div>
         <div className="draggable-box">
           <img className="draggable-item draggable-stash" id="stash" src="../img/stash.svg" width="30" height="30" />
