@@ -261,8 +261,8 @@ box-shadow:         0px 4px 5px 0px rgba(50, 50, 50, 0.6);
 
 .draggable-box .draggable-item{
   position:absolute;
-  top: 300px;
-  left: 125px;
+  top: 500px;
+  left: 1110px;
   z-index: 5;
 }
 
@@ -537,7 +537,7 @@ box-shadow:         0px 4px 15px 0px rgba(47, 65, 86, 0.9);
   display: flex;
   flex-direction: column;
   text-align: center;
-  font-size: 3em;
+  font-size: 2em;
   word-wrap: break-word;
   border: 1px solid white;
   -webkit-box-shadow: -4px 12px 18px -4px rgba(179,175,179,1);
@@ -568,3 +568,50 @@ box-shadow:         0px 4px 15px 0px rgba(47, 65, 86, 0.9);
    z-index:-1;
    }
 
+
+/**********************TOYS POSITIONS*********************/
+#icecream {
+  left: 200px;
+  top: 200px;
+}
+
+#crown {
+  left: 300px;
+  top: 400px;
+
+}
+
+#musicbox {
+  left: 0px;
+  top: 550px;
+
+}
+
+#stash {
+  left: 10px;
+  top: 200px;
+
+}
+
+#glasses {
+  left: 50px;
+  top: 400px;
+
+}
+
+#mask {
+  left: 220px;
+  top: 300px;
+
+}
+
+#guitar {
+  left: 80px;
+  top: 200px;
+
+}
+
+#hair {
+  left: 20px;
+  top: 300px;
+}
