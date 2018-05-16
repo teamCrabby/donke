@@ -1,5 +1,4 @@
 import {db, auth} from '../app'
-import store from './index.js'
 
 /**
  * ACTION TYPES
@@ -38,10 +37,11 @@ export const setInvited = (bool) => ({ type: SET_INVITED, bool })
  * FIRESTORE + LOCAL STORE UPDATERS
  */
 export const createAvatarFirebase = (avatar) => 
+    dispatch => 
     db.collection("avatars").add(avatar)
       .then(res =>  {
         avatar.id=res.id;
-        store.dispatch(setAvatar(avatar));
+        dispatch(setAvatar(avatar));
       })
       .catch(function(error) {
       });
@@ -63,16 +63,16 @@ export const updateAvatarFirebase = (changedAvatar) =>
     .catch(error => console.error(`Error updating avatar ${error}`))
 
 
-export const deleteAvatarFirebase = (avatarId) => {
-  console.log('GOT INSIDE DELETE AVATAR FIREBASE')
-  db.collection("avatars").doc(`${avatarId}`).delete()
-	.then(function() {
-	    console.log("Document successfully deleted!");
-	    store.dispatch(deleteAvatar())
-	}).catch(function(error) {
-	    console.error("Error removing document: ", error);
-	});
-}
+export const deleteAvatarFirebase = (avatarId) => 
+  dispatch => 
+    db.collection("avatars").doc(`${avatarId}`).delete()
+    .then(function() {
+        console.log("Document successfully deleted!");
+        dispatch(deleteAvatar())
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+
 
 /**
  * REDUCER

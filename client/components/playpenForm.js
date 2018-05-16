@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
-import { setPlaypenStatus } from '../store'
+import { setPlaypenStatus, setPlaypen, updateAvatar, updateAvatarFirebase, addPlaypenFirebase } from '../store'
 import { blop } from '../library/audio'
 
 class PlaypenForm extends Component {
@@ -14,7 +14,7 @@ class PlaypenForm extends Component {
       playPenName: '',
       invitedUser: '',
       users: [],
-      owner: '',
+      owner: {},
       avatars: [],
       workInterval: '',
       breakInterval: '',
@@ -31,58 +31,22 @@ class PlaypenForm extends Component {
       db.collection('users').doc(user.uid).get()
         .then(res => {
           let userinFS = res.data()
-          console.log('USER FROM FIRESTORE IS WHAT I WANT TO SEE:', userinFS.handle)
           this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
         })
     }
   }
 
   handleSubmit(event) {
-    blop()
-    console.log('this.state.workInterval', this.state.workInterval)
-    console.log('this.state.breakInterval', this.state.breakInterval)
-    db.collection('playPen').add({
+    //add the playpen to the store and firestore
+    this.props.addPlaypenStore({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
-      owner: this.state.owner.name,
+      owner: this.state.owner,
       avatars: [...this.state.avatars, this.props.avatar],
       workInterval: this.state.workInterval,
       breakInterval: this.state.breakInterval
     })
-      .then((res) => {
-        // console.log('CREATED PLAYPEN RES', res)
-        return db.collection('playPen').doc(res.id).get()
-          .then((res) => {
-            let playpen
-            playpen = res.data()
-            playpen.id = res.id
-            console.log('GOT PLAYPEN', playpen)
-            return playpen
-          })
-      })
-      .then(pen => {
-        console.log('PLAYPEN RETURNED', pen)
-        console.log('THE AVATARS TO BE UPDATED', this.state.avatars)
-        let bool = true
-        return pen.avatars.map(avatar => {
-          if (this.props.user === avatar.userId) {
-            bool = false
-          } else {
-            bool = true
-          }
-          db.collection('avatars').doc(avatar.id).update({
-            invited: bool,
-            playpenId: pen.id
-          }).then((res) => {
-            return
-          })
-        })
-      })
-      .then((res) => {
-        this.props.setPlaypen(true)
-        console.log('Document successfully written, HOORAY')
-      })
-      .catch((error) => console.log(`Unable to save playpen ${error.message}`))
+    this.props.setPlaypenStatusStore(true)
     this.setState({ onToggle: false, invitedUser: '', users: [] })
   }
 
@@ -92,7 +56,6 @@ class PlaypenForm extends Component {
       return db.collection('users').where('handle', '==', this.state.invitedUser)
         .get()
         .then(function (querySnapshot) {
-          console.log('query snap', querySnapshot)
           let foundUser;
           if (querySnapshot.docs.length) {
             querySnapshot.forEach(function (doc) {
@@ -105,38 +68,30 @@ class PlaypenForm extends Component {
           return foundUser
         })
         .then((user) => {
-          // console.log('USER', user)
           return db.collection('avatars').where('userId', '==', user.id)
             .get()
             .then(function (querySnapshot) {
               let foundAvatar;
               if (querySnapshot.docs.length) {
                 querySnapshot.forEach(function (doc) {
-                  // console.log(doc.id, '==>', doc.data())
                   foundAvatar = doc.data()
                   foundAvatar.id = doc.id
-                  console.log('FOUND AVATAR:', foundAvatar)
                 })
               } else {
                 alert(`Sorry, that user does not have an avatar.`)
               }
-              // console.log('FOUND AVATAR OUTSIDE FOR EACH', foundAvatar)
               return foundAvatar;
             })
         })
         .then(avatar => {
-          console.log("")
           //update avatar here with invited and playpen id : db.collection('avatar').doc(avatar.id).update
           // db.collection('avatar').doc(avatar.id).update({
           // })
-          console.log('AVATAR', avatar)
           this.setState({
             invitedUser: '',
             users: [this.state.invitedUser, ...this.state.users],
             avatars: [avatar, ...this.state.avatars]
           })
-          // console.log('users array is...', this.state.users)
-          // console.log('avatars array is ...', this.state.avatars)
         })
         .catch(error => {
           console.error(`Sorry, cannot find your friend ${error.message}`)
@@ -269,14 +224,24 @@ const mapStateToProps = state => {
   return {
     avatar: state.avatar,
     user: state.user,
-    status: state.status
+    status: state.status,
+    playpen: state.playpen
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setPlaypen(bool) {
+    setPlaypenStatusStore(bool) {
       dispatch(setPlaypenStatus(bool))
+    },
+    setPlaypenStore(playpen){
+      dispatch(setPlaypen(playpen))
+    },
+    updateAvatarStore(chagedAvatar){
+      dispatch(updateAvatarFirebase(changedAvatar))
+    },
+    addPlaypenStore(playpen){
+      dispatch(addPlaypenFirebase(playpen))
     }
   }
 }
