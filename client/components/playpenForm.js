@@ -30,15 +30,12 @@ class PlaypenForm extends Component {
       db.collection('users').doc(user.uid).get()
         .then(res => {
           let userinFS = res.data()
-          console.log('USER FROM FIRESTORE IS WHAT I WANT TO SEE:', userinFS.handle)
           this.setState({ owner: { name: userinFS.handle, email: user.email, uid: user.uid } })
         })
     }
   }
 
   handleSubmit(event) {
-    console.log('this.state.workInterval', this.state.workInterval)
-    console.log('this.state.breakInterval', this.state.breakInterval)
     db.collection('playPen').add({
       name: this.state.playPenName,
       users: [...this.state.users, this.state.owner.name],
