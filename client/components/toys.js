@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { dragToys } from '../library/animations'
 import { connect } from 'react-redux'
-import { playFarm } from '../library/audio'
 
 export class Toys extends Component {
   constructor(props) {
@@ -23,7 +22,6 @@ export class Toys extends Component {
         </div>
         <div className="draggable-box">
           <img className="draggable-item draggable-musicbox" id="musicbox" src="../img/musicbox.svg" width="100" height="100" />
-          <img src="../img/play.svg" onClick={() => playFarm()} />
         </div>
         <div className="draggable-box">
           <img className="draggable-item draggable-stash" id="stash" src="../img/stash.svg" width="40" height="40" />
