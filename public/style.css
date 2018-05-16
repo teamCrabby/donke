@@ -451,6 +451,8 @@ box-shadow:         0px 4px 15px 0px rgba(47, 65, 86, 0.9);
 
 #invitation {
   border: 1px solid gray;
+  background-color: #f3ede9;
+  z-index: 9;
 }
 
 #invitation p {
@@ -558,5 +560,6 @@ box-shadow:         0px 4px 15px 0px rgba(47, 65, 86, 0.9);
    width: 150px; 
    font-size: 1em;
    word-wrap: break-word;
+   z-index:-1;
    }
 

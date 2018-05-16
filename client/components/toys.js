@@ -23,6 +23,12 @@ export class Toys extends Component {
         <div className="draggable-box">
           <img className="draggable-item draggable-musicbox" id="musicbox" src="../img/musicbox.svg" width="100" height="100" />
         </div>
+        <div className="draggable-box">
+          <img className="draggable-item draggable-stash" id="stash" src="../img/stash.svg" width="30" height="30" />
+        </div>
+        <div className="draggable-box">
+          <img className="draggable-item draggable-glasses" id="glasses" src="../img/glasses.svg" width="30" height="30" />
+        </div>
       </div>
     );
   }
