@@ -15,7 +15,6 @@ app.on('ready', function () {
     //set resizable to false
     // width: 900
     width: 368,
-    icon: path.join(__dirname, '/img/favicon.ico')
     //need to uncomment back in width
   })
   //one approach
