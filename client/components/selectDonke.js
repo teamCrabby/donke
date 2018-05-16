@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen, Toys } from './index';
+import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, { fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, 
+import store, {
+  fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase,
   //setStart, 
-  updateAvatarFirebase } from '../store';
+  updateAvatarFirebase
+} from '../store';
 
 //create timer variables so can assign them in order to clear them
 let timerFunc;
@@ -149,7 +151,7 @@ export class SelectDonke extends Component {
             {this.props.avatar.health === 10
               ? this.props.status === 'needBreak'
                 //this ternery checks if the user needs a break or is coming back from a break and renders accordingly
-                ? <div> <Sun /> <Grass /> <Toys /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div>
+                ? <div> <Sun /> <Grass /> <PartyHat /> <SpeechBubble text={"Time for a break!"} /></div>
                 : <div> <Sun /> <Grass /> <PartyHat /> </div>
               : null}
             {this.props.avatar.health === 9

@@ -50,6 +50,12 @@ export const dragToys = () => {
   Draggable.create('#icecream')
   Draggable.create('#crown')
   Draggable.create('#musicbox')
+  Draggable.create('#stash')
+  Draggable.create('#glasses')
+  Draggable.create('#mask')
+  Draggable.create('#hair')
+  Draggable.create('#guitar')
+
 }
 
 export const hatLeave = () => {
@@ -108,16 +114,18 @@ export const dragDonke = () => {
 }
 
 export const bouncingDonke = (donkey) => {
-    let count = 0,
+  let count = 0,
     tween
 
-// tween = TweenMax.to(donkey, 2, {left:"700px", repeat:10, yoyo:true, onRepeat:onRepeat, repeatDelay:0.5, ease:Linear.easeNone});
+  // tween = TweenMax.to(donkey, 2, {left:"700px", repeat:10, yoyo:true, onRepeat:onRepeat, repeatDelay:0.5, ease:Linear.easeNone});
 
-tween = TweenMax.to(donkey, 4, {rotation:360, transformOrigin:"40px -100px", repeat:10, ease:Linear.easeNone});
+  tween = TweenMax.to(donkey, 4, { rotation: 360, transformOrigin: "40px -100px", repeat: 10, ease: Linear.easeNone });
 
-// function onRepeat() {
-//   count++;
-//   // box.innerHTML = count;
-//   TweenLite.set(donkey, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
-// }				
+  // function onRepeat() {
+  //   count++;
+  //   // box.innerHTML = count;
+  //   TweenLite.set(donkey, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
+  // }				
 }
+
+

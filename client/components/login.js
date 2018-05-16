@@ -3,6 +3,7 @@ import { NewBuddy } from './index';
 import { connect } from 'react-redux'
 import { db, auth } from '../app'
 import store, { setLoggedIn, fetchUser, setAvatar, deleteAvatarFirebase } from '../store'
+import { blop } from '../library/audio'
 
 export class Login extends Component {
   constructor(props) {
@@ -21,11 +22,16 @@ export class Login extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value })
+    if(event.target.name === 'displayName') {
+      this.setState({ [event.target.name]: (event.target.value).toLowerCase() })
+    } else {
+      this.setState({ [event.target.name]: event.target.value })
+    }
   }
 
 
   handleSignIn(event) {
+    blop()
     event.preventDefault()
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -49,6 +55,7 @@ export class Login extends Component {
   }
 
   handleCreateUser(event) {
+    blop()
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(user => {

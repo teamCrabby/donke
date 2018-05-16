@@ -6,7 +6,11 @@ import { playAudio } from '../library/audio';
 import { db } from '../app';
 import * as firebase from 'firebase';
 import { dragDonke } from '../library/animations';
+import { blop } from '../library/audio';
 
+
+
+// var currentuser = firebase.auth().currentUser;
 
 //delete playpen once everyone leaves
 
@@ -18,7 +22,6 @@ export class Playpen extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      //playpen: {},
       avatarsInPlaypen: [this.props.avatar],
       subscriptions: [],
       start: true,
@@ -36,19 +39,19 @@ export class Playpen extends Component {
   }
 
   componentDidMount() {
-        let playpen = this.props.playpen
-        this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
-        playpen.avatars.map((avatar) => {
-          //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
-          if (avatar.id !== this.props.avatar.id) {
-            let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
-            this.setState({ subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions] })
-          }
-        })
+    let playpen = this.props.playpen
+    this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
+    playpen.avatars.map((avatar) => {
+      //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
+      if (avatar.id !== this.props.avatar.id) {
+        let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
+        this.setState({ subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions] })
+      }
+    })
   }
 
-  componentWillUnmount(){
-    //This ensures that we have unsubscribed the listeners for all of the playpen avatars that don't belong to the userhi
+  componentWillUnmount() {
+    //This ensures that we have unsubscribed the listeners for all of the playpen avatars that don't belong to the user
     this.state.subscriptions.map((subscription) => {
       subscription[1]()
     })
@@ -73,6 +76,7 @@ export class Playpen extends Component {
   }
 
   leavePlaypen() {
+    blop()
     this.props.setPlaypen(false)
     //reset the users playpen id to null to re-render their individual view
     db
@@ -100,11 +104,11 @@ export class Playpen extends Component {
       let add = true;
       this.state.avatarsInPlaypen.map((mappedAvatar, idx) => {
         //if the avatar from snapshot is already in the playpen, update them in the playpen
-        if (avatar.id === mappedAvatar.id) { 
+        if (avatar.id === mappedAvatar.id) {
           add = false;
           let newArr = this.state.avatarsInPlaypen.slice();
-          newArr[idx]= avatar;
-          this.setState({avatarsInPlaypen: newArr});       
+          newArr[idx] = avatar;
+          this.setState({ avatarsInPlaypen: newArr });
           return;
         }
       })
@@ -163,6 +167,7 @@ export class Playpen extends Component {
   }
 
   handleClickBreak() {
+    blop()
     this.changeFullScreen()
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
@@ -172,6 +177,7 @@ export class Playpen extends Component {
   }
 
   handleClickWork() {
+    blop()
     this.changeFullScreen()
     //clear all running timers
     clearInterval(breakCountFunc)
@@ -185,47 +191,62 @@ export class Playpen extends Component {
     this.workTimer()
   }
 
+
   render() {
     const avatarsArr = this.props.playpen.avatars
     return (
-      <div>
-      {avatarsArr && avatarsArr.length && this.props.workInterval > 0
-      ? this.props.status !== 'break'
-          //render the below if they are not on a break
-          ? 
-          <div>
-          <p>Welcome to: {this.props.playpen.name}</p>
-          <button className="donkeBtn" onClick={this.leavePlaypen}>
-              Leave Playpen
-          </button>
-          {this.props.avatar.health > 0
-            //render "Take a break" button if they have health or "Try again" button if they don't
-            ? <button className="donkeBtn" onClick={this.handleClickBreak}>Take a break!</button>
-            : null
-            // <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>
-            }
-            <div className='playpenComponent'>
-            {this.state.avatarsInPlaypen.map(avatarFriend => {
-                if (avatarFriend.userId !== this.props.avatar.userId) {
-                  return (
-                    <div key={avatarFriend.id}>
-                      <img src={`../img/donke${avatarFriend.health}.svg`} onClick={() => playAudio('happy')} />
-                      <p>{avatarFriend.name}</p>
+      <div className="pen-container">
+        {
+          avatarsArr && avatarsArr.length &&
+            this.props.workInterval > 0
+            ? this.props.status !== 'break'
+              //render the below if they are not on a break
+              ?
+              <div>
+                <div className="pen-welcome">
+                  <div id="pen-name">Playpen {this.state.playpen.name}</div>
+                </div>
+                <div className='playpenComponent'>
+                  <div className="pen-friends">
+                    {this.state.avatarsInPlaypen.map(avatarFriend => {
+                      if (avatarFriend.userId !== this.props.avatar.userId) {
+                        return (
+                          <div className="playpen-friends" key={avatarFriend.id}>
+                            <div>
+                              <img src={`../img/donke${avatarFriend.health}.svg`} onClick={() => playAudio('happy')} />
+                            </div>
+                            <div><p>{avatarFriend.name}</p></div>
+                          </div>
+                        )
+                      }
+                    })
+                    }
+                  </div>
+                  <div className="playpen-friends">
+                    <div>
+                      <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
                     </div>
-                  )
+                    <div className="avatar-name"><p>{this.props.avatar.name}</p></div>
+                  </div>
+                </div>
+                <Grass />
+                <PartyHat />
+                <Toys />
+                <button className="donkeBtn-leave" onClick={this.leavePlaypen}>
+                  Leave Playpen
+          </button>
+                {
+                  //render "Take a break" button if they have health or "Try again" button if they don't
+                  this.props.avatar.health > 0
+                    ?
+                    <div><button className="donkeBtn" onClick={this.handleClickBreak}>Take a Break!</button></div>
+                    : null
                 }
-              })
-            }
-            <div>
-              <img src={`../img/donke${this.props.avatar.health}.svg`} onClick={() => playAudio('happy')} />
-              <p>{this.props.avatar.name}</p>
-            </div>
-          </div>
-      </div>  
-        : this.state.breakTimeOver
-          ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work time!</button> <SleepingDonke /> </div>
-          : <div><SleepingDonke /></div>
-      : null}   
+              </div>
+              : this.state.breakTimeOver
+                ? <div> <button className="donkeBtn" onClick={this.handleClickWork}>Work Time!</button> <SleepingDonke /> </div>
+                : <div><SleepingDonke /></div>
+            : null}
       </div>
     )
   }
