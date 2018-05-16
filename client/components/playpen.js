@@ -239,9 +239,6 @@ export class Playpen extends Component {
     const avatarsArr = this.state.playpen.avatars
     return (
       <div className="pen-container">
-        <div>
-          <Toys />
-        </div>
         {
           avatarsArr && avatarsArr.length &&
             this.props.workInterval > 0
@@ -276,8 +273,8 @@ export class Playpen extends Component {
                   </div>
                 </div>
                 <Grass />
-                {/* <PartyHat />
-          <Toys /> */}
+                <PartyHat />
+                <Toys />
                 <button className="donkeBtn-leave" onClick={this.leavePlaypen}>
                   Leave Playpen
           </button>
