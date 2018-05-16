@@ -14,7 +14,8 @@ app.on('ready', function () {
     resizable: true,
     //set resizable to false
     // width: 900
-    width: 368
+    width: 368,
+    icon: path.join(__dirname, 'img/icons/png/apple-icon-60x60.png')
     //need to uncomment back in width
   })
   //one approach

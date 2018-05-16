@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=DonkeLogo.svg --prune=true --out=release-builds",
+    "build-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=img/icons/icns/DonkeLogo.icns --prune=true --out=release-builds",
     "start": "electron .",
     "start-dev": "concurrently \"webpack -w\" \"electromon .\" ",
     "test": "echo \"Error: no test specified\" && exit 1",
