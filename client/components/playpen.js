@@ -251,6 +251,7 @@ export class Playpen extends Component {
             // <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>
             }
             <div className='playpenComponent'>
+            {console.log('IN RENDER PLAYPEN IS...', this.state.avatarsInPlaypen)}
             {this.state.avatarsInPlaypen.map(avatarFriend => {
                 if (avatarFriend.userId !== this.props.avatar.userId) {
                   return (

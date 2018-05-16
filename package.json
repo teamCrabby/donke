@@ -1,9 +1,10 @@
 {
-  "name": "breakbuddy",
+  "name": "Donke",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
+    "build-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=DonkeLogo.svg --prune=true --out=release-builds",
     "start": "electron .",
     "start-dev": "concurrently \"webpack -w\" \"electromon .\" ",
     "test": "echo \"Error: no test specified\" && exit 1",
