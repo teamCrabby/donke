@@ -16,7 +16,7 @@ const reducer = combineReducers({ workInterval, breakInterval, idleTime, status,
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
-  createLogger({ collapsed: true })
+  // createLogger({ collapsed: true })
 ))
 const store = createStore(reducer, middleware)
 

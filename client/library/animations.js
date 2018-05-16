@@ -50,6 +50,8 @@ export const dragToys = () => {
   Draggable.create('#icecream')
   Draggable.create('#crown')
   Draggable.create('#musicbox')
+  Draggable.create('#stash')
+  Draggable.create('#glasses')
 }
 
 export const hatLeave = () => {
@@ -101,17 +103,25 @@ export const lightningEnter = (lightning) => {
     .from(lightning, 2, { x: 0, y: -60 })
 }
 
+//playpen donkeys --  need to figure out how to make these guys draggable
+
+export const dragDonke = () => {
+  Draggable.create('#donke')
+}
+
 export const bouncingDonke = (donkey) => {
-    let count = 0,
+  let count = 0,
     tween
 
-// tween = TweenMax.to(donkey, 2, {left:"700px", repeat:10, yoyo:true, onRepeat:onRepeat, repeatDelay:0.5, ease:Linear.easeNone});
+  // tween = TweenMax.to(donkey, 2, {left:"700px", repeat:10, yoyo:true, onRepeat:onRepeat, repeatDelay:0.5, ease:Linear.easeNone});
 
-tween = TweenMax.to(donkey, 4, {rotation:360, transformOrigin:"40px -100px", repeat:10, ease:Linear.easeNone});
+  tween = TweenMax.to(donkey, 4, { rotation: 360, transformOrigin: "40px -100px", repeat: 10, ease: Linear.easeNone });
 
-// function onRepeat() {
-//   count++;
-//   // box.innerHTML = count;
-//   TweenLite.set(donkey, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
-// }				
+  // function onRepeat() {
+  //   count++;
+  //   // box.innerHTML = count;
+  //   TweenLite.set(donkey, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
+  // }				
 }
+
+
