@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as firebase from 'firebase'
 import { db, auth, authAdmin } from '../app'
 import { setPlaypenStatus } from '../store'
+import { blop } from '../library/audio'
 
 class PlaypenForm extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class PlaypenForm extends Component {
   }
 
   handleSubmit(event) {
+    blop()
     console.log('this.state.workInterval', this.state.workInterval)
     console.log('this.state.breakInterval', this.state.breakInterval)
     db.collection('playPen').add({
@@ -145,10 +147,18 @@ class PlaypenForm extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value })
+    if(event.target.name !== 'playPenName'){
+      this.setState({ [event.target.name]: (event.target.value).toLowerCase() })
+    } else if (event.target.value.length <=15) {
+      this.setState({ [event.target.name]: (event.target.value) })
+    } else {
+      alert (`Play pen name can be no longer than 15 characters.`)
+    }
+    
   }
 
   handleRemoveUser(event, index) {
+    blop()
     let updatedUsers = this.state.users.filter((user, idx) => {
       return idx !== index
     })

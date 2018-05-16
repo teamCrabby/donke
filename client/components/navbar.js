@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { annoyed } from '../library/audio'
+import { annoyed, blop } from '../library/audio'
 import path from 'path'
 import { HealthBar, PlaypenForm, IntervalForm } from './index'
 import * as firebase from 'firebase'
@@ -39,6 +39,7 @@ class Navbar extends Component {
   };
 
   handleCloseForms(event) {
+    blop()
     this.setState({
       workBreakClicked: false,
       playPenFormClicked: false,
@@ -47,6 +48,7 @@ class Navbar extends Component {
   }
 
   handleWorkBreakForm(event) {
+    blop()
     if (this.props.status !== 'break') {
       this.setState({
         playPenFormClicked: false,
@@ -57,6 +59,7 @@ class Navbar extends Component {
   }
 
   handlePlayPenForm(event) {
+    blop()
     if (this.props.status !== 'break') {
       this.setState({
         logOutClicked: false,
@@ -67,6 +70,7 @@ class Navbar extends Component {
   }
 
   handleLogOut(event) {
+    blop()
     if (this.props.status !== 'break') {
       this.props.setStoreLoggedIn(false)
       this.props.avatar.playpenId = null

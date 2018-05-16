@@ -35,3 +35,13 @@ export const playAudio = soundName => {
   audio.play()
 
 }
+
+export const playMusic = () => {
+  let audio = new Audio('CD_Guitar_85-02.mp3')
+  audio.play()
+}
+
+export const blop = () => {
+  let audio = new Audio('blop.mp3')
+  audio.play()
+}
