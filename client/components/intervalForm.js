@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchWorkInterval, fetchBreakInterval } from '../store'
+import { blop } from '../library/audio'
 
 class IntervalForm extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class IntervalForm extends Component {
   }
 
   handleSubmit(event) {
+    blop()
     event.preventDefault()
     this.props.getWorkInterval(Number(this.state.workInterval), Number(this.state.breakInterval))
     this.setState({ onToggle: false })

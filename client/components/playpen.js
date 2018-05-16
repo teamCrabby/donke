@@ -10,6 +10,7 @@ import { playAudio } from '../library/audio';
 import { db } from '../app';
 import * as firebase from 'firebase';
 import { dragDonke } from '../library/animations';
+import { blop } from '../library/audio';
 
 
 
@@ -94,6 +95,7 @@ export class Playpen extends Component {
   }
 
   leavePlaypen() {
+    blop()
     this.props.setPlaypen(false)
     //reset the users playpen id to null to re-render their individual view
     db
@@ -217,6 +219,7 @@ export class Playpen extends Component {
   }
 
   handleClickBreak() {
+    blop()
     this.changeFullScreen()
     clearTimeout(timerFunc)
     clearInterval(healthFunc)
@@ -226,6 +229,7 @@ export class Playpen extends Component {
   }
 
   handleClickWork() {
+    blop()
     this.changeFullScreen()
     //clear all running timers
     clearInterval(breakCountFunc)
