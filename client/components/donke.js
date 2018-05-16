@@ -14,6 +14,7 @@ class Donke extends Component {
 
 
   componentDidMount() {
+
     if (this.props.user) {
       db.collection('users').doc(this.props.user)
         .get()
