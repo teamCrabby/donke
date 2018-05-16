@@ -81,7 +81,7 @@ class Navbar extends Component {
       });
       firebase.auth().signOut()
         .then(function () {
-          console.log(`Sign-out successful.`)
+          (`Sign-out successful.`)
         })
         .catch(function (error) {
           if (error) {

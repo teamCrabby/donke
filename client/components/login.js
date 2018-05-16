@@ -35,7 +35,6 @@ export class Login extends Component {
         }
       })
       .then((res) => {
-        console.log('checking for avatar')
         this.checkForAvatar()
       })
       .catch(function (error) {
@@ -70,16 +69,12 @@ export class Login extends Component {
   }
 
   checkForAvatar() {
-    console.log('got inside check for avatar')
     event.preventDefault
     db.collection('avatars').where('userId', '==', this.props.user).get()
       .then(function (querySnapshot) {
-        console.log('query snap', querySnapshot)
         let foundAvatar;
         querySnapshot.forEach(function (doc) {
-          console.log(doc.id, '==>', doc.data())
           if (doc) {
-            console.log('FOUND AVATAR:', doc.data())
             foundAvatar = doc.data()
             foundAvatar.id = doc.id
           } else {
@@ -98,6 +93,7 @@ export class Login extends Component {
         }
         this.props.setStoreLoggedIn(true, this.props.user)
       })
+      .catch(error => console.log("ERROR: ", error))
   }
 
   render() {

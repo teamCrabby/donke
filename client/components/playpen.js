@@ -18,7 +18,7 @@ export class Playpen extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      playpen: {},
+      //playpen: {},
       avatarsInPlaypen: [this.props.avatar],
       subscriptions: [],
       start: true,
@@ -30,61 +30,35 @@ export class Playpen extends Component {
     this.onUpdate = this.onUpdate.bind(this);
     this.handleClickWork = this.handleClickWork.bind(this)
     this.handleClickBreak = this.handleClickBreak.bind(this)
-    // this.handleClickTryAgain = this.handleClickTryAgain.bind(this)
     this.workTimer = this.workTimer.bind(this)
     this.breakTimer = this.breakTimer.bind(this)
     this.needBreak = this.needBreak.bind(this)
   }
 
   componentDidMount() {
-      this.props.setPlaypenStore(this.props.avatar.playpenId)
-      let playpen = this.props.playpen
-      console.log("playpen is...", playpen)
-      this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
-      playpen.avatars.map((avatar) => {
-        //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
-        if (avatar.id !== this.props.avatar.id) {
-          let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
-          this.setState({ subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions] })
-          .catch(error =>
-            console.log(`Unable to create snapshot ${error.message}`)
-          )
-        }
-      })
-      // db
-      //   .collection('playPen')
-      //   .doc(`${this.props.avatar.playpenId}`)
-      //   .get()
-      //   .then(res => {
-      //     let playpen = res.data();
-      //     playpen.id = res.id;
-      //     this.setState({ playpen });
-      //     this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
-      //   })
-        // .then(() => {
-        //   this.state.playpen.avatars.map((avatar) => {
-        //     //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
-        //     if (avatar.id !== this.props.avatar.id){
-        //       let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
-        //       this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
-        //     }
-        //   })
-        // })
-        // .catch(error =>
-        //   console.log(`Unable to get playpen ${error.message}`)
-        // )
+        let playpen = this.props.playpen
+        this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
+        playpen.avatars.map((avatar) => {
+          //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
+          if (avatar.id !== this.props.avatar.id) {
+            let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
+            this.setState({ subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions] })
+          }
+        })
   }
 
   componentWillUnmount(){
-    //This ensures that we have unsubscribed the listeners for all of the playpen avatars that don't belong to the user
+    //This ensures that we have unsubscribed the listeners for all of the playpen avatars that don't belong to the userhi
     this.state.subscriptions.map((subscription) => {
       subscription[1]()
     })
     clearInterval(healthFunc);
     clearTimeout(timerFunc);
     this.props.getWorkInterval(0, 0)
-    //this.props.setStartTimer(true)
     this.props.setStoreStatus('working')
+    if (this.state.avatarsInPlaypen.length < 2){
+      this.props.deletePlaypenStore(this.props.playpen.id)
+    }
   }
 
   changeFullScreen() {
@@ -111,13 +85,12 @@ export class Playpen extends Component {
   }
 
   onUpdate(avatarSnapshot) {
-    console.log('snapshot of updated avatar', avatarSnapshot.data())
     let avatar = avatarSnapshot.data()
     avatar.id = avatarSnapshot.id
     //if statement to filter out avatars who have left
-    if (avatar.playpenId !== this.state.playpen.id) {
+    if (avatar.playpenId !== this.props.playpen.id) {
       let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((selectedAvatar) => selectedAvatar.userId !== avatar.userId)
-      this.setState({ avatarsInPlaypen: newPlaypenPopulation}, () => console.log('avatars after someone leaves', this.state.avatarsInPlaypen))
+      this.setState({ avatarsInPlaypen: newPlaypenPopulation})
       // this.setState({ subscriptions: 
       //   this.state.subscriptions.filter((subscription) => {subscription[0] !== avatar.id })
       // })
@@ -135,7 +108,7 @@ export class Playpen extends Component {
           return;
         }
       })
-      add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}, () => console.log('playpen state', this.state.avatarsInPlaypen)) : null
+      add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}) : null
     } 
   }
 
@@ -152,7 +125,6 @@ export class Playpen extends Component {
       //start need break timer
       this.needBreak()
     }, workInterval)
-    console.log('in workTimer timerfunc is', timerFunc)
   }
 
   needBreak() {
@@ -164,7 +136,6 @@ export class Playpen extends Component {
         this.props.setStoreHealth(updatedAvatar)
       }
     }, 8000)
-    console.log('in needBreak healthFunc is', healthFunc)
   }
 
   breakTimer() {
@@ -185,13 +156,10 @@ export class Playpen extends Component {
         alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
         //this line docks you a point if you come back early. 
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
-        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
         this.props.setStoreHealth(updatedAvatar)
         this.handleClickWork()
       }
     }, 1000)
-    console.log('in breakTimer healthFunc is', healthFunc)
-    console.log('in breakTimer breakCountFunc is', breakCountFunc)
   }
 
   handleClickBreak() {
@@ -218,7 +186,7 @@ export class Playpen extends Component {
   }
 
   render() {
-    const avatarsArr = this.state.playpen.avatars
+    const avatarsArr = this.props.playpen.avatars
     return (
       <div>
       {avatarsArr && avatarsArr.length && this.props.workInterval > 0
@@ -226,7 +194,7 @@ export class Playpen extends Component {
           //render the below if they are not on a break
           ? 
           <div>
-          <p>Welcome to: {this.state.playpen.name}</p>
+          <p>Welcome to: {this.props.playpen.name}</p>
           <button className="donkeBtn" onClick={this.leavePlaypen}>
               Leave Playpen
           </button>
@@ -237,7 +205,6 @@ export class Playpen extends Component {
             // <button className="donkeBtn" onClick={this.handleClickTryAgain}>Try Again</button>
             }
             <div className='playpenComponent'>
-            {console.log("IN RENDER, PLAYPEN IS...", this.state.avatarsInPlaypen)}
             {this.state.avatarsInPlaypen.map(avatarFriend => {
                 if (avatarFriend.userId !== this.props.avatar.userId) {
                   return (
@@ -290,8 +257,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    setPlaypenStore(playpenId){
-      dispatch(getPlaypenFirebase(playpenId))
+    deletePlaypenStore(playpenId){
+      dispatch(deletePlaypenFirebase(playpenId))
     }
   }
 }

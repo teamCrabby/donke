@@ -33,7 +33,7 @@ export class App extends Component {
             ? <div> <Login /> <Donke /></div>
             : !this.props.avatar.name 
               ? <div> <NewBuddy /> <Donke /> </div>
-              : this.props.inPlaypen && this.props.avatar.playpenId
+              : this.props.inPlaypen && this.props.avatar.playpenId && this.props.playpen.id
                 ? <div> <Navbar/> <Playpen /> </div>
                 : <div> <Navbar /> <SelectDonke />
                   {this.props.avatar.invited 
@@ -52,7 +52,8 @@ const mapStateToProps = state => {
     avatar: state.avatar,
     workInterval: state.workInterval,
     inPlaypen: state.playpenStatus,
-    user: state.user
+    user: state.user,
+    playpen: state.playpen
   }
 }
 

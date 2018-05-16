@@ -71,12 +71,9 @@ export class SelectDonke extends Component {
       //decrement the health by 1 every 5 minutes
       if (this.props.avatar.health > 0) {
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
-        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
         this.props.setStoreHealth(updatedAvatar)
       }
     }, 8000)
-    console.log('in needBreak healthFunc is', healthFunc)
-
   }
 
   breakTimer() {
@@ -97,13 +94,10 @@ export class SelectDonke extends Component {
         alert("Looks like you came back early. Remember that your Creature can't stay healthy if you don't!")
         //this line docks you a point if you come back early. 
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
-        console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
         this.props.setStoreHealth(updatedAvatar)
         this.handleClickWork()
       }
     }, 1000)
-    console.log('in breakTimer healthFunc is', healthFunc)
-    console.log('in breakTimer breakCountFunc is', breakCountFunc)
   }
 
 
@@ -136,12 +130,8 @@ export class SelectDonke extends Component {
   }
 
   handleClickTryAgain() {
-    //this is if the donke died... sad. need to reset everything.
+    //this is if the donke died... sad.
     deleteAvatarFirebase(this.props.avatar.id)
-    // this.props.getWorkInterval(0, 0)
-    // let updatedAvatar = Object.assign({}, this.props.avatar, {health: 10})
-    // console.log('THIS IS THE UPDATED AVATAR', updatedAvatar)
-    // setTimeout(() => this.props.setStoreHealth(updatedAvatar), 3000)
   }
 
   render() {

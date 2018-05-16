@@ -1,5 +1,5 @@
 import { db, auth } from '../app'
-import store from './index.js'
+import store from './index'
 
 /**
  * ACTION TYPES
@@ -26,22 +26,51 @@ export const deletePlaypen = () => ({ type: DELETE_PLAYPEN });
 /**
  * FIRESTORE + LOCAL STORE UPDATERS
  */
+
+export const addPlaypenFirebase = (playpen) => 
+    dispatch => 
+        db.collection("playPen")
+        .add(playpen)
+        .then(res => {
+            let playpenId = res.id
+            dispatch(getPlaypenFirebase(playpenId))
+            return playpenId
+        })
+        .then((playpenId) => 
+            playpen.avatars.map(avatar => {
+                let bool = true;
+                if (playpen.owner.uid === avatar.userId) {
+                    bool = false
+                } 
+                db.collection('avatars').doc(avatar.id).update({
+                    invited: bool,
+                    playpenId
+                })
+                .then(() => console.log('updated!'))
+            })
+        )
+        .catch((error) => console.log("ERROR", error));
+
+
+
 export const getPlaypenFirebase = (playpenId) =>
     dispatch => 
-        db.collection("playpens").doc(`{playpenId}`)
+        db.collection("playPen").doc(playpenId)
         .get()
         .then(res => {
-            playpen.id = res.id;
-            store.dispatch(setPlaypen(playpen));
+            let playpen = res.data()
+            playpen.id = playpenId
+            dispatch(setPlaypen(playpen))
         })
-        .catch((error) => console.log('unable to '));
+        .catch((error) => console.log(`unable to get playpen ${error}`));
+
 
 export const updatePlaypenFirebase = (changedPlaypen) =>
     dispatch =>
-        db.collection('playpens').doc(`${changedPlaypen.id}`)
+        db.collection('playPen').doc(`${changedPlaypen.id}`)
         .update(changedPlaypen)
         .then(res => {
-            return db.collection('playpens').doc(`${changedPlaypen.id}`)
+            return db.collection('playPen').doc(`${changedPlaypen.id}`)
             .get()
             .then(res => {
                 let updatedPlaypen = res.data()
@@ -57,10 +86,11 @@ export const updatePlaypenFirebase = (changedPlaypen) =>
 
 export const deletePlaypenFirebase = (playpenId) => 
     dispatch => 
-        db.collection("playpens").doc(`${playpenId}`).delete()
+        db.collection("playPen").doc(`${playpenId}`)
+            .delete()
             .then(function () {
                 console.log("Document successfully deleted!");
-                store.dispatch(deletePlaypen())
+                dispatch(deletePlaypen())
             }).catch(function (error) {
                 console.error("Error removing document: ", error);
             });
