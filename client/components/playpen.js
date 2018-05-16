@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Toys } from './index';
-import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, 
-  //setStart, 
-  updateAvatarFirebase } from '../store';
+import store, { setPlaypenStatus, fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, updateAvatarFirebase, getPlaypenFirebase, updatePlaypenFirebase, deletePlaypenFirebase } from '../store';
 import { playAudio } from '../library/audio';
 import { db } from '../app';
 import * as firebase from 'firebase';
@@ -39,30 +37,42 @@ export class Playpen extends Component {
   }
 
   componentDidMount() {
-      dragDonke();
-      db
-        .collection('playPen')
-        .doc(`${this.props.avatar.playpenId}`)
-        .get()
-        .then(res => {
-          let playpen = res.data();
-          playpen.id = res.id;
-          this.setState({ playpen });
-          this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
-        })
-        .then(() => {
-          console.log("avatars in playpen is...", this.state.playpen.avatars)
-          this.state.playpen.avatars.map((avatar) => {
-            //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
-            if (avatar.id !== this.props.avatar.id){
-              let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
-              this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
-            }
-          })
-        })
-        .catch(error =>
-          console.log(`Unable to get playpen ${error.message}`)
-        )
+      this.props.setPlaypenStore(this.props.avatar.playpenId)
+      let playpen = this.props.playpen
+      console.log("playpen is...", playpen)
+      this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
+      playpen.avatars.map((avatar) => {
+        //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
+        if (avatar.id !== this.props.avatar.id) {
+          let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
+          this.setState({ subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions] })
+          .catch(error =>
+            console.log(`Unable to create snapshot ${error.message}`)
+          )
+        }
+      })
+      // db
+      //   .collection('playPen')
+      //   .doc(`${this.props.avatar.playpenId}`)
+      //   .get()
+      //   .then(res => {
+      //     let playpen = res.data();
+      //     playpen.id = res.id;
+      //     this.setState({ playpen });
+      //     this.props.getWorkInterval(playpen.workInterval, playpen.breakInterval)
+      //   })
+        // .then(() => {
+        //   this.state.playpen.avatars.map((avatar) => {
+        //     //subscribe to a snapshot for every avatar in the playpen that is not yourself so you can get updates on their health
+        //     if (avatar.id !== this.props.avatar.id){
+        //       let unsubscribe = db.collection('avatars').doc(`${avatar.id}`).onSnapshot(this.onUpdate)
+        //       this.setState({subscriptions: [[`${avatar.id}`, unsubscribe], ...this.state.subscriptions]})
+        //     }
+        //   })
+        // })
+        // .catch(error =>
+        //   console.log(`Unable to get playpen ${error.message}`)
+        // )
   }
 
   componentWillUnmount(){
@@ -104,7 +114,7 @@ export class Playpen extends Component {
     console.log('snapshot of updated avatar', avatarSnapshot.data())
     let avatar = avatarSnapshot.data()
     avatar.id = avatarSnapshot.id
-    //if statement to filter out avatars who have left from the avatarsInPlaypen
+    //if statement to filter out avatars who have left
     if (avatar.playpenId !== this.state.playpen.id) {
       let newPlaypenPopulation = this.state.avatarsInPlaypen.filter((selectedAvatar) => selectedAvatar.userId !== avatar.userId)
       this.setState({ avatarsInPlaypen: newPlaypenPopulation}, () => console.log('avatars after someone leaves', this.state.avatarsInPlaypen))
@@ -128,28 +138,6 @@ export class Playpen extends Component {
       add ? this.setState({avatarsInPlaypen: [avatar, ...this.state.avatarsInPlaypen]}, () => console.log('playpen state', this.state.avatarsInPlaypen)) : null
     } 
   }
-
-    //if the owner leaves the playpen, set all the avatars playpen ids to null and then destroy the playpen
-  //  if (this.state.playpen.owner === this.props.avatar.userId) {
-  //    this.state.playpen.avatars.forEach(avatar => {
-  //      db
-  //        .collection('avatars')
-  //        .doc(`${avatar.id}`)
-  //        .update({ playpenId: null })
-  //        .then(() => {
-  //          db
-  //            .collection('playPen')
-  //            .doc(`${this.state.playpen.id}`)
-  //            .delete()
-  //            .then(() => console.log('playpen deleted!'));
-  //        })
-  //        .catch(error =>
-  //          console.log(
-  //            `Unable to reset playpen id ${error.message}`
-  //          )
-  //        );
-  //    });
-    //}
 
   workTimer() {
     this.setState({ start: false })
@@ -282,7 +270,8 @@ const mapStateToProps = state => {
     breakInterval: state.breakInterval,
     idleTime: state.idleTime,
     status: state.status,
-    avatar: state.avatar    
+    avatar: state.avatar,
+    playpen: state.playpen    
   }
 }
 
@@ -301,9 +290,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    // setStartTimer(bool) {
-    //   dispatch(setStart(bool))
-    // }
+    setPlaypenStore(playpenId){
+      dispatch(getPlaypenFirebase(playpenId))
+    }
   }
 }
 

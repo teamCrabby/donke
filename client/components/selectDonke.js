@@ -145,8 +145,6 @@ export class SelectDonke extends Component {
   }
 
   render() {
-    console.log('in selectDonke!!')
-    console.log("work interval is...", this.props.workInterval)
     return (
       this.props.workInterval > 0
         //if the user has submitted their work/break intervals render the below

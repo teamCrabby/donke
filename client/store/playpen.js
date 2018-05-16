@@ -27,7 +27,8 @@ export const deletePlaypen = () => ({ type: DELETE_PLAYPEN });
  * FIRESTORE + LOCAL STORE UPDATERS
  */
 export const getPlaypenFirebase = (playpenId) =>
-    db.collection("playpens").doc(`{playpenId}`)
+    dispatch => 
+        db.collection("playpens").doc(`{playpenId}`)
         .get()
         .then(res => {
             playpen.id = res.id;
@@ -37,30 +38,33 @@ export const getPlaypenFirebase = (playpenId) =>
 
 export const updatePlaypenFirebase = (changedPlaypen) =>
     dispatch =>
-        db.collection('playpens').doc(`${changedPlaypen.id}`).update(changedPlaypen)
+        db.collection('playpens').doc(`${changedPlaypen.id}`)
+        .update(changedPlaypen)
+        .then(res => {
+            return db.collection('playpens').doc(`${changedPlaypen.id}`)
+            .get()
             .then(res => {
-                return db.collection('playpens').doc(`${changedPlaypen.id}`).get()
-                    .then(res => {
-                        let updatedPlaypen = res.data()
-                        updatedPlaypen.id = res.id;
-                        return updatedPlaypen;
-                    })
+                let updatedPlaypen = res.data()
+                updatedPlaypen.id = res.id;
+                return updatedPlaypen;
             })
-            .then(playpen => {
-                dispatch(updatePlaypen(playpen))
-            })
-            .catch(error => console.error(`Error updating avatar ${error}`))
+        })
+        .then(playpen => {
+            dispatch(updatePlaypen(playpen))
+        })
+        .catch(error => console.error(`Error updating avatar ${error}`))
 
 
-export const deletePlaypenFirebase = (playpenId) => {
-    db.collection("playpens").doc(`${playpenId}`).delete()
-        .then(function () {
-            console.log("Document successfully deleted!");
-            store.dispatch(deletePlaypen())
-        }).catch(function (error) {
-            console.error("Error removing document: ", error);
-        });
-}
+export const deletePlaypenFirebase = (playpenId) => 
+    dispatch => 
+        db.collection("playpens").doc(`${playpenId}`).delete()
+            .then(function () {
+                console.log("Document successfully deleted!");
+                store.dispatch(deletePlaypen())
+            }).catch(function (error) {
+                console.error("Error removing document: ", error);
+            });
+
 
 /**
  * REDUCER
