@@ -11,10 +11,11 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     frame: false,
     height: 700,
-    resizable: true,
+    resizable: false,
     //set resizable to false
     // width: 900
     width: 368,
+    icon: path.join(__dirname, 'img/icons/png/apple-icon-60x60.png')
     //need to uncomment back in width
   })
   //one approach
@@ -25,7 +26,7 @@ app.on('ready', function () {
     slashes: true
   }));
 
-  mainWindow.openDevTools();
+  // mainWindow.openDevTools();
 
   mainWindow.on('closed', function () {
     mainWindow = null;
