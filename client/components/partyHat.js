@@ -17,7 +17,7 @@ export class PartyHat extends Component {
   render() {
     return (
       <div className="draggable-box">
-        <img className="draggable-item draggable-hat" id="hat" src="../img/partyHat.svg" width="100" height="100" />
+        <img className="draggable-item draggable-hat" id="hat" src="../img/partyHat.svg" width="80" height="80" />
       </div>
     );
   }
