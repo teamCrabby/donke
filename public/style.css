@@ -38,7 +38,7 @@ a {
 .navbar-container-form {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
 }
 
@@ -60,6 +60,7 @@ a {
   color:	rgb(7, 53, 90);
   border-radius: 10px;
   align-self: center;
+  text-align: left;
 }
 
 .navbar-select {
@@ -95,6 +96,7 @@ select {
   display: flex;
   /* width: calc(100% - 100px); */
   flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
@@ -140,6 +142,10 @@ select {
   resize: vertical;
 }
 
+.interval-select input {
+  width: 75px;
+}
+
 .name-holder {
   display: flex;
 }
@@ -153,6 +159,9 @@ select {
   justify-content: center;
 }
 
+#submit-butt {
+  margin-right: 75px;
+}
 
 /********************** DONKE BUTTON *********************/
 .donkeBtn, .donkeBtn-leave {
