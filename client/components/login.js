@@ -21,7 +21,11 @@ export class Login extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value })
+    if(event.target.name === 'displayName') {
+      this.setState({ [event.target.name]: (event.target.value).toLowerCase() })
+    } else {
+      this.setState({ [event.target.name]: event.target.value })
+    }
   }
 
 
