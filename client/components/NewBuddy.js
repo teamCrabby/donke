@@ -21,8 +21,7 @@ export class NewBuddy extends Component {
 
   handleNameBuddy(event) {
     event.preventDefault
-    console.log('getting inside handlenamebuddy')
-    createAvatarFirebase({
+    this.props.createAvatarStore({
       name: this.state.buddyName,
       userId: auth.currentUser.uid,
       health: 10,
@@ -67,7 +66,16 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(NewBuddy)
+const mapDispatchToProps = dispatch => {
+  return {
+    createAvatarStore(avatar) {
+      dispatch(createAvatarFirebase(avatar))
+    }
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewBuddy)
 
 
 

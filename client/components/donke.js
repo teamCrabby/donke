@@ -20,17 +20,11 @@ class Donke extends Component {
         .get()
         .then(function (doc) {
           let userInfo;
-          if (doc.exists) {
-            console.log('Document data:', doc.data())
-            userInfo = doc.data();
-          } else {
-            console.log('we aint got it')
-          }
+          if (doc.exists) userInfo = doc.data();
           return userInfo
         })
         .then(
           res => {
-            console.log('GETTING THE RES: ', res)
             this.setState({
               handle: res.handle
             })

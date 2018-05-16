@@ -11,8 +11,9 @@ import playpenStatus from './playpenStatus'
 import avatar from './avatar';
 import startTimer from './startTimer'
 import user from './user'
+import playpen from './playpen'
 
-const reducer = combineReducers({ workInterval, breakInterval, idleTime, status, loggedIn, playpenStatus, avatar, startTimer, user })
+const reducer = combineReducers({ workInterval, breakInterval, idleTime, status, loggedIn, playpenStatus, avatar, startTimer, user, playpen })
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -30,3 +31,4 @@ export * from './playpenStatus'
 export * from './avatar'
 export * from './startTimer'
 export * from './user'
+export * from './playpen'
