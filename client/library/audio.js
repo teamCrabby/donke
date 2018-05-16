@@ -41,6 +41,11 @@ export const playMusic = () => {
   audio.play()
 }
 
+export const playFarm = () => {
+  let audio = new Audio('farm.mp3')
+  audio.play()
+}
+
 export const blop = () => {
   let audio = new Audio('blop.mp3')
   audio.play()
