@@ -16,8 +16,8 @@ class PlaypenForm extends Component {
       users: [],
       owner: {},
       avatars: [],
-      workInterval: 0,
-      breakInterval: 0,
+      workInterval: '',
+      breakInterval: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -125,6 +125,38 @@ class PlaypenForm extends Component {
 
   render() {
     let { status } = this.props
+    let warning;
+        
+        if (!this.state.playPenName) {
+            warning = 'Please enter a playpen name.'
+        } else if (!this.state.users.length) {
+            warning = 'Please invite someone to your playpen.'
+        } else if (!this.state.workInterval) {
+            warning = 'Please enter how much time you want to work before going on a break.'
+        } else if ( isNaN ( Number(this.state.workInterval) ) ) {
+            warning = "Please enter a work interval in numbers. Hint: '70' = one hour ten minutes."
+        } else if ( this.state.workInterval > 120 || this.state.workInterval < 1 ) {
+            warning = "Please enter a work interval between two hours (120 minutes) and one minute."
+        } else if (!this.state.breakInterval) {
+            warning = 'Please enter how long you want your breaks to last.'
+        } else if ( isNaN ( Number(this.state.breakInterval) ) ) {
+            warning = "Please enter a break interval in numbers. Hint: '10' = ten minutes."
+        } else if ( this.state.breakInterval < 5 ) {
+            warning = "Please enter a break interval that is at least five minutes long."
+        } 
+        //disable the button if admin does not behave
+        let functional = false;
+        if (
+            !this.state.playPenName ||
+            !this.state.users.length ||
+            !this.state.workInterval || 
+            isNaN ( Number(this.state.workInterval) ) || 
+            this.state.workInterval > 120 || this.state.workInterval < 1 || 
+            !this.state.breakInterval || 
+            isNaN ( Number(this.state.breakInterval) ) ||
+            this.state.breakInterval < 5 ) {
+            functional = true;
+        }
     return (
       (this.state.onToggle === true && status !== 'break')
         ?
@@ -161,35 +193,24 @@ class PlaypenForm extends Component {
                 <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
               </div>
               <div className="navbar-container-form">
-                <div className="navbar-name">Set Work Interval</div>
-                <div className="navbar-select">
-                  <select name="workInterval" onChange={this.handleChange}>
-                    {
-                      [0, 1, 3, 10, 20, 30, 40].map((interval, idx) => {
-                        return (
-                          <option key={idx}>{interval}</option>
-                        )
-                      })
-                    }
-                  </select>
+                  <div className="name-holder">
+                    <div className="navbar-name">Set Work Interval</div>
+                  </div>
+                  <div className="interval-select">
+                    <input name="workInterval" type="text" onChange={this.handleChange} value={this.state.workInterval}/>
+                    <div className="navbar-name">Rec: 52 minutes</div>
+                  </div>
                 </div>
-              </div>
-              <div className="navbar-container-form">
-                <div className="navbar-name">Set Break Interval</div>
-                <div className="navbar-select">
-                  <select name="breakInterval" onChange={this.handleChange}>
-                    {
-                      [0, 1, 5, 10, 20, 30].map((interval, idx) => {
-                        return (
-                          <option key={idx}>{interval}</option>
-                        )
-                      })
-                    }
-                  </select>
-                </div>
-              </div>
+                <div className="navbar-container-form">
+                  <div className="navbar-name">Set Break Interval</div>
+                    <div className="interval-select">
+                      <input name="breakInterval" type="text" onChange={this.handleChange} value={this.state.breakInterval}/>
+                      <div className="navbar-name">Rec: 17 minutes</div>
+                    </div>
+                </div>    
               <div>
-                <button onClick={this.handleSubmit}>SUBMIT</button>
+                <button disabled={functional} onClick={this.handleSubmit}>SUBMIT</button>
+                { warning && <div className='alert'>{warning}</div> }
               </div>
             </div>
           </div>
