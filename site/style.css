@@ -9,6 +9,7 @@ body {
 }
 
 #download {
+    margin-top: 1em;
     text-decoration: none;
     color: black;
 }
