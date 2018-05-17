@@ -1,8 +1,11 @@
+body {
+    background-image: url("./websiteback.svg");
+}
+
 #allThings {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-image: url("./background.svg");
 }
 
 #allThings img {
