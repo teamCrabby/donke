@@ -9,7 +9,10 @@ body {
 }
 
 #download {
-    margin-top: 1em;
+    margin-top: 2vh;
+}
+
+#download a {
     text-decoration: none;
     color: black;
 }
@@ -21,7 +24,6 @@ body {
 
 #logo img {
     height: 50vh;
-    padding-top: 10vh;
     padding-bottom: 2vh;
 }
 
