@@ -12,7 +12,13 @@ body {
     cursor: pointer;
 } */
 
-#allThings img {
+#logo {
+    border-radius: 50;
+    display: flex;
+    justify-content: center;
+}
+
+#logo img {
     height: 50vh;
     padding-top: 10vh;
     padding-bottom: 2vh;
