@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: pink;
 }
 
 #allThings img {
@@ -24,6 +23,15 @@
 }
 
 #allThings p {
-    text-align: center
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 0;
+    font-family: 'Pompiere', cursive;
 }
+
+#testOne {
+    font-family: 'Gaegu', cursive;
+}
+
+
 
