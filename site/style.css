@@ -8,12 +8,12 @@ body {
     justify-content: center;
 }
 
-/* #allThings a:hover {
-    cursor: pointer;
-} */
+#download {
+    text-decoration: none;
+    color: black;
+}
 
 #logo {
-    border-radius: 50;
     display: flex;
     justify-content: center;
 }
