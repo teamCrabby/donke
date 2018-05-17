@@ -103,14 +103,14 @@ class PlaypenForm extends Component {
   }
 
   handleChange(event) {
-    if(event.target.name !== 'playPenName'){
+    if (event.target.name !== 'playPenName') {
       this.setState({ [event.target.name]: (event.target.value).toLowerCase() })
-    } else if (event.target.value.length <=15) {
+    } else if (event.target.value.length <= 15) {
       this.setState({ [event.target.name]: (event.target.value) })
     } else {
-      alert (`Play pen name can be no longer than 15 characters.`)
+      alert(`Play pen name can be no longer than 15 characters.`)
     }
-    
+
   }
 
   handleRemoveUser(event, index) {
@@ -127,53 +127,54 @@ class PlaypenForm extends Component {
   render() {
     let { status } = this.props
     let warning;
-        
-        if (!this.state.playPenName) {
-            warning = 'Please enter a playpen name.'
-        } else if (!this.state.users.length) {
-            warning = 'Please invite someone to your playpen.'
-        } else if (!this.state.workInterval) {
-            warning = 'Please enter how much time you want to work before going on a break.'
-        } else if ( isNaN ( Number(this.state.workInterval) ) ) {
-            warning = "Please enter a work interval in numbers. Hint: '70' = one hour ten minutes."
-        } else if ( this.state.workInterval > 120 || this.state.workInterval < 1 ) {
-            warning = "Please enter a work interval between two hours (120 minutes) and one minute."
-        } else if (!this.state.breakInterval) {
-            warning = 'Please enter how long you want your breaks to last.'
-        } else if ( isNaN ( Number(this.state.breakInterval) ) ) {
-            warning = "Please enter a break interval in numbers. Hint: '10' = ten minutes."
-        } else if ( this.state.breakInterval < 5 ) {
-            warning = "Please enter a break interval that is at least five minutes long."
-        } 
-        //disable the button if admin does not behave
-        let functional = false;
-        if (
-            !this.state.playPenName ||
-            !this.state.users.length ||
-            !this.state.workInterval || 
-            isNaN ( Number(this.state.workInterval) ) || 
-            this.state.workInterval > 120 || this.state.workInterval < 1 || 
-            !this.state.breakInterval || 
-            isNaN ( Number(this.state.breakInterval) ) ||
-            this.state.breakInterval < 5 ) {
-            functional = true;
-        }
+
+    if (!this.state.playPenName) {
+      warning = 'Please enter a playpen name.'
+    } else if (!this.state.users.length) {
+      warning = 'Please invite someone to your playpen.'
+    } else if (!this.state.workInterval) {
+      warning = 'Please enter how much time you want to work before going on a break.'
+    } else if (isNaN(Number(this.state.workInterval))) {
+      warning = "Please enter a work interval in numbers. Hint: '70' = one hour ten minutes."
+    } else if (this.state.workInterval > 120 || this.state.workInterval < 1) {
+      warning = "Please enter a work interval between two hours (120 minutes) and one minute."
+    } else if (!this.state.breakInterval) {
+      warning = 'Please enter how long you want your breaks to last.'
+    } else if (isNaN(Number(this.state.breakInterval))) {
+      warning = "Please enter a break interval in numbers. Hint: '10' = ten minutes."
+    } else if (this.state.breakInterval < 5) {
+      warning = "Please enter a break interval that is at least five minutes long."
+    }
+    //disable the button if admin does not behave
+    let functional = false;
+    if (
+      !this.state.playPenName ||
+      !this.state.users.length ||
+      !this.state.workInterval ||
+      isNaN(Number(this.state.workInterval)) ||
+      this.state.workInterval > 120 || this.state.workInterval < 1 ||
+      !this.state.breakInterval ||
+      isNaN(Number(this.state.breakInterval)) ||
+      this.state.breakInterval < 5) {
+      functional = true;
+    }
     return (
       (this.state.onToggle === true && status !== 'break')
         ?
         <div className="navbar-container">
           <div className="navbar-wrapper">
-            <div className="navbar-name"> 
-              <label>Playpen Name</label>
+            <div className="navbar-wrapper">
               <div className="navbar-name">
-                <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+                <label>Playpen Name</label>
+                <div className="navbar-name">
+                  <input name='playPenName' placeholder="Insert Name" type="text" value={this.state.playPenName} onChange={this.handleChange} />
+                </div>
               </div>
-            </div>
-            {/* <div className="navbar-container"> */}
-            <div className="navbar-name">
-              <label className="navbar-name">Play date with</label>
+              {/* <div className="navbar-container"> */}
               <div className="navbar-name">
-                {/* <div className="playpenFriends"> */}
+                <label className="navbar-name">Play date with</label>
+                <div className="navbar-name">
+                  {/* <div className="playpenFriends"> */}
                   <input name="invitedUser" placeholder="Insert friend" onChange={this.handleChange} value={this.state.invitedUser} />
                   <div className="friends">
                     {
@@ -188,38 +189,39 @@ class PlaypenForm extends Component {
                         })
                         : null
                     }
-                  {/* </div> */}
+                    {/* </div> */}
+                  </div>
+                </div>
+                <div>
+                  <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
                 </div>
               </div>
-              <div>
-                <button onClick={this.handleAddABuddy}>ADD A BUDDY</button>
-              </div>
             </div>
-            <div className="navbar-wrapper">
-              <div className="navbar-container-form">
+            <div className="navbarForm">
+              <div className="navbar-wrapper">
+                <div className="navbar-container-form">
                   <div className="name-holder">
-                    <div className="navbar-name">Set Work Interval</div>
+                    <div className="navbar-name">Work Interval</div>
                   </div>
                   <div className="interval-select">
-                    <input name="workInterval" type="text" onChange={this.handleChange} value={this.state.workInterval}/>
-                    <div className="navbar-name">Rec: 52 min</div>
+                    <input name="workInterval" type="text" onChange={this.handleChange} placeholder="rec: 52 min" value={this.state.workInterval} />
                   </div>
                 </div>
-              <div className="navbar-container-form">
-                <div className="navbar-name">Set Break Interval</div>
+                <div className="navbar-container-form">
+                  <div className="navbar-name">Break Interval</div>
                   <div className="interval-select">
-                    <input name="breakInterval" type="text" onChange={this.handleChange} value={this.state.breakInterval}/>
-                    <div className="navbar-name">Rec: 17 min</div>
+                    <input name="breakInterval" type="text" onChange={this.handleChange} placeholder="rec:17 min" value={this.state.breakInterval} />
                   </div>
-              </div>    
-            <div>
-                <button id="submit-butt" disabled={functional} onClick={this.handleSubmit}>SUBMIT</button>
+                </div>
+                <div>
+                  <button id="submit-butt" disabled={functional} onClick={this.handleSubmit}>START</button>
+                </div>
               </div>
+              {warning && <div className='alert'>{warning}</div>}
             </div>
-              { warning && <div className='alert'>{warning}</div> }
-            {/* </div> */}
           </div>
         </div>
+
         : null
     )
   }
@@ -239,13 +241,13 @@ const mapDispatchToProps = dispatch => {
     setPlaypenStatusStore(bool) {
       dispatch(setPlaypenStatus(bool))
     },
-    setPlaypenStore(playpen){
+    setPlaypenStore(playpen) {
       dispatch(setPlaypen(playpen))
     },
-    updateAvatarStore(chagedAvatar){
+    updateAvatarStore(chagedAvatar) {
       dispatch(updateAvatarFirebase(changedAvatar))
     },
-    addPlaypenStore(playpen){
+    addPlaypenStore(playpen) {
       dispatch(addPlaypenFirebase(playpen))
     }
   }
