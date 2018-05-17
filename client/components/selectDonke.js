@@ -71,7 +71,7 @@ export class SelectDonke extends Component {
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
         this.props.setStoreHealth(updatedAvatar)
       }
-    }, 10000)
+    }, 5000)
   }
 
   breakTimer() {
