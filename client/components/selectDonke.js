@@ -54,7 +54,7 @@ export class SelectDonke extends Component {
 
   workTimer() {
     this.setState({ start: false })
-    const workInterval = this.props.workInterval * 60000
+    const workInterval = this.props.workInterval * 1000
     //start the work timer for the specified interval
     timerFunc = setTimeout(() => {
       //send the 'need a break' message when the timer runs out
@@ -75,7 +75,7 @@ export class SelectDonke extends Component {
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
         this.props.setStoreHealth(updatedAvatar)
       }
-    }, 300000)
+    }, 5000)
   }
 
   breakTimer() {
@@ -88,7 +88,7 @@ export class SelectDonke extends Component {
       }
       //the line below lets the render know to show the "Work time" button
       this.setState({ breakTimeOver: true })
-    }, this.props.breakInterval * 60000);
+    }, this.props.breakInterval * 1000);
     //check that the user is ACTUALLY idle for their whole break
     breakCountFunc = setInterval(() => {
       this.setState({ breakCounter: this.state.breakCounter += 1 })
