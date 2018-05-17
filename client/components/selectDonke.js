@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { Donke, PartyHat, Cloud, Sun, Grass, Halo, SpeechBubble, Lightning, SleepingDonke, Playpen } from './index';
 import { connect } from 'react-redux';
 import { playAudio } from '../library/audio';
-import store, {
-  fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase,
-  //setStart, 
-  updateAvatarFirebase
-} from '../store';
+import store, {fetchWorkInterval, fetchBreakInterval, fetchStatus, deleteAvatarFirebase, updateAvatarFirebase} from '../store';
 
 //create timer variables so can assign them in order to clear them
 let timerFunc;
@@ -133,7 +129,7 @@ export class SelectDonke extends Component {
 
   handleClickTryAgain() {
     //this is if the donke died... sad.
-    deleteAvatarFirebase(this.props.avatar.id)
+    this.props.deleteAvatar(this.props.avatar.id)
   }
 
   render() {
@@ -242,9 +238,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchWorkInterval(workTime))
       dispatch(fetchBreakInterval(breakTime))
     },
-    // setStartTimer(bool) {
-    //   dispatch(setStart(bool))
-    // }
+    deleteAvatar(avatarId){
+      dispatch(deleteAvatarFirebase(avatarId))
+    }
   }
 }
 
