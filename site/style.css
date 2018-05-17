@@ -8,16 +8,20 @@ body {
     justify-content: center;
 }
 
+/* #allThings a:hover {
+    cursor: pointer;
+} */
+
 #allThings img {
     height: 50vh;
     padding-top: 10vh;
-    padding-bottom: 1vh;
+    padding-bottom: 2vh;
 }
 
 #allThings p {
     text-align: center;
     font-size: 2em;
-    margin-bottom: 0;
+    margin-top: 0;
     font-family: 'Pompiere', cursive;
 }
 
