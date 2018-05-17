@@ -1,5 +1,7 @@
 body {
     background-image: url("./websiteback.svg");
+    padding-top: 10vh;
+    padding-bottom: 3vh;
 }
 
 #allThings {
@@ -30,7 +32,7 @@ body {
 #allThings p {
     text-align: center;
     font-size: 2em;
-    margin-top: 0;
+    margin: 0;
     font-family: 'Pompiere', cursive;
 }
 
