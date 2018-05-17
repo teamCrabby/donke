@@ -1,0 +1,29 @@
+#allThings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: pink;
+}
+
+#allThings img {
+    height: 50vh;
+    padding-top: 10vh;
+    padding-bottom: 1vh;
+}
+
+#logo img {
+    height: 50vh;
+    padding-top: 10vh;
+    padding-bottom: 1vh;
+}
+
+#logo {
+    height: 50vh;
+    padding-top: 10vh;
+    padding-bottom: 1vh;
+}
+
+#allThings p {
+    text-align: center
+}
+
