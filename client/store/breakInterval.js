@@ -20,9 +20,13 @@ const setBreakInterval = (time) => ({type: SET_BREAK_INTERVAL, time})
 /**
  * THUNK CREATORS
  */
-export const fetchBreakInterval = (time) =>
-  dispatch =>
-    dispatch(setBreakInterval(time))
+export const fetchBreakInterval = (rawTime) =>
+  dispatch => {
+    let time = rawTime * 60000
+    console.log("break time is...", time)
+    return dispatch(setBreakInterval(time));
+  }
+    
 
 /**
  * REDUCER

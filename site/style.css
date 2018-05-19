@@ -1,0 +1,40 @@
+body {
+    background-image: url("./websiteback.svg");
+    padding-top: 10vh;
+    padding-bottom: 3vh;
+}
+
+#allThings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#download {
+    margin-top: 2vh;
+}
+
+#download a {
+    text-decoration: none;
+    color: black;
+}
+
+#logo {
+    display: flex;
+    justify-content: center;
+}
+
+#logo img {
+    height: 50vh;
+    padding-bottom: 2vh;
+}
+
+#allThings p {
+    text-align: center;
+    font-size: 2em;
+    margin: 0;
+    font-family: 'Pompiere', cursive;
+}
+
+
+
