@@ -19,9 +19,12 @@ const setWorkInterval = (time) => ({type: SET_WORK_INTERVAL, time})
 /**
  * THUNK CREATORS
  */
-export const fetchWorkInterval = (time) =>
-  dispatch =>
-    dispatch(setWorkInterval(time))
+export const fetchWorkInterval = (rawTime) =>
+  dispatch => {
+    let time = rawTime * 60000
+    console.log("work time is...", time)
+    return dispatch(setWorkInterval(time));
+  }
 
 /**
  * REDUCER

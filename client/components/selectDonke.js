@@ -50,7 +50,7 @@ export class SelectDonke extends Component {
 
   workTimer() {
     this.setState({ start: false })
-    const workInterval = this.props.workInterval * 1000
+    const workInterval = this.props.workInterval
     //start the work timer for the specified interval
     timerFunc = setTimeout(() => {
       //send the 'need a break' message when the timer runs out
@@ -71,11 +71,10 @@ export class SelectDonke extends Component {
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
         this.props.setStoreHealth(updatedAvatar)
       }
-    }, 5000)
+    }, 300000)
   }
 
   breakTimer() {
-    //I THINK WE NEED A SETTIMEOUT HERE
     healthFunc = setInterval(() => {
       //increment the health once their break is complete (and if they take a longer break....?)
       if (this.props.avatar.health < 10) {
@@ -84,11 +83,11 @@ export class SelectDonke extends Component {
       }
       //the line below lets the render know to show the "Work time" button
       this.setState({ breakTimeOver: true })
-    }, this.props.breakInterval * 1000);
+    }, this.props.breakInterval);
     //check that the user is ACTUALLY idle for their whole break
     breakCountFunc = setInterval(() => {
       this.setState({ breakCounter: this.state.breakCounter += 1 })
-      if (Math.abs(this.state.breakCounter - this.props.idleTime) > 2.5 && this.state.breakCounter < this.props.breakInterval * 60000) {
+      if (Math.abs(this.state.breakCounter - this.props.idleTime) > 2.5 && (this.state.breakCounter * 1000) < this.props.breakInterval) {
         alert(`Looks like you came back early. Remember that ${this.props.avatar.name} can't stay healthy if you don't!`)
         //this line docks you a point if you come back early. 
         let updatedAvatar = Object.assign({}, this.props.avatar, { health: this.props.avatar.health - 1 })
