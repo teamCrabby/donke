@@ -3,3 +3,5 @@ bundle.js
 bundle.js.map
 functions/node_modules
 firebase-debug.log
+site/*.dmg
+site/*.exe
